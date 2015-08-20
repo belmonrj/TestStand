@@ -49,7 +49,7 @@ using namespace std;
 void ySlice(char loc[20], int yLoc_A = 7, int yLoc_B = 15, double percent = 100)
 {
   //Reading in histogram and defining dimensions
-  
+
   TFile* inFile = new TFile(Form("%s.root",loc), "read");
 
   inFile->ls();
@@ -60,15 +60,15 @@ void ySlice(char loc[20], int yLoc_A = 7, int yLoc_B = 15, double percent = 100)
       cout<<"no histogram available, exiting"<<endl;
       return;
     }
-  
-  int xPos = h1->GetNbinsX(); 
+
+  int xPos = h1->GetNbinsX();
   int yPos = h1->GetNbinsY();
-  
+
   //Defining TH1Ds
-  
+
   TH1D * p1 = new TH1D("p1",Form("X Projection, Averaged over 3 Rows at Y = %d, With %.1f %% Window About the Mean at the Middle",yLoc_A, percent), xPos, 0.0, xPos/2);
   TH1D * p2 = new TH1D("p2",Form("X Projection, Averaged over 3 Rows at Y = %d, With %.1f %% Window About the Mean at the Middle",yLoc_B, percent), xPos, 0.0, xPos/2);
-  
+
   double projBin1 = 0.0;
   double projBin2 = 0.0;
 
@@ -108,7 +108,7 @@ void ySlice(char loc[20], int yLoc_A = 7, int yLoc_B = 15, double percent = 100)
   //Getting mean and setting window about the center value
   for (int x = middleLoc - 2; x <= middleLoc + 2; x++)
     {
-      double BinCont1 = p1->GetBinContent(x); 
+      double BinCont1 = p1->GetBinContent(x);
       summ1 = summ1 + BinCont1;
     }
   avg1 = summ1/5;
@@ -126,22 +126,22 @@ void ySlice(char loc[20], int yLoc_A = 7, int yLoc_B = 15, double percent = 100)
   p2->SetMinimum((1 - percent/100)*avg2);
 
   cout<<"Average PE 1:"<<avg1<<endl<<"Average PE 2:"<<avg2<<endl;
- 
+
   TCanvas *c1 = new TCanvas("c1","c1",800, 588);
   TCanvas *c2 = new TCanvas("c2","c2",800, 588);
 
   gStyle->SetOptStat(0);
 
   c1->cd();
-  
+
   p1->GetXaxis()->SetTitle("Position Across Panel (cm)");
   p1->GetYaxis()->SetTitle("Mean Number of Photoelectrons");
   p1->Draw("");
 
   c2->cd();
-  
+
   p2->GetXaxis()->SetTitle("Position Across Panel (cm)");
   p2->GetYaxis()->SetTitle("Mean Number of Photoelectrons");
   p2->Draw("");
-  
+
 }
