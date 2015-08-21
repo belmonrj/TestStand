@@ -36,7 +36,7 @@ void plotfit()
   TH2F *h2 = new TH2F("h2","",1,0,25,1,-0.5,0.5);
   h2->Draw();
   h2->GetXaxis()->SetTitle("Distance from SiPM");
-  h2->GetYaxis()->SetTitle("Ratio of light yields");
+  h2->GetYaxis()->SetTitle("Asymmetry of light yields");
   // draw the TGraphs
   tgrusty->Draw("p");
   tgsebastian->Draw("p");
@@ -62,9 +62,10 @@ void plotfit()
   double frac = fun->GetParameter(0);
   double core = fun->GetParameter(1);
   double clad = fun->GetParameter(2);
+  double Efrac = fun->GetParError(0);
 
   // use the fit parameters to put text boxes with fit information on the plt
-  TLatex *tex1 = new TLatex(7,-0.25,Form("f_{core} = %f",frac));
+  TLatex *tex1 = new TLatex(7,-0.25,Form("f_{core} = %.3f #pm %.3f",frac,Efrac));
   tex1->SetTextColor(kRed);
   tex1->Draw();
   TLatex *tex2 = new TLatex(7,-0.325,Form("#lambda_{core} = %.1f (FIXED)",core));
@@ -81,12 +82,15 @@ void plotfit()
   tgrusty->Fit(fun2,"","",0,25);
   // get the parameter
   frac = fun2->GetParameter(0);
+  Efrac = fun2->GetParError(0);
   // draw the parameter info on the plot
-  TLatex *tex1 = new TLatex(15,-0.25,Form("f_{core} = %f",frac));
+  //TLatex *tex1 = new TLatex(15,-0.25,Form("f_{core} = %.3f #pm %.3f",frac,Efrac));
+  TLatex *tex1 = new TLatex(16,-0.25,Form("f_{core} = %.3f #pm %.3f",frac,Efrac));
   tex1->SetTextColor(kBlack);
   tex1->Draw();
   // print the plot to a file and clear the canvas
-  c1->Print("fig.png");
+  c1->Print("acu-cub-comp_fig.png");
+  c1->Print("acu-cub-comp_fig.pdf");
   c1->Clear();
 
   // define two linear functions to fit the data
@@ -100,7 +104,8 @@ void plotfit()
   tgsebastian->Fit(funlin1,"","",0,25);
   tgrusty->Fit(funlin2,"","",0,25);
   // print to file and clear the canvas
-  c1->Print("figlin.png");
+  c1->Print("acu-cub-comp_figlinfit.png");
+  c1->Print("acu-cub-comp_figlinfit.pdf");
   c1->Clear();
 
 
