@@ -13,10 +13,21 @@
 void analyzerV2_mean()
 {
 
-  analyze("A1_LED_ColTests_Fiber1_VMIN_SIPM1","A1_LED_ColTests_Fiber1_TIME.txt",true);
-  analyze("A1_LED_ColTests_Fiber2_VMIN_SIPM1","A1_LED_ColTests_Fiber2_TIME.txt",true);
-  analyze("A1_LED_ColTests_Fiber3_VMIN_SIPM1","A1_LED_ColTests_Fiber3_TIME.txt",true);
-  analyze("A1_LED_ColTests_Fiber4_VMIN_SIPM1","A1_LED_ColTests_Fiber4_TIME.txt",true);
+  // analyze("A1_LED_ColTests_Fiber1_VMIN_SIPM1","A1_LED_ColTests_Fiber1_TIME.txt",true);
+  // analyze("A1_LED_ColTests_Fiber2_VMIN_SIPM1","A1_LED_ColTests_Fiber2_TIME.txt",true);
+  // analyze("A1_LED_ColTests_Fiber3_VMIN_SIPM1","A1_LED_ColTests_Fiber3_TIME.txt",true);
+  // analyze("A1_LED_ColTests_Fiber4_VMIN_SIPM1","A1_LED_ColTests_Fiber4_TIME.txt",true);
+
+  // analyze("A1_LED_ColTests_Fiber1_VMIN_SIPM2","A1_LED_ColTests_Fiber1_TIME.txt",true);
+  // analyze("A1_LED_ColTests_Fiber2_VMIN_SIPM2","A1_LED_ColTests_Fiber2_TIME.txt",true);
+  // analyze("A1_LED_ColTests_Fiber3_VMIN_SIPM2","A1_LED_ColTests_Fiber3_TIME.txt",true);
+  // analyze("A1_LED_ColTests_Fiber4_VMIN_SIPM2","A1_LED_ColTests_Fiber4_TIME.txt",true);
+
+  analyze("A3_LED_Assymetry_VMin_SiPM1","A3_LED_Assymetry_Time.txt",true);
+  analyze("A3_LED_Assymetry_VMin_SiPM2","A3_LED_Assymetry_Time.txt",true);
+
+  analyze("A3_LED_Assymetry_PannelBlock_VMin_SiPM1","A3_LED_Assymetry_PannelBlock_Time.txt",true);
+  analyze("A3_LED_Assymetry_PannelBlock_VMin_SiPM2","A3_LED_Assymetry_PannelBlock_Time.txt",true);
 
 }
 
@@ -52,7 +63,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
   ifstream file;
   ifstream file_cnt;
 
-  file.open(Form("%s.txt",NAME));
+  file.open(Form("Data/Text/%s.txt",NAME));
 
   for(int i = 0; i < totalBins ; i++)
     {
@@ -62,8 +73,9 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
       // means.push_back(-1*meanval_d);
       double meanval_d = -9999;
       file>>meanval_d;
-      if ( PEConvert) means.push_back(-1*meanval_d);
+      if ( PEConvert ) means.push_back(-1*meanval_d);
       else means.push_back(meanval_d);
+      cout<<meanval_d<<endl;
     }
 
   file.close();
@@ -79,7 +91,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
   string timeline;
   ifstream timefile;
 
-  timefile.open(timedata);
+  timefile.open(Form("Data/Text/%s",timedata));
 
   for(int i = 0; i < totalBins ; i++)  //Gets time data
     {
@@ -90,6 +102,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
       double timeval_d = -9999;
       timefile>>timeval_d;
       times.push_back(timeval_d);
+      cout<<timeval_d<<endl;
     }
 
   timefile.close();
@@ -161,7 +174,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
       meanHistSub->SetBinContent(column + 1, row + 1, iMeanSubPE);
     }
 
-  meanHistSub->SaveAs(Form("%s_meanHistSub.root",NAME)); // NEEDS TO BE REVISED
+  meanHistSub->SaveAs(Form("Data/ROOT/%s_meanHistSub.root",NAME)); // NEEDS TO BE REVISED
 
   TCanvas *c1 = new TCanvas("c1","c1", 900, 588);
   TCanvas *c2 = new TCanvas("c2","c2", 900, 588);
@@ -186,8 +199,10 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
   else meanHistSub->GetZaxis()->SetTitle("Pulse Min Value (V)");
   meanHistSub->Draw("colz");
 
-  c1->Print(Form("%s_meanHist.png",NAME));
-  c2->Print(Form("%s_meanHistSub.png",NAME));
+  c1->Print(Form("Figures/%s_meanHist.png",NAME));
+  c2->Print(Form("Figures/%s_meanHistSub.png",NAME));
+  c1->Print(Form("Figures/%s_meanHist.pdf",NAME));
+  c2->Print(Form("Figures/%s_meanHistSub.pdf",NAME));
 
   delete c1;
   delete c2;

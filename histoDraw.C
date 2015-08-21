@@ -11,17 +11,23 @@
 void histoDraw()
 {
 
-  paletteSwap("A1_LED_ColTests_Fiber1_VMIN_SIPM1_meanHistSub");
-  paletteSwap("A1_LED_ColTests_Fiber2_VMIN_SIPM1_meanHistSub");
-  paletteSwap("A1_LED_ColTests_Fiber3_VMIN_SIPM1_meanHistSub");
-  paletteSwap("A1_LED_ColTests_Fiber4_VMIN_SIPM1_meanHistSub");
+  // paletteSwap("A1_LED_ColTests_Fiber1_VMIN_SIPM1_meanHistSub");
+  // paletteSwap("A1_LED_ColTests_Fiber2_VMIN_SIPM1_meanHistSub");
+  // paletteSwap("A1_LED_ColTests_Fiber3_VMIN_SIPM1_meanHistSub");
+  // paletteSwap("A1_LED_ColTests_Fiber4_VMIN_SIPM1_meanHistSub");
+
+  paletteSwap("A3_LED_Assymetry_VMin_SiPM1_meanHistSub");
+  paletteSwap("A3_LED_Assymetry_VMin_SiPM2_meanHistSub");
+
+  paletteSwap("A3_LED_Assymetry_PannelBlock_VMin_SiPM1_meanHistSub");
+  paletteSwap("A3_LED_Assymetry_PannelBlock_VMin_SiPM2_meanHistSub");
 
 }
 
 void paletteSwap(const char* loc, bool rot = true, bool average = true, bool varNorm = true, bool flip = true)
 {
 
-  TFile* inFile = TFile::Open(Form("%s.root",loc));
+  TFile* inFile = TFile::Open(Form("Data/ROOT/%s.root",loc));
 
   inFile->ls();
 
@@ -412,6 +418,7 @@ void paletteSwap(const char* loc, bool rot = true, bool average = true, bool var
 	}
   */
 
-  c1->Print(Form("%s_swapped.png",loc));
+  c1->Print(Form("Figures/%s_swapped.png",loc));
+  c1->Print(Form("Figures/%s_swapped.pdf",loc));
 
 }
