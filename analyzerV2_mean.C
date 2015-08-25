@@ -55,6 +55,9 @@ void analyzerV2_mean()
   analyze("20150825-1133_A3_LED_NoBlock_VMIN_SIPM1","20150825-1133_A3_LED_NoBlock_TIME.txt",true);
   analyze("20150825-1133_A3_LED_NoBlock_VMIN_SIPM2","20150825-1133_A3_LED_NoBlock_TIME.txt",true);
 
+  analyze("20150825-1422_A3_LED_PanelAirClad_VMIN_SIPM1","20150825-1422_A3_LED_PanelAirClad_TIME.txt",true);
+  analyze("20150825-1422_A3_LED_PanelAirClad_VMIN_SIPM2","20150825-1422_A3_LED_PanelAirClad_TIME.txt",true);
+
   // ---
 
 }

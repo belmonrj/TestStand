@@ -1,6 +1,11 @@
 README file for HCal test stand code
 
 
+this is the compiled code for performing the scans
+
+1) step2.cpp - essential, communicates with the stepper motors and oscilloscope to perform scans
+
+
 these are the macros for analyzing the data:
 
 1) analyzeV2_mean - essential to run, converts raw data text files into 2d histograms
@@ -21,7 +26,7 @@ these are the macros for analyzing the data:
 
 these are some spare macros from playing around:
 
-1) a1fullstrip - looks at some old raw data, calculates an average and asymmetry
+1) a1full3strip - looks at some old raw data, calculates an average and asymmetry
 
 2) plotfit - calculates an asymmetry and fits it with a 2-component light yield model
 

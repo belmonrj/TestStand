@@ -20,18 +20,18 @@ void CompareScans()
      "Ron",
      "Comparison of scans with cladding blocked",
      "cladding blocked",
-     "A3_LED_Comp_CladBlock_SiPM"
+     "A3_LED_Comp_CladBlock_SiPM1"
      );
 
   fixednumber_2
     (
-     "A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1",
+     "A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
      "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1",
      "Sebastian",
      "Ron",
      "Comparison of scans with panel and air blocked",
      "panel blocked",
-     "A3_LED_Comp_PanelBlock_SiPM"
+     "A3_LED_Comp_PanelBlock_SiPM1"
      );
 
   fixednumber_2
@@ -42,7 +42,7 @@ void CompareScans()
      "Ron",
      "Comparison of scans with no blocking",
      "no blocking",
-     "A3_LED_Comp_NoBlock_SiPM"
+     "A3_LED_Comp_NoBlock_SiPM1"
      );
 
   fixednumber_2
@@ -53,7 +53,30 @@ void CompareScans()
      "Ron 8/25",
      "Comparison of scans with no blocking",
      "no blocking",
-     "A3_LED_Comp_NoBlock-x2_SiPM"
+     "A3_LED_Comp_NoBlock-x2_SiPM1"
+     );
+
+  // SiPM2 needs better legend...
+  fixednumber_2
+    (
+     "20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM2",
+     "20150825-1133_A3_LED_NoBlock_VMIN_SIPM2",
+     "Ron 8/24",
+     "Ron 8/25",
+     "Comparison of scans with no blocking",
+     "no blocking",
+     "A3_LED_Comp_NoBlock-x2_SiPM2"
+     );
+
+  fixednumber_2
+    (
+     "20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM1",
+     "20150825-1422_A3_LED_PanelAirClad_VMIN_SIPM1",
+     "Ron 8/24",
+     "Ron 8/25",
+     "Comparison of scans with panel, air, and clad blocking",
+     "clad blocking",
+     "A3_LED_Comp_PanelAirClad-x2_SiPM1"
      );
 
 }

@@ -17,6 +17,8 @@ void YSlice()
   // ySlice("A3_LED_Assymetry_PannelBlock_VMin_SiPM1_meanHistSub");
   // ySlice("A3_LED_Assymetry_PannelBlock_VMin_SiPM2_meanHistSub");
 
+  // ---
+
   ySlice("20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM1_meanHistSub");
   ySlice("20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1_meanHistSub");
   ySlice("20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM1_meanHistSub");
@@ -25,8 +27,13 @@ void YSlice()
   ySlice("20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM2_meanHistSub");
   ySlice("20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM2_meanHistSub");
 
+  // ---
+
   ySlice("20150825-1133_A3_LED_NoBlock_VMIN_SIPM1_meanHistSub");
   ySlice("20150825-1133_A3_LED_NoBlock_VMIN_SIPM2_meanHistSub");
+
+  ySlice("20150825-1422_A3_LED_PanelAirClad_VMIN_SIPM1_meanHistSub");
+  ySlice("20150825-1422_A3_LED_PanelAirClad_VMIN_SIPM2_meanHistSub");
 
 }
 
