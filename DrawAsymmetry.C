@@ -6,9 +6,14 @@ void DrawAsymmetry()
   // start("A1_LED_ColTests_Fiber3_VMIN_SIPM1_meanHistSub","A1_LED_ColTests_Fiber3_VMIN_SIPM2_meanHistSub");
   // start("A1_LED_ColTests_Fiber4_VMIN_SIPM1_meanHistSub","A1_LED_ColTests_Fiber4_VMIN_SIPM2_meanHistSub");
 
-  start("A3_LED_Assymetry_VMin_SiPM1_meanHistSub","A3_LED_Assymetry_VMin_SiPM2_meanHistSub");
+  // start("A3_LED_Assymetry_VMin_SiPM1_meanHistSub","A3_LED_Assymetry_VMin_SiPM2_meanHistSub");
 
-  start("A3_LED_Assymetry_PannelBlock_VMin_SiPM1_meanHistSub","A3_LED_Assymetry_PannelBlock_VMin_SiPM2_meanHistSub");
+  // start("A3_LED_Assymetry_PannelBlock_VMin_SiPM1_meanHistSub","A3_LED_Assymetry_PannelBlock_VMin_SiPM2_meanHistSub");
+
+  start("A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1_meanHistSub"      ,"A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM2_meanHistSub"      );
+  start("A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1_meanHistSub"        ,"A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM2_meanHistSub"        );
+  start("A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1_meanHistSub" ,"A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM2_meanHistSub" );
+  start("A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1_meanHistSub","A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM2_meanHistSub");
 
 }
 
@@ -92,7 +97,7 @@ void calc(TFile *file1, TFile *file2, const char* name1, const char* name2, int 
   // need to adjust on case by case basis, unfortunately
   char name3[200];
   strcpy(name3,name1);
-  name3[22] = '\0'; // hackish way of truncating string
+  name3[30] = '\0'; // hackish way of truncating string
 
   // generalize
   c1->Print(Form("Figures/%s_together_p%d.png",name3,projnumb));

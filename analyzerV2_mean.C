@@ -23,11 +23,39 @@ void analyzerV2_mean()
   // analyze("A1_LED_ColTests_Fiber3_VMIN_SIPM2","A1_LED_ColTests_Fiber3_TIME.txt",true);
   // analyze("A1_LED_ColTests_Fiber4_VMIN_SIPM2","A1_LED_ColTests_Fiber4_TIME.txt",true);
 
-  analyze("A3_LED_Assymetry_VMin_SiPM1","A3_LED_Assymetry_Time.txt",true);
-  analyze("A3_LED_Assymetry_VMin_SiPM2","A3_LED_Assymetry_Time.txt",true);
+  // ---
 
-  analyze("A3_LED_Assymetry_PannelBlock_VMin_SiPM1","A3_LED_Assymetry_PannelBlock_Time.txt",true);
-  analyze("A3_LED_Assymetry_PannelBlock_VMin_SiPM2","A3_LED_Assymetry_PannelBlock_Time.txt",true);
+  // analyze("A3_LED_Assymetry_VMin_SiPM1","A3_LED_Assymetry_Time.txt",true);
+  // analyze("A3_LED_Assymetry_VMin_SiPM2","A3_LED_Assymetry_Time.txt",true);
+
+  // analyze("A3_LED_Assymetry_PannelBlock_VMin_SiPM1","A3_LED_Assymetry_PannelBlock_Time.txt",true);
+  // analyze("A3_LED_Assymetry_PannelBlock_VMin_SiPM2","A3_LED_Assymetry_PannelBlock_Time.txt",true);
+
+  // ---
+
+  // analyze("A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1",       "A3_LED_Assymetry_CladBlock_Recouple_Time.txt",       true);
+  // analyze("A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1",         "A3_LED_Assymetry_NoBlock_Recouple_Time.txt",         true);
+  // analyze("A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1",  "A3_LED_Assymetry_PannelAirBlock_Recouple_Time.txt",  true);
+  // analyze("A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1", "A3_LED_Assymetry_PannelBlockOnly_Recouple_Time.txt", true);
+
+  // analyze("A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM2",       "A3_LED_Assymetry_CladBlock_Recouple_Time.txt",       true);
+  // analyze("A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM2",         "A3_LED_Assymetry_NoBlock_Recouple_Time.txt",         true);
+  // analyze("A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM2",  "A3_LED_Assymetry_PannelAirBlock_Recouple_Time.txt",  true);
+  // analyze("A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM2", "A3_LED_Assymetry_PannelBlockOnly_Recouple_Time.txt", true);
+
+  // ---
+
+  analyze("20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM1","20150824-1552_A3_LED_CladBlock_Recouple2_TIME.txt",true);
+  analyze("20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM2","20150824-1552_A3_LED_CladBlock_Recouple2_TIME.txt",true);
+  analyze("20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1","20150824-1701_A3_LED_PanelBlock_Recouple2_TIME.txt",true);
+  analyze("20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM2","20150824-1701_A3_LED_PanelBlock_Recouple2_TIME.txt",true);
+  analyze("20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM1","20150824-1750_A3_LED_NoBlock_Recouple2_TIME.txt",true);
+  analyze("20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM2","20150824-1750_A3_LED_NoBlock_Recouple2_TIME.txt",true);
+
+  analyze("20150825-1133_A3_LED_NoBlock_VMIN_SIPM1","20150825-1133_A3_LED_NoBlock_TIME.txt",true);
+  analyze("20150825-1133_A3_LED_NoBlock_VMIN_SIPM2","20150825-1133_A3_LED_NoBlock_TIME.txt",true);
+
+  // ---
 
 }
 
@@ -47,7 +75,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
   int scan_nypositions = 9;
 
   // ADJUST AS NEEDED
-  double PE = .004386; //Measured value of PE peak spacing. -- // this is SiPM 1
+  double PE = 0.004386; //Measured value of PE peak spacing. -- // this is SiPM 1
 
   int totalBins = scan_nxpositions * scan_nypositions;
 
@@ -75,7 +103,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
       file>>meanval_d;
       if ( PEConvert ) means.push_back(-1*meanval_d);
       else means.push_back(meanval_d);
-      cout<<meanval_d<<endl;
+      if(i==0) cout<<meanval_d<<endl;
     }
 
   file.close();
@@ -102,7 +130,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
       double timeval_d = -9999;
       timefile>>timeval_d;
       times.push_back(timeval_d);
-      cout<<timeval_d<<endl;
+      if(i==0) cout<<timeval_d<<endl;
     }
 
   timefile.close();
