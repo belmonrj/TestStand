@@ -9,6 +9,14 @@ void CompareProjections()
      "A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1",
      "A3_LED_Comp_SiPM"
      );
+  fixednumber
+    (
+     "20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM1",
+     "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1",
+     "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1",
+     "20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM1",
+     "20150824_A3_LED_Comp_SiPM"
+     );
 
 }
 
@@ -63,6 +71,8 @@ void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outna
       if(max==max1)
 	{
 	  h1->SetMinimum(0.1);
+	  h1->GetXaxis()->SetTitle("Distance (cm)");
+	  h1->GetYaxis()->SetTitle("Number of photoelectrons");
 	  h1->Draw();
 	  h2->Draw("same");
 	  h3->Draw("same");
@@ -71,6 +81,8 @@ void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outna
       else if(max==max2)
 	{
 	  h2->SetMinimum(0.1);
+	  h2->GetXaxis()->SetTitle("Distance (cm)");
+	  h2->GetYaxis()->SetTitle("Number of photoelectrons");
 	  h2->Draw();
 	  h1->Draw("same");
 	  h3->Draw("same");
@@ -79,6 +91,8 @@ void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outna
       else if(max==max3)
 	{
 	  h3->SetMinimum(0.1);
+	  h3->GetXaxis()->SetTitle("Distance (cm)");
+	  h3->GetYaxis()->SetTitle("Number of photoelectrons");
 	  h3->Draw();
 	  h1->Draw("same");
 	  h2->Draw("same");
@@ -87,6 +101,8 @@ void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outna
       else if(max==max4)
 	{
 	  h4->SetMinimum(0.1);
+	  h4->GetXaxis()->SetTitle("Distance (cm)");
+	  h4->GetYaxis()->SetTitle("Number of photoelectrons");
 	  h4->Draw();
 	  h1->Draw("same");
 	  h2->Draw("same");
@@ -107,6 +123,8 @@ void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outna
       // --- similarly there's no good way to generalize the figure name
       c1->Print(Form("Figures/%s_proj_%d.png",outname,i));
       c1->Print(Form("Figures/%s_proj_%d.pdf",outname,i));
+      c1->Print(Form("Figures/PROJCOMP_%s_proj_%d.png",outname,i));
+      c1->Print(Form("Figures/PROJCOMP_%s_proj_%d.pdf",outname,i));
 
     }
 
