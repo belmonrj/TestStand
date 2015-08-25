@@ -1,0 +1,30 @@
+README file for HCal test stand code
+
+
+these are the macros for analyzing the data:
+
+1) analyzeV2_mean - essential to run, converts raw data text files into 2d histograms
+
+2a) YSlice - essential to run, converts 2d histograms into 1d projection histogram
+2b) YSlice_3row_2in_Percent.C - DEPRECATED, NOT RECOMMENDED TO USE, an old version from the students
+
+3) histoDraw - produces 2d plots with the y-axis swapped and a custom color palette
+
+4) DrawProjections - draws the different projections from the same scan together
+
+5) DrawAsymmetry - draws SiPM1 and SiPM2 together, and calculates and draws the asymmetry
+
+6) CompareProjections - compares the same projections from different scans
+
+7) CompareScans - compares the same projections and scans from different days/times
+
+
+these are some spare macros from playing around:
+
+1) a1fullstrip - looks at some old raw data, calculates an average and asymmetry
+
+2) plotfit - calculates an asymmetry and fits it with a 2-component light yield model
+
+3) DrawDiscrim - looks at raw data from the discriminator to determine the best voltage setting
+
+
