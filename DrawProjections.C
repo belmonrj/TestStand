@@ -1,16 +1,8 @@
 void DrawProjections()
 {
 
-  // drawproj("A1_LED_ColTests_Fiber1_VMIN_SIPM1_meanHistSub");
-  // drawproj("A1_LED_ColTests_Fiber2_VMIN_SIPM1_meanHistSub");
-  // drawproj("A1_LED_ColTests_Fiber3_VMIN_SIPM1_meanHistSub");
-  // drawproj("A1_LED_ColTests_Fiber4_VMIN_SIPM1_meanHistSub");
-
   drawproj("A3_LED_Assymetry_VMin_SiPM1_meanHistSub");
   drawproj("A3_LED_Assymetry_VMin_SiPM1_meanHistSub");
-
-  drawproj("A3_LED_Assymetry_PannelBlock_VMin_SiPM1_meanHistSub");
-  drawproj("A3_LED_Assymetry_PannelBlock_VMin_SiPM1_meanHistSub");
 
 }
 

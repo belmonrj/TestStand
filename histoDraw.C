@@ -11,26 +11,6 @@
 void histoDraw()
 {
 
-  // paletteSwap("A1_LED_ColTests_Fiber1_VMIN_SIPM1_meanHistSub");
-  // paletteSwap("A1_LED_ColTests_Fiber2_VMIN_SIPM1_meanHistSub");
-  // paletteSwap("A1_LED_ColTests_Fiber3_VMIN_SIPM1_meanHistSub");
-  // paletteSwap("A1_LED_ColTests_Fiber4_VMIN_SIPM1_meanHistSub");
-
-  // paletteSwap("A3_LED_Assymetry_VMin_SiPM1_meanHistSub");
-  // paletteSwap("A3_LED_Assymetry_VMin_SiPM2_meanHistSub");
-  // paletteSwap("A3_LED_Assymetry_PannelBlock_VMin_SiPM1_meanHistSub");
-  // paletteSwap("A3_LED_Assymetry_PannelBlock_VMin_SiPM2_meanHistSub");
-
-  // paletteSwap("A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1_meanHistSub"      );
-  // paletteSwap("A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1_meanHistSub"        );
-  // paletteSwap("A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1_meanHistSub" );
-  // paletteSwap("A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1_meanHistSub");
-
-  // paletteSwap("A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM2_meanHistSub"      );
-  // paletteSwap("A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM2_meanHistSub"        );
-  // paletteSwap("A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM2_meanHistSub" );
-  // paletteSwap("A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM2_meanHistSub");
-
   paletteSwap("20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM1_meanHistSub");
   paletteSwap("20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1_meanHistSub");
   paletteSwap("20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM1_meanHistSub");

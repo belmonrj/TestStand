@@ -13,36 +13,6 @@
 void analyzerV2_mean()
 {
 
-  // analyze("A1_LED_ColTests_Fiber1_VMIN_SIPM1","A1_LED_ColTests_Fiber1_TIME.txt",true);
-  // analyze("A1_LED_ColTests_Fiber2_VMIN_SIPM1","A1_LED_ColTests_Fiber2_TIME.txt",true);
-  // analyze("A1_LED_ColTests_Fiber3_VMIN_SIPM1","A1_LED_ColTests_Fiber3_TIME.txt",true);
-  // analyze("A1_LED_ColTests_Fiber4_VMIN_SIPM1","A1_LED_ColTests_Fiber4_TIME.txt",true);
-
-  // analyze("A1_LED_ColTests_Fiber1_VMIN_SIPM2","A1_LED_ColTests_Fiber1_TIME.txt",true);
-  // analyze("A1_LED_ColTests_Fiber2_VMIN_SIPM2","A1_LED_ColTests_Fiber2_TIME.txt",true);
-  // analyze("A1_LED_ColTests_Fiber3_VMIN_SIPM2","A1_LED_ColTests_Fiber3_TIME.txt",true);
-  // analyze("A1_LED_ColTests_Fiber4_VMIN_SIPM2","A1_LED_ColTests_Fiber4_TIME.txt",true);
-
-  // ---
-
-  // analyze("A3_LED_Assymetry_VMin_SiPM1","A3_LED_Assymetry_Time.txt",true);
-  // analyze("A3_LED_Assymetry_VMin_SiPM2","A3_LED_Assymetry_Time.txt",true);
-
-  // analyze("A3_LED_Assymetry_PannelBlock_VMin_SiPM1","A3_LED_Assymetry_PannelBlock_Time.txt",true);
-  // analyze("A3_LED_Assymetry_PannelBlock_VMin_SiPM2","A3_LED_Assymetry_PannelBlock_Time.txt",true);
-
-  // ---
-
-  // analyze("A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1",       "A3_LED_Assymetry_CladBlock_Recouple_Time.txt",       true);
-  // analyze("A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1",         "A3_LED_Assymetry_NoBlock_Recouple_Time.txt",         true);
-  // analyze("A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1",  "A3_LED_Assymetry_PannelAirBlock_Recouple_Time.txt",  true);
-  // analyze("A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1", "A3_LED_Assymetry_PannelBlockOnly_Recouple_Time.txt", true);
-
-  // analyze("A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM2",       "A3_LED_Assymetry_CladBlock_Recouple_Time.txt",       true);
-  // analyze("A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM2",         "A3_LED_Assymetry_NoBlock_Recouple_Time.txt",         true);
-  // analyze("A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM2",  "A3_LED_Assymetry_PannelAirBlock_Recouple_Time.txt",  true);
-  // analyze("A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM2", "A3_LED_Assymetry_PannelBlockOnly_Recouple_Time.txt", true);
-
   // ---
 
   // analyze("20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM1","20150824-1552_A3_LED_CladBlock_Recouple2_TIME.txt",true);
