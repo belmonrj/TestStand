@@ -1,24 +1,37 @@
 void CompareProjections()
 {
 
+  // fixednumber
+  //   (
+  //    "A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1",
+  //    "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
+  //    "A4_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1",
+  //    "A4_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1",
+  //    "A4_LED_Comp_SiPM"
+  //    );
+  // fixednumber
+  //   (
+  //    "20150824-1750_A4_LED_NoBlock_VMIN_SIPM1",
+  //    "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+  //    "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+  //    "20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1",
+  //    "20150824_A4_LED_Comp_SiPM"
+  //    );
+
+  // ---
+
   fixednumber
     (
-     "A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1",
-     "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
-     "A4_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1",
-     "A4_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1",
-     "A4_LED_Comp_SiPM"
-     );
-  fixednumber
-    (
-     "20150824-1750_A4_LED_NoBlock_VMIN_SIPM1",
-     "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
-     "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
-     "20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1",
-     "20150824_A4_LED_Comp_SiPM"
+     "20150826-0945_A4_LED_NoBlock_VMIN_SIPM1",
+     "20150826-1055_A4_LED_Panel_VMIN_SIPM1",
+     "20150826-1505_A4_LED_PanelAir_VMIN_SIPM1",
+     "20150826-1334_A4_LED_PanelAirClad_VMIN_SIPM1",
+     "20150826_A4_LED_Comp_SiPM1"
      );
 
 }
+
+
 
 void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outname)
 {
@@ -121,8 +134,6 @@ void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outna
       leg->Draw();
 
       // --- similarly there's no good way to generalize the figure name
-      c1->Print(Form("Figures/%s_proj_%d.png",outname,i));
-      c1->Print(Form("Figures/%s_proj_%d.pdf",outname,i));
       c1->Print(Form("Figures/PROJCOMP_%s_proj_%d.png",outname,i));
       c1->Print(Form("Figures/PROJCOMP_%s_proj_%d.pdf",outname,i));
 

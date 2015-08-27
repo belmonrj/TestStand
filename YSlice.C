@@ -1,36 +1,46 @@
 void YSlice()
 {
 
-  // ---
+  // // ---
 
-  ySlice("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1_meanHistSub");
-  ySlice("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM2_meanHistSub");
-  ySlice("20150824-1701_A4_LED_Panel_VMIN_SIPM1_meanHistSub");
-  ySlice("20150824-1701_A4_LED_Panel_VMIN_SIPM2_meanHistSub");
-  ySlice("20150824-1750_A4_LED_NoBlock_VMIN_SIPM1_meanHistSub");
-  ySlice("20150824-1750_A4_LED_NoBlock_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150824-1701_A4_LED_Panel_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150824-1701_A4_LED_Panel_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150824-1750_A4_LED_NoBlock_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150824-1750_A4_LED_NoBlock_VMIN_SIPM2_meanHistSub");
 
-  // ---
+  // // ---
 
-  ySlice("20150825-1133_A4_LED_NoBlock_VMIN_SIPM1_meanHistSub");
-  ySlice("20150825-1133_A4_LED_NoBlock_VMIN_SIPM2_meanHistSub");
-  ySlice("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM1_meanHistSub");
-  ySlice("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM2_meanHistSub");
-  ySlice("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM1_meanHistSub");
-  ySlice("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM2_meanHistSub");
-  ySlice("20150825-1622_A4_LED_NoBlock_VMIN_SIPM1_meanHistSub");
-  ySlice("20150825-1622_A4_LED_NoBlock_VMIN_SIPM2_meanHistSub");
-  ySlice("20150825-1733_A4_LED_Panel_VMIN_SIPM1_meanHistSub");
-  ySlice("20150825-1733_A4_LED_Panel_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150825-1133_A4_LED_NoBlock_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150825-1133_A4_LED_NoBlock_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150825-1622_A4_LED_NoBlock_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150825-1622_A4_LED_NoBlock_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150825-1733_A4_LED_Panel_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150825-1733_A4_LED_Panel_VMIN_SIPM2_meanHistSub");
 
-  // ---
+  // // ---
 
-  ySlice("20150826-0945_A4_LED_NoBlock_VMIN_SIPM1_meanHistSub");
-  ySlice("20150826-0945_A4_LED_NoBlock_VMIN_SIPM2_meanHistSub");
-  ySlice("20150826-1055_A4_LED_Panel_VMIN_SIPM1_meanHistSub");
-  ySlice("20150826-1055_A4_LED_Panel_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150826-0945_A4_LED_NoBlock_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150826-0945_A4_LED_NoBlock_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150826-1055_A4_LED_Panel_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150826-1055_A4_LED_Panel_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150826-1334_A4_LED_PanelAirClad_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150826-1334_A4_LED_PanelAirClad_VMIN_SIPM2_meanHistSub");
+  // ySlice("20150826-1505_A4_LED_PanelAir_VMIN_SIPM1_meanHistSub");
+  // ySlice("20150826-1505_A4_LED_PanelAir_VMIN_SIPM2_meanHistSub");
+
+  // // --
+
+  ySlice("20150827-0946_A4_LED_PanelAir_VMIN_SIPM1_meanHistSub");
+  ySlice("20150827-0946_A4_LED_PanelAir_VMIN_SIPM2_meanHistSub");
 
 }
+
 
 
 void ySlice(const char *NAME)
@@ -59,8 +69,8 @@ void ySlice(const char *NAME)
       TH1D *hp = (TH1D *)h1->ProjectionX(Form("%s_hproj_%d",NAME,i),i+1,i+1,"");
       hp->SetTitle(Form("%s ProjectionX %d",NAME,i));
       hp->Draw();
-      c1->Print(Form("Figures/%s_projection_%d.png",NAME,i));
-      c1->Print(Form("Figures/%s_projection_%d.pdf",NAME,i));
+      c1->Print(Form("Figures/Burn/%s_projection_%d.png",NAME,i));
+      c1->Print(Form("Figures/Burn/%s_projection_%d.pdf",NAME,i));
     }
 
   fout->Write();

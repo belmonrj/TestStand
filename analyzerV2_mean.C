@@ -13,36 +13,43 @@
 void analyzerV2_mean()
 {
 
-  // ---
+  // // ---
 
-  analyze("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1","20150824-1552_A4_LED_PanelAirClad_TIME.txt",true);
-  analyze("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM2","20150824-1552_A4_LED_PanelAirClad_TIME.txt",true);
-  analyze("20150824-1701_A4_LED_Panel_VMIN_SIPM1","20150824-1701_A4_LED_Panel_TIME.txt",true);
-  analyze("20150824-1701_A4_LED_Panel_VMIN_SIPM2","20150824-1701_A4_LED_Panel_TIME.txt",true);
-  analyze("20150824-1750_A4_LED_NoBlock_VMIN_SIPM1","20150824-1750_A4_LED_NoBlock_TIME.txt",true);
-  analyze("20150824-1750_A4_LED_NoBlock_VMIN_SIPM2","20150824-1750_A4_LED_NoBlock_TIME.txt",true);
+  // analyze("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1","20150824-1552_A4_LED_PanelAirClad_TIME.txt",true);
+  // analyze("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM2","20150824-1552_A4_LED_PanelAirClad_TIME.txt",true);
+  // analyze("20150824-1701_A4_LED_Panel_VMIN_SIPM1","20150824-1701_A4_LED_Panel_TIME.txt",true);
+  // analyze("20150824-1701_A4_LED_Panel_VMIN_SIPM2","20150824-1701_A4_LED_Panel_TIME.txt",true);
+  // analyze("20150824-1750_A4_LED_NoBlock_VMIN_SIPM1","20150824-1750_A4_LED_NoBlock_TIME.txt",true);
+  // analyze("20150824-1750_A4_LED_NoBlock_VMIN_SIPM2","20150824-1750_A4_LED_NoBlock_TIME.txt",true);
 
-  // ---
+  // // ---
 
-  analyze("20150825-1133_A4_LED_NoBlock_VMIN_SIPM1","20150825-1133_A4_LED_NoBlock_TIME.txt",true);
-  analyze("20150825-1133_A4_LED_NoBlock_VMIN_SIPM2","20150825-1133_A4_LED_NoBlock_TIME.txt",true);
-  analyze("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM1","20150825-1422_A4_LED_PanelAirClad_TIME.txt",true);
-  analyze("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM2","20150825-1422_A4_LED_PanelAirClad_TIME.txt",true);
-  analyze("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM1","20150825-1515_A4_LED_PanelAirClad_TIME.txt",true);
-  analyze("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM2","20150825-1515_A4_LED_PanelAirClad_TIME.txt",true);
-  analyze("20150825-1622_A4_LED_NoBlock_VMIN_SIPM1","20150825-1622_A4_LED_NoBlock_TIME.txt",true);
-  analyze("20150825-1622_A4_LED_NoBlock_VMIN_SIPM2","20150825-1622_A4_LED_NoBlock_TIME.txt",true);
-  analyze("20150825-1733_A4_LED_Panel_VMIN_SIPM1","20150825-1733_A4_LED_Panel_TIME.txt",true);
-  analyze("20150825-1733_A4_LED_Panel_VMIN_SIPM2","20150825-1733_A4_LED_Panel_TIME.txt",true);
+  // analyze("20150825-1133_A4_LED_NoBlock_VMIN_SIPM1","20150825-1133_A4_LED_NoBlock_TIME.txt",true);
+  // analyze("20150825-1133_A4_LED_NoBlock_VMIN_SIPM2","20150825-1133_A4_LED_NoBlock_TIME.txt",true);
+  // analyze("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM1","20150825-1422_A4_LED_PanelAirClad_TIME.txt",true);
+  // analyze("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM2","20150825-1422_A4_LED_PanelAirClad_TIME.txt",true);
+  // analyze("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM1","20150825-1515_A4_LED_PanelAirClad_TIME.txt",true);
+  // analyze("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM2","20150825-1515_A4_LED_PanelAirClad_TIME.txt",true);
+  // analyze("20150825-1622_A4_LED_NoBlock_VMIN_SIPM1","20150825-1622_A4_LED_NoBlock_TIME.txt",true);
+  // analyze("20150825-1622_A4_LED_NoBlock_VMIN_SIPM2","20150825-1622_A4_LED_NoBlock_TIME.txt",true);
+  // analyze("20150825-1733_A4_LED_Panel_VMIN_SIPM1","20150825-1733_A4_LED_Panel_TIME.txt",true);
+  // analyze("20150825-1733_A4_LED_Panel_VMIN_SIPM2","20150825-1733_A4_LED_Panel_TIME.txt",true);
 
-  // ---
+  // // ---
 
-  analyze("20150826-0945_A4_LED_NoBlock_VMIN_SIPM1","20150826-0945_A4_LED_NoBlock_TIME.txt",true);
-  analyze("20150826-0945_A4_LED_NoBlock_VMIN_SIPM2","20150826-0945_A4_LED_NoBlock_TIME.txt",true);
-  analyze("20150826-1055_A4_LED_Panel_VMIN_SIPM1","20150826-1055_A4_LED_Panel_TIME.txt",true);
-  analyze("20150826-1055_A4_LED_Panel_VMIN_SIPM2","20150826-1055_A4_LED_Panel_TIME.txt",true);
+  // analyze("20150826-0945_A4_LED_NoBlock_VMIN_SIPM1","20150826-0945_A4_LED_NoBlock_TIME.txt",true);
+  // analyze("20150826-0945_A4_LED_NoBlock_VMIN_SIPM2","20150826-0945_A4_LED_NoBlock_TIME.txt",true);
+  // analyze("20150826-1055_A4_LED_Panel_VMIN_SIPM1","20150826-1055_A4_LED_Panel_TIME.txt",true);
+  // analyze("20150826-1055_A4_LED_Panel_VMIN_SIPM2","20150826-1055_A4_LED_Panel_TIME.txt",true);
+  // analyze("20150826-1334_A4_LED_PanelAirClad_VMIN_SIPM1","20150826-1334_A4_LED_PanelAirClad_TIME.txt",true);
+  // analyze("20150826-1334_A4_LED_PanelAirClad_VMIN_SIPM2","20150826-1334_A4_LED_PanelAirClad_TIME.txt",true);
+  // analyze("20150826-1505_A4_LED_PanelAir_VMIN_SIPM1","20150826-1505_A4_LED_PanelAir_TIME.txt",true);
+  // analyze("20150826-1505_A4_LED_PanelAir_VMIN_SIPM2","20150826-1505_A4_LED_PanelAir_TIME.txt",true);
 
-  // ---
+  // // ---
+
+  analyze("20150827-0946_A4_LED_PanelAir_VMIN_SIPM1","20150826-0946_A4_LED_PanelAir_TIME.txt",true);
+  analyze("20150827-0946_A4_LED_PanelAir_VMIN_SIPM2","20150826-0946_A4_LED_PanelAir_TIME.txt",true);
 
 }
 
@@ -214,10 +221,10 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
   else meanHistSub->GetZaxis()->SetTitle("Pulse Min Value (V)");
   meanHistSub->Draw("colz");
 
-  c1->Print(Form("Figures/%s_meanHist.png",NAME));
-  c2->Print(Form("Figures/%s_meanHistSub.png",NAME));
-  c1->Print(Form("Figures/%s_meanHist.pdf",NAME));
-  c2->Print(Form("Figures/%s_meanHistSub.pdf",NAME));
+  c1->Print(Form("Figures/Burn/%s_meanHist.png",NAME));
+  c2->Print(Form("Figures/Burn/%s_meanHistSub.png",NAME));
+  c1->Print(Form("Figures/Burn/%s_meanHist.pdf",NAME));
+  c2->Print(Form("Figures/Burn/%s_meanHistSub.pdf",NAME));
 
   delete c1;
   delete c2;
