@@ -10,8 +10,7 @@ these are the macros for analyzing the data:
 
 1) analyzeV2_mean - essential to run, converts raw data text files into 2d histograms
 
-2a) YSlice - essential to run, converts 2d histograms into 1d projection histogram
-2b) YSlice_3row_2in_Percent.C - DEPRECATED, NOT RECOMMENDED TO USE, an old version from the students
+2) YSlice - essential to run, converts 2d histograms into 1d projection histogram
 
 3) histoDraw - produces 2d plots with the y-axis swapped and a custom color palette
 
