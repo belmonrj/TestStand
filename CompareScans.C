@@ -17,34 +17,34 @@ void dofix3()
   // fixednumber_3
   //   (
   //    "A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
-  //    "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1",
+  //    "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
   //    "20150825-1733_A3_LED_Panel_VMIN_SIPM1",
   //    "Sebastian",
   //    "Ron 8/24",
   //    "Ron 8/25 (late)",
   //    "Comparison of scans with panel blocked",
   //    "panel blocked",
-  //    "A3_LED_3Comp_PanelBlock_SiPM1"
+  //    "A3_LED_3Comp_Panel_SiPM1"
   //    );
 
   // fixednumber_3
   //   (
   //    "A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM2",
-  //    "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM2",
+  //    "20150824-1701_A3_LED_Panel_VMIN_SIPM2",
   //    "20150825-1733_A3_LED_Panel_VMIN_SIPM2",
   //    "Sebastian",
   //    "Ron 8/24",
   //    "Ron 8/25 (late)",
   //    "Comparison of scans with panel blocked",
   //    "panel blocked",
-  //    "A3_LED_3Comp_PanelBlock_SiPM2"
+  //    "A3_LED_3Comp_Panel_SiPM2"
   //    );
 
 
   // fixednumber_3
   //   (
   //    //"A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1", // obvious need for 4...
-  //    //"20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM1",
+  //    //"20150824-1750_A3_LED_NoBlock_VMIN_SIPM1",
   //    "20150825-1133_A3_LED_NoBlock_VMIN_SIPM1",
   //    "20150825-1622_A3_LED_NoBlock_VMIN_SIPM1",
   //    "20150826-0945_A3_LED_NoBlock_VMIN_SIPM1",
@@ -61,7 +61,7 @@ void dofix3()
   // fixednumber_3
   //   (
   //    //"A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM2", // obvious need for 4...
-  //    //"20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM2",
+  //    //"20150824-1750_A3_LED_NoBlock_VMIN_SIPM2",
   //    "20150825-1133_A3_LED_NoBlock_VMIN_SIPM2",
   //    "20150825-1622_A3_LED_NoBlock_VMIN_SIPM2",
   //    "20150826-0945_A3_LED_NoBlock_VMIN_SIPM2",
@@ -79,7 +79,7 @@ void dofix3()
 
   fixednumber_3
     (
-     "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1",
+     "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
      "20150825-1733_A3_LED_Panel_VMIN_SIPM1",
      "20150826-1055_A3_LED_Panel_VMIN_SIPM1",
      "Ron 8/24",
@@ -92,7 +92,7 @@ void dofix3()
 
   fixednumber_3
     (
-     "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM2",
+     "20150824-1701_A3_LED_Panel_VMIN_SIPM2",
      "20150825-1733_A3_LED_Panel_VMIN_SIPM2",
      "20150826-1055_A3_LED_Panel_VMIN_SIPM2",
      "Ron 8/24",
@@ -211,7 +211,7 @@ void dofix2()
 
   fixednumber_2
     (
-     "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1",
+     "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
      "20150825-1733_A3_LED_Panel_VMIN_SIPM1",
      "Ron 8/24",
      "Ron 8/25 (late)",
@@ -222,7 +222,7 @@ void dofix2()
 
   fixednumber_2
     (
-     "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM2",
+     "20150824-1701_A3_LED_Panel_VMIN_SIPM2",
      "20150825-1733_A3_LED_Panel_VMIN_SIPM2",
      "Ron 8/24",
      "Ron 8/25 (late)",

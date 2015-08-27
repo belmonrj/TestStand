@@ -11,10 +11,10 @@ void CompareProjections()
      );
   fixednumber
     (
-     "20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM1",
-     "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1",
-     "20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1",
-     "20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM1",
+     "20150824-1750_A3_LED_NoBlock_VMIN_SIPM1",
+     "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
+     "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
+     "20150824-1552_A3_LED_PanelAirClad_VMIN_SIPM1",
      "20150824_A3_LED_Comp_SiPM"
      );
 
