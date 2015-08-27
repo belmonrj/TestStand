@@ -440,13 +440,14 @@ int main(void)
 
   //double xorigincm = 9.0;//signal bias fiber scan 9.0
   //double yorigincm = 43.0;
-  double yorigincm = 33.0; // fiber #4, furthest back
+  //double yorigincm = 33.0; // fiber #4, furthest back
   //double yorigincm = 35.5; // fiber #3, second furthest back
   //double yorigincm = 38.0; // fiber #2, second closest
-  //double yorigincm = 43.0; // fiber #1, closest
+  double yorigincm = 43.0; // fiber #1, closest
 
-  //double xorigincm = 9.0; // for radioactive source
-  double xorigincm = 9.0 + 1.905; // for LED in source housing
+  double xorigincm = 9.0; // for radioactive source
+  //double xorigincm = 15.0; // for radioactive source
+  //double xorigincm = 9.0 + 1.905; // for LED in source housing
 
   double xorigin = stepspercm*xorigincm;
   double yorigin = stepspercm*yorigincm;
@@ -703,20 +704,29 @@ int main(void)
 		*/
 		//Integration on the scope method start.
 
+		// FOR LED TEST, CHECK EVERY TIME
+		//WriteIO(":CDISPLAY");
+		//WriteIO(":VIEW CHANNEL1");
+		//WriteIO(":VIEW CHANNEL2");
+		//WriteIO(":CHANNEL1:SCALE 200E-3"); //New
+		//WriteIO(":CHANNEL2:SCALE 200E-3"); //New
+		//WriteIO(":CHANNEL1:OFFSET -650E-3"); //New
+		//WriteIO(":CHANNEL2:OFFSET -650E-3"); //New
+		//WriteIO(":TIMEBASE:SCALE 20E-9"); //New
+		//WriteIO(":TIMEBASE:POSITION 110E-9"); //New
+
+		// FOR SOURCE TEST, CHECK EVERY TIME
 		WriteIO(":CDISPLAY");
 		WriteIO(":VIEW CHANNEL1");
 		WriteIO(":VIEW CHANNEL2");
-		WriteIO(":CHANNEL1:SCALE 200E-3"); //New
-		WriteIO(":CHANNEL2:SCALE 200E-3"); //New
-
-		WriteIO(":CHANNEL1:OFFSET -650E-3"); //New
-		WriteIO(":CHANNEL2:OFFSET -650E-3"); //New
-
+		WriteIO(":CHANNEL1:SCALE 20E-3"); //New
+		WriteIO(":CHANNEL2:SCALE 20E-3"); //New
+		WriteIO(":CHANNEL1:OFFSET -80E-3"); //New
+		WriteIO(":CHANNEL2:OFFSET -80E-3"); //New
 		WriteIO(":TIMEBASE:SCALE 20E-9"); //New
+		WriteIO(":TIMEBASE:POSITION -40E-9"); //New
 
-		WriteIO(":TIMEBASE:POSITION 110E-9"); //New
-
-			/*  //Working Template
+		/*  //Working Template
 			while (area2 >= 0.0 && area4 >=0.0)
 		{
 			t = clock();
@@ -749,35 +759,37 @@ int main(void)
 			WriteIO(":ACQUIRE:AVERAGE ON");	
 			//cout << "Averaging enabled" << endl;
 
-			WriteIO(":MEASURE:AREA DISPLAY,CHANNEL1");
-			WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL1");
-			ReadDouble(&area1);
-
-			iclose(oscillo);
-			oscillo = iopen("gpib1,7");
-
+			// Measure the area for Channel 1
+			//WriteIO(":MEASURE:AREA DISPLAY,CHANNEL1");
+			//WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL1");
+			//ReadDouble(&area1);
+			//cout <<"Area 1 "<< area1 << endl;
+			//iclose(oscillo);
+			//oscillo = iopen("gpib1,7");
+			
+			// Measure the area for Channel 2
+			//WriteIO(":MEASURE:AREA DISPLAY,CHANNEL2");
+			//WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL2"); 
+			//ReadDouble(&area2);
+			//cout <<"Area 2 "<< area2 << endl;
+			// comment out these two lines if only doing area 1 and area 2
+			//iclose(oscillo);
+			//oscillo = iopen("gpib1,7");
+			
+			//// Measure the VMin for Channel 1
 			WriteIO(":MEASURE:SOURCE CHANNEL1");
 			WriteIO(":MEASURE:VMIN");
 			WriteIO(":MEASURE:VMIN?");
 			ReadDouble(&vmin1);
-
 			cout <<"VMin 1 "<< vmin1 << endl;
-
 			iclose(oscillo);
 			oscillo = iopen("gpib1,7");
-
-			WriteIO(":MEASURE:AREA DISPLAY,CHANNEL2");
-			WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL2"); 
-			ReadDouble(&area2);
-
-			iclose(oscillo);
-			oscillo = iopen("gpib1,7");
-
+			
+			// Measure the VMin for Channel 2
 			WriteIO(":MEASURE:SOURCE CHANNEL2");
 			WriteIO(":MEASURE:VMIN");
 			WriteIO(":MEASURE:VMIN?");
 			ReadDouble(&vmin2);
-
 			cout << "VMin 2 " << vmin2 << endl;
 
 			//WriteIO(":ACQUIRE:AVERAGE OFF");
