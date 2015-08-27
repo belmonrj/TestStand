@@ -3,19 +3,19 @@ void CompareProjections()
 
   fixednumber
     (
-     "A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1",
-     "A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
-     "A3_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1",
-     "A3_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1",
-     "A3_LED_Comp_SiPM"
+     "A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1",
+     "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
+     "A4_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1",
+     "A4_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1",
+     "A4_LED_Comp_SiPM"
      );
   fixednumber
     (
-     "20150824-1750_A3_LED_NoBlock_VMIN_SIPM1",
-     "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
-     "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
-     "20150824-1552_A3_LED_PanelAirClad_VMIN_SIPM1",
-     "20150824_A3_LED_Comp_SiPM"
+     "20150824-1750_A4_LED_NoBlock_VMIN_SIPM1",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+     "20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1",
+     "20150824_A4_LED_Comp_SiPM"
      );
 
 }

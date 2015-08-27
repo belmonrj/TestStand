@@ -1,8 +1,8 @@
 void DrawProjections()
 {
 
-  drawproj("A3_LED_Assymetry_VMin_SiPM1_meanHistSub");
-  drawproj("A3_LED_Assymetry_VMin_SiPM1_meanHistSub");
+  drawproj("A4_LED_Assymetry_VMin_SiPM1_meanHistSub");
+  drawproj("A4_LED_Assymetry_VMin_SiPM1_meanHistSub");
 
 }
 

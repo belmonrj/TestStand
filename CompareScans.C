@@ -16,38 +16,38 @@ void dofix3()
 
   // fixednumber_3
   //   (
-  //    "A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
-  //    "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
-  //    "20150825-1733_A3_LED_Panel_VMIN_SIPM1",
+  //    "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
+  //    "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+  //    "20150825-1733_A4_LED_Panel_VMIN_SIPM1",
   //    "Sebastian",
   //    "Ron 8/24",
   //    "Ron 8/25 (late)",
   //    "Comparison of scans with panel blocked",
   //    "panel blocked",
-  //    "A3_LED_3Comp_Panel_SiPM1"
+  //    "A4_LED_3Comp_Panel_SiPM1"
   //    );
 
   // fixednumber_3
   //   (
-  //    "A3_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM2",
-  //    "20150824-1701_A3_LED_Panel_VMIN_SIPM2",
-  //    "20150825-1733_A3_LED_Panel_VMIN_SIPM2",
+  //    "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM2",
+  //    "20150824-1701_A4_LED_Panel_VMIN_SIPM2",
+  //    "20150825-1733_A4_LED_Panel_VMIN_SIPM2",
   //    "Sebastian",
   //    "Ron 8/24",
   //    "Ron 8/25 (late)",
   //    "Comparison of scans with panel blocked",
   //    "panel blocked",
-  //    "A3_LED_3Comp_Panel_SiPM2"
+  //    "A4_LED_3Comp_Panel_SiPM2"
   //    );
 
 
   // fixednumber_3
   //   (
-  //    //"A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1", // obvious need for 4...
-  //    //"20150824-1750_A3_LED_NoBlock_VMIN_SIPM1",
-  //    "20150825-1133_A3_LED_NoBlock_VMIN_SIPM1",
-  //    "20150825-1622_A3_LED_NoBlock_VMIN_SIPM1",
-  //    "20150826-0945_A3_LED_NoBlock_VMIN_SIPM1",
+  //    //"A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1", // obvious need for 4...
+  //    //"20150824-1750_A4_LED_NoBlock_VMIN_SIPM1",
+  //    "20150825-1133_A4_LED_NoBlock_VMIN_SIPM1",
+  //    "20150825-1622_A4_LED_NoBlock_VMIN_SIPM1",
+  //    "20150826-0945_A4_LED_NoBlock_VMIN_SIPM1",
   //    //"Sebastian",
   //    //"Ron 8/24",
   //    "Ron 8/25 (early)",
@@ -55,16 +55,16 @@ void dofix3()
   //    "Ron 8/26",
   //    "Comparison of scans with no blocking",
   //    "no blocking",
-  //    "A3_LED_3Comp_NoBlock_SiPM1"
+  //    "A4_LED_3Comp_NoBlock_SiPM1"
   //    );
 
   // fixednumber_3
   //   (
-  //    //"A3_LED_Assymetry_NoBlock_Recouple_VMin_SiPM2", // obvious need for 4...
-  //    //"20150824-1750_A3_LED_NoBlock_VMIN_SIPM2",
-  //    "20150825-1133_A3_LED_NoBlock_VMIN_SIPM2",
-  //    "20150825-1622_A3_LED_NoBlock_VMIN_SIPM2",
-  //    "20150826-0945_A3_LED_NoBlock_VMIN_SIPM2",
+  //    //"A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM2", // obvious need for 4...
+  //    //"20150824-1750_A4_LED_NoBlock_VMIN_SIPM2",
+  //    "20150825-1133_A4_LED_NoBlock_VMIN_SIPM2",
+  //    "20150825-1622_A4_LED_NoBlock_VMIN_SIPM2",
+  //    "20150826-0945_A4_LED_NoBlock_VMIN_SIPM2",
   //    //"Sebastian",
   //    //"Ron 8/24",
   //    "Ron 8/25 (early)",
@@ -72,35 +72,35 @@ void dofix3()
   //    "Ron 8/26",
   //    "Comparison of scans with no blocking",
   //    "no blocking",
-  //    "A3_LED_3Comp_NoBlock_SiPM2"
+  //    "A4_LED_3Comp_NoBlock_SiPM2"
   //    );
 
   // ---
 
   fixednumber_3
     (
-     "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
-     "20150825-1733_A3_LED_Panel_VMIN_SIPM1",
-     "20150826-1055_A3_LED_Panel_VMIN_SIPM1",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+     "20150825-1733_A4_LED_Panel_VMIN_SIPM1",
+     "20150826-1055_A4_LED_Panel_VMIN_SIPM1",
      "Ron 8/24",
      "Ron 8/25 (late)",
      "Ron 8/26",
      "Comparison of scans with panel blocked",
      "no blocking",
-     "A3_LED_3Comp_Panel_SiPM1"
+     "A4_LED_3Comp_Panel_SiPM1"
      );
 
   fixednumber_3
     (
-     "20150824-1701_A3_LED_Panel_VMIN_SIPM2",
-     "20150825-1733_A3_LED_Panel_VMIN_SIPM2",
-     "20150826-1055_A3_LED_Panel_VMIN_SIPM2",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM2",
+     "20150825-1733_A4_LED_Panel_VMIN_SIPM2",
+     "20150826-1055_A4_LED_Panel_VMIN_SIPM2",
      "Ron 8/24",
      "Ron 8/25 (late)",
      "Ron 8/26",
      "Comparison of scans with panel blocked",
      "no blocking",
-     "A3_LED_3Comp_Panel_SiPM2"
+     "A4_LED_3Comp_Panel_SiPM2"
      );
 
 }
@@ -211,24 +211,24 @@ void dofix2()
 
   fixednumber_2
     (
-     "20150824-1701_A3_LED_Panel_VMIN_SIPM1",
-     "20150825-1733_A3_LED_Panel_VMIN_SIPM1",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+     "20150825-1733_A4_LED_Panel_VMIN_SIPM1",
      "Ron 8/24",
      "Ron 8/25 (late)",
      "Comparison of scans with panel and air blocked",
      "panel blocked",
-     "A3_LED_Comp_Panel_SiPM1"
+     "A4_LED_Comp_Panel_SiPM1"
      );
 
   fixednumber_2
     (
-     "20150824-1701_A3_LED_Panel_VMIN_SIPM2",
-     "20150825-1733_A3_LED_Panel_VMIN_SIPM2",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM2",
+     "20150825-1733_A4_LED_Panel_VMIN_SIPM2",
      "Ron 8/24",
      "Ron 8/25 (late)",
      "Comparison of scans with panel and air blocked",
      "panel blocked",
-     "A3_LED_Comp_Panel_SiPM2"
+     "A4_LED_Comp_Panel_SiPM2"
      );
 
 }

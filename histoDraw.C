@@ -11,16 +11,16 @@
 void histoDraw()
 {
 
-  paletteSwap("20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM1_meanHistSub");
-  paletteSwap("20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM1_meanHistSub");
-  paletteSwap("20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM1_meanHistSub");
+  paletteSwap("20150824-1552_A4_LED_CladBlock_Recouple2_VMIN_SIPM1_meanHistSub");
+  paletteSwap("20150824-1701_A4_LED_PanelBlock_Recouple2_VMIN_SIPM1_meanHistSub");
+  paletteSwap("20150824-1750_A4_LED_NoBlock_Recouple2_VMIN_SIPM1_meanHistSub");
 
-  paletteSwap("20150824-1552_A3_LED_CladBlock_Recouple2_VMIN_SIPM2_meanHistSub");
-  paletteSwap("20150824-1701_A3_LED_PanelBlock_Recouple2_VMIN_SIPM2_meanHistSub");
-  paletteSwap("20150824-1750_A3_LED_NoBlock_Recouple2_VMIN_SIPM2_meanHistSub");
+  paletteSwap("20150824-1552_A4_LED_CladBlock_Recouple2_VMIN_SIPM2_meanHistSub");
+  paletteSwap("20150824-1701_A4_LED_PanelBlock_Recouple2_VMIN_SIPM2_meanHistSub");
+  paletteSwap("20150824-1750_A4_LED_NoBlock_Recouple2_VMIN_SIPM2_meanHistSub");
 
-  paletteSwap("20150825-1133_A3_LED_NoBlock_VMIN_SIPM1_meanHistSub");
-  paletteSwap("20150825-1133_A3_LED_NoBlock_VMIN_SIPM2_meanHistSub");
+  paletteSwap("20150825-1133_A4_LED_NoBlock_VMIN_SIPM1_meanHistSub");
+  paletteSwap("20150825-1133_A4_LED_NoBlock_VMIN_SIPM2_meanHistSub");
 
 }
 
