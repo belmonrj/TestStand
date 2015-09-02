@@ -13,49 +13,50 @@
 void analyzerV2_mean()
 {
 
-  // // ---
-
-  // analyze("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1","20150824-1552_A4_LED_PanelAirClad_TIME.txt",true);
-  // analyze("20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM2","20150824-1552_A4_LED_PanelAirClad_TIME.txt",true);
-  // analyze("20150824-1701_A4_LED_Panel_VMIN_SIPM1","20150824-1701_A4_LED_Panel_TIME.txt",true);
-  // analyze("20150824-1701_A4_LED_Panel_VMIN_SIPM2","20150824-1701_A4_LED_Panel_TIME.txt",true);
-  // analyze("20150824-1750_A4_LED_NoBlock_VMIN_SIPM1","20150824-1750_A4_LED_NoBlock_TIME.txt",true);
-  // analyze("20150824-1750_A4_LED_NoBlock_VMIN_SIPM2","20150824-1750_A4_LED_NoBlock_TIME.txt",true);
-
-  // // ---
-
-  // analyze("20150825-1133_A4_LED_NoBlock_VMIN_SIPM1","20150825-1133_A4_LED_NoBlock_TIME.txt",true);
-  // analyze("20150825-1133_A4_LED_NoBlock_VMIN_SIPM2","20150825-1133_A4_LED_NoBlock_TIME.txt",true);
-  // analyze("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM1","20150825-1422_A4_LED_PanelAirClad_TIME.txt",true);
-  // analyze("20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM2","20150825-1422_A4_LED_PanelAirClad_TIME.txt",true);
-  // analyze("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM1","20150825-1515_A4_LED_PanelAirClad_TIME.txt",true);
-  // analyze("20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM2","20150825-1515_A4_LED_PanelAirClad_TIME.txt",true);
-  // analyze("20150825-1622_A4_LED_NoBlock_VMIN_SIPM1","20150825-1622_A4_LED_NoBlock_TIME.txt",true);
-  // analyze("20150825-1622_A4_LED_NoBlock_VMIN_SIPM2","20150825-1622_A4_LED_NoBlock_TIME.txt",true);
-  // analyze("20150825-1733_A4_LED_Panel_VMIN_SIPM1","20150825-1733_A4_LED_Panel_TIME.txt",true);
-  // analyze("20150825-1733_A4_LED_Panel_VMIN_SIPM2","20150825-1733_A4_LED_Panel_TIME.txt",true);
-
-  // // ---
-
-  // analyze("20150826-0945_A4_LED_NoBlock_VMIN_SIPM1","20150826-0945_A4_LED_NoBlock_TIME.txt",true);
-  // analyze("20150826-0945_A4_LED_NoBlock_VMIN_SIPM2","20150826-0945_A4_LED_NoBlock_TIME.txt",true);
-  // analyze("20150826-1055_A4_LED_Panel_VMIN_SIPM1","20150826-1055_A4_LED_Panel_TIME.txt",true);
-  // analyze("20150826-1055_A4_LED_Panel_VMIN_SIPM2","20150826-1055_A4_LED_Panel_TIME.txt",true);
-  // analyze("20150826-1334_A4_LED_PanelAirClad_VMIN_SIPM1","20150826-1334_A4_LED_PanelAirClad_TIME.txt",true);
-  // analyze("20150826-1334_A4_LED_PanelAirClad_VMIN_SIPM2","20150826-1334_A4_LED_PanelAirClad_TIME.txt",true);
-  // analyze("20150826-1505_A4_LED_PanelAir_VMIN_SIPM1","20150826-1505_A4_LED_PanelAir_TIME.txt",true);
-  // analyze("20150826-1505_A4_LED_PanelAir_VMIN_SIPM2","20150826-1505_A4_LED_PanelAir_TIME.txt",true);
-
-  // // ---
-
-  analyze("20150827-0946_A4_LED_PanelAir_VMIN_SIPM1","20150826-0946_A4_LED_PanelAir_TIME.txt",true);
-  analyze("20150827-0946_A4_LED_PanelAir_VMIN_SIPM2","20150826-0946_A4_LED_PanelAir_TIME.txt",true);
+  doana("20150820-1156_A4_LED_NoBlock");
+  doana("20150820-1625_A4_LED_PanelAir");
+  doana("20150821-1312_A4_LED_NoBlock");
+  doana("20150821-1431_A4_LED_Panel");
+  doana("20150821-1550_A4_LED_PanelAir");
+  doana("20150821-1651_A4_LED_PanelAirClad");
+  doana("20150824-1552_A4_LED_PanelAirClad");
+  doana("20150824-1701_A4_LED_Panel");
+  doana("20150824-1750_A4_LED_NoBlock");
+  doana("20150825-1133_A4_LED_NoBlock");
+  doana("20150825-1422_A4_LED_PanelAirClad");
+  doana("20150825-1515_A4_LED_PanelAirClad");
+  doana("20150825-1622_A4_LED_NoBlock");
+  doana("20150825-1733_A4_LED_Panel");
+  doana("20150826-0945_A4_LED_NoBlock");
+  doana("20150826-1055_A4_LED_Panel");
+  doana("20150826-1334_A4_LED_PanelAirClad");
+  doana("20150826-1505_A4_LED_PanelAir");
+  doana("20150827-0946_A4_LED_PanelAir");
+  doana("20150827-1402_A4_Source_PanelAir");
+  doana("20150828-1609_A4_Source_PanelAir");
+  doana("20150830-1452_A4_Source_PanelAir");
+  doana("20150831-1730_A1_Source");
+  doana("20150901-0950_A1_Source");
 
 }
 
 
+void doana(const char *basename)
+{
 
-void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
+  char *sipm1name = Form("%s_VMIN_SIPM1",basename);
+  char *sipm2name = Form("%s_VMIN_SIPM2",basename);
+  char *timename = Form("%s_TIME.txt",basename);
+  bool doPEConvert = true;
+  double PEvalue = 0.004386;
+
+  analyze(sipm1name,timename,doPEConvert,PEvalue);
+  analyze(sipm2name,timename,doPEConvert,PEvalue);
+
+}
+
+
+void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
 {
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +70,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
   int scan_nypositions = 9;
 
   // ADJUST AS NEEDED
-  double PE = 0.004386; //Measured value of PE peak spacing. -- // this is SiPM 1
+  //double PE = 0.004386; //Measured value of PE peak spacing. -- // this is SiPM 1
 
   int totalBins = scan_nxpositions * scan_nypositions;
 
@@ -114,6 +115,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert = true)
   ifstream timefile;
 
   timefile.open(Form("Data/Text/%s",timedata));
+  //cout<<Form("Data/Text/%s",timedata)<<endl;;
 
   for(int i = 0; i < totalBins ; i++)  //Gets time data
     {
