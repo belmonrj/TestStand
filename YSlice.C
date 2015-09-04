@@ -1,30 +1,32 @@
 void YSlice()
 {
 
-  doyslice("20150820-1156_A4_LED_NoBlock");
-  doyslice("20150820-1625_A4_LED_PanelAir");
-  doyslice("20150821-1312_A4_LED_NoBlock");
-  doyslice("20150821-1431_A4_LED_Panel");
-  doyslice("20150821-1550_A4_LED_PanelAir");
-  doyslice("20150821-1651_A4_LED_PanelAirClad");
-  doyslice("20150824-1552_A4_LED_PanelAirClad");
-  doyslice("20150824-1701_A4_LED_Panel");
-  doyslice("20150824-1750_A4_LED_NoBlock");
-  doyslice("20150825-1133_A4_LED_NoBlock");
-  doyslice("20150825-1422_A4_LED_PanelAirClad");
-  doyslice("20150825-1515_A4_LED_PanelAirClad");
-  doyslice("20150825-1622_A4_LED_NoBlock");
-  doyslice("20150825-1733_A4_LED_Panel");
-  doyslice("20150826-0945_A4_LED_NoBlock");
-  doyslice("20150826-1055_A4_LED_Panel");
-  doyslice("20150826-1334_A4_LED_PanelAirClad");
-  doyslice("20150826-1505_A4_LED_PanelAir");
-  doyslice("20150827-0946_A4_LED_PanelAir");
-  doyslice("20150827-1402_A4_Source_PanelAir");
-  doyslice("20150828-1609_A4_Source_PanelAir");
-  doyslice("20150830-1452_A4_Source_PanelAir");
+  // doyslice("20150820-1156_A4_LED_NoBlock");
+  // doyslice("20150820-1625_A4_LED_PanelAir");
+  // doyslice("20150821-1312_A4_LED_NoBlock");
+  // doyslice("20150821-1431_A4_LED_Panel");
+  // doyslice("20150821-1550_A4_LED_PanelAir");
+  // doyslice("20150821-1651_A4_LED_PanelAirClad");
+  // doyslice("20150824-1552_A4_LED_PanelAirClad");
+  // doyslice("20150824-1701_A4_LED_Panel");
+  // doyslice("20150824-1750_A4_LED_NoBlock");
+  // doyslice("20150825-1133_A4_LED_NoBlock");
+  // doyslice("20150825-1422_A4_LED_PanelAirClad");
+  // doyslice("20150825-1515_A4_LED_PanelAirClad");
+  // doyslice("20150825-1622_A4_LED_NoBlock");
+  // doyslice("20150825-1733_A4_LED_Panel");
+  // doyslice("20150826-0945_A4_LED_NoBlock");
+  // doyslice("20150826-1055_A4_LED_Panel");
+  // doyslice("20150826-1334_A4_LED_PanelAirClad");
+  // doyslice("20150826-1505_A4_LED_PanelAir");
+  // doyslice("20150827-0946_A4_LED_PanelAir");
+  // doyslice("20150827-1402_A4_Source_PanelAir");
+  // doyslice("20150828-1609_A4_Source_PanelAir");
+  // doyslice("20150830-1452_A4_Source_PanelAir");
   doyslice("20150831-1730_A1_Source");
   doyslice("20150901-0950_A1_Source");
+  doyslice("20150901-1748_A1_LED");
+  doyslice("20150902-1005_A1_LED");
 
 }
 
