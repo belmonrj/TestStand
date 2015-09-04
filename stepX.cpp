@@ -625,44 +625,42 @@ int main(void)
 	  ///////////////////////////////////////////////////////////////////////////
 	  ///////////////////////////////////////////////////////////////////////////
 
-	  /*
 	  // AVERAGING METHOD
 
-	  oscillo = iopen("gpib1,7");
-	  double hits = 0.0;
-	  double mean = 0.0;
-	  itimeout(oscillo, 2000000);
-	  WriteIO(":CDISPLAY");
-	  WriteIO(":RUN");
-	  WriteIO(":ACQuire:AVERAGE:COUNT 1000");
-	  WriteIO(":ACQUIRE:AVERAGE ON");
-	  //WriteIO(":HISTOGRAM:WINDOW:X1POSITION 85.0e-9");//for strt Y11MCS
-	  //WriteIO(":HISTOGRAM:WINDOW:X2POSITION 125.0e-9");
-	  WriteIO(":HISTOGRAM:WINDOW:X1POSITION 110.0e-9"); //for custom serpentine
-	  WriteIO(":HISTOGRAM:WINDOW:X2POSITION 150.0e-9");
-	  cout << "Averaging enabled" << endl;
+	  // oscillo = iopen("gpib1,7");
+	  // double hits = 0.0;
+	  // double mean = 0.0;
+	  // itimeout(oscillo, 2000000);
+	  // WriteIO(":CDISPLAY");
+	  // WriteIO(":RUN");
+	  // WriteIO(":ACQuire:AVERAGE:COUNT 1000");
+	  // WriteIO(":ACQUIRE:AVERAGE ON");
+	  // //WriteIO(":HISTOGRAM:WINDOW:X1POSITION 85.0e-9");//for strt Y11MCS
+	  // //WriteIO(":HISTOGRAM:WINDOW:X2POSITION 125.0e-9");
+	  // WriteIO(":HISTOGRAM:WINDOW:X1POSITION 110.0e-9"); //for custom serpentine
+	  // WriteIO(":HISTOGRAM:WINDOW:X2POSITION 150.0e-9");
+	  // cout << "Averaging enabled" << endl;
 
-	  while (hits < 400000)
-	  {
-	  Sleep(4500);
-	  Sleep(4500);
-	  Sleep(4500);
-	  WriteIO(":MEASURE:HISTOGRAM:HITS?");
-	  cout << hits << endl;
-	  ReadDouble(&hits);
-	  cout << hits << endl;
-	  }
+	  // while (hits < 400000)
+	  //   {
+	  //     Sleep(4500);
+	  //     Sleep(4500);
+	  //     Sleep(4500);
+	  //     WriteIO(":MEASURE:HISTOGRAM:HITS?");
+	  //     cout << hits << endl;
+	  //     ReadDouble(&hits);
+	  //     cout << hits << endl;
+	  //   }
 
-	  WriteIO(":ACQUIRE:AVERAGE OFF");
-	  WriteIO(":STOP");
-	  WriteIO(":MEASURE:HISTOGRAM:MEAN?");
-	  ReadDouble(&mean);
-	  iclose(oscillo);
-	  cout << mean << endl;
-	  file << mean << "\n";
-	  printf("Data Collected");
-	  Sleep(2000);
-	  */
+	  // WriteIO(":ACQUIRE:AVERAGE OFF");
+	  // WriteIO(":STOP");
+	  // WriteIO(":MEASURE:HISTOGRAM:MEAN?");
+	  // ReadDouble(&mean);
+	  // iclose(oscillo);
+	  // cout << mean << endl;
+	  // file << mean << "\n";
+	  // printf("Data Collected");
+	  // Sleep(2000);
 
 	  ///////////////////////////////////////////////////////////////////////////
 	  ///////////////////////////////////////////////////////////////////////////
@@ -685,12 +683,12 @@ int main(void)
 	  itimeout(oscillo, 2000000);
 
 	  //Get sample pulses for calibration. Will have to be adjusted based on dimension.
-	  /*
-	    if (jj == (ysteps/2) && (ii == 8 || ii == xsteps - 8))
-	    {
-	    system("scope.exe");
-	    }
-	  */
+
+	  // if (jj == (ysteps/2) && (ii == 8 || ii == xsteps - 8))
+	  //   {
+	  //     system("scope.exe");
+	  //   }
+
 	  //Integration on the scope method start.
 
 	  // FOR LED TEST, CHECK EVERY TIME
@@ -715,30 +713,30 @@ int main(void)
 	  WriteIO(":TIMEBASE:SCALE 20E-9"); //New
 	  WriteIO(":TIMEBASE:POSITION -40E-9"); //New
 
-	  /*  //Working Template
-	      while (area2 >= 0.0 && area4 >=0.0)
-	      {
-	      t = clock();
-	      WriteIO(":RUN");
-	      WriteIO(":ACQUIRE:AVERAGE:COUNT 1000");
-	      WriteIO(":ACQUIRE:AVERAGE ON");
-	      cout << "Averaging enabled" << endl;
-	      WriteIO(":MEASURE:AREA DISPLAY,CHANNEL2");
-	      WriteIO(":MEASURE:AREA DISPLAY,CHANNEL4");
-	      WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL2");
-	      ReadDouble(&area2);
-	      WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL4");
-	      ReadDouble(&area4);
-	      WriteIO(":ACQUIRE:AVERAGE OFF");
-	      //WriteIO(":SYSTem:TIME?");
-	      //ReadChar(&time);
-	      //ReadDouble(&hour);
-	      //ReadDouble(&minute);
-	      //ReadDouble(&second);
-	      WriteIO(":STOP");
-	      t = clock() - t;
-	      }
-	  */
+	  // Working Template
+	  // while (area2 >= 0.0 && area4 >=0.0)
+	  //   {
+	  //     t = clock();
+	  //     WriteIO(":RUN");
+	  //     WriteIO(":ACQUIRE:AVERAGE:COUNT 1000");
+	  //     WriteIO(":ACQUIRE:AVERAGE ON");
+	  //     cout << "Averaging enabled" << endl;
+	  //     WriteIO(":MEASURE:AREA DISPLAY,CHANNEL2");
+	  //     WriteIO(":MEASURE:AREA DISPLAY,CHANNEL4");
+	  //     WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL2");
+	  //     ReadDouble(&area2);
+	  //     WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL4");
+	  //     ReadDouble(&area4);
+	  //     WriteIO(":ACQUIRE:AVERAGE OFF");
+	  //     //WriteIO(":SYSTem:TIME?");
+	  //     //ReadChar(&time);
+	  //     //ReadDouble(&hour);
+	  //     //ReadDouble(&minute);
+	  //     //ReadDouble(&second);
+	  //     WriteIO(":STOP");
+	  //     t = clock() - t;
+	  //   }
+
 	  //while (area2 >= 0.0 && area1 >= 0.0)
 	  //{
 	  t = clock();
