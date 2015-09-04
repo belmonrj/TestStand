@@ -5,6 +5,7 @@ this is the compiled code for performing the scans
 
 1) step2.cpp - essential, communicates with the stepper motors and oscilloscope to perform scans
 
+2) stepX.cpp - mostly useless, contains old dead code removed from step2 for examination
 
 these are the macros for analyzing the data:
 
