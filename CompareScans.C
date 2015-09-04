@@ -14,66 +14,66 @@ void CompareScans()
 void dofix3()
 {
 
-  // fixednumber_3
-  //   (
-  //    "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
-  //    "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
-  //    "20150825-1733_A4_LED_Panel_VMIN_SIPM1",
-  //    "Sebastian",
-  //    "Ron 8/24",
-  //    "Ron 8/25 (late)",
-  //    "Comparison of scans with panel blocked",
-  //    "panel blocked",
-  //    "A4_LED_3Comp_Panel_SiPM1"
-  //    );
+  fixednumber_3
+    (
+     "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+     "20150825-1733_A4_LED_Panel_VMIN_SIPM1",
+     "Sebastian",
+     "Ron 8/24",
+     "Ron 8/25 (late)",
+     "Comparison of scans with panel blocked",
+     "panel blocked",
+     "A4_LED_3Comp_Panel_SiPM1"
+     );
 
-  // fixednumber_3
-  //   (
-  //    "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM2",
-  //    "20150824-1701_A4_LED_Panel_VMIN_SIPM2",
-  //    "20150825-1733_A4_LED_Panel_VMIN_SIPM2",
-  //    "Sebastian",
-  //    "Ron 8/24",
-  //    "Ron 8/25 (late)",
-  //    "Comparison of scans with panel blocked",
-  //    "panel blocked",
-  //    "A4_LED_3Comp_Panel_SiPM2"
-  //    );
+  fixednumber_3
+    (
+     "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM2",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM2",
+     "20150825-1733_A4_LED_Panel_VMIN_SIPM2",
+     "Sebastian",
+     "Ron 8/24",
+     "Ron 8/25 (late)",
+     "Comparison of scans with panel blocked",
+     "panel blocked",
+     "A4_LED_3Comp_Panel_SiPM2"
+     );
 
 
-  // fixednumber_3
-  //   (
-  //    //"A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1", // obvious need for 4...
-  //    //"20150824-1750_A4_LED_NoBlock_VMIN_SIPM1",
-  //    "20150825-1133_A4_LED_NoBlock_VMIN_SIPM1",
-  //    "20150825-1622_A4_LED_NoBlock_VMIN_SIPM1",
-  //    "20150826-0945_A4_LED_NoBlock_VMIN_SIPM1",
-  //    //"Sebastian",
-  //    //"Ron 8/24",
-  //    "Ron 8/25 (early)",
-  //    "Ron 8/25 (late)",
-  //    "Ron 8/26",
-  //    "Comparison of scans with no blocking",
-  //    "no blocking",
-  //    "A4_LED_3Comp_NoBlock_SiPM1"
-  //    );
+  fixednumber_3
+    (
+     //"A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1", // obvious need for 4...
+     //"20150824-1750_A4_LED_NoBlock_VMIN_SIPM1",
+     "20150825-1133_A4_LED_NoBlock_VMIN_SIPM1",
+     "20150825-1622_A4_LED_NoBlock_VMIN_SIPM1",
+     "20150826-0945_A4_LED_NoBlock_VMIN_SIPM1",
+     //"Sebastian",
+     //"Ron 8/24",
+     "Ron 8/25 (early)",
+     "Ron 8/25 (late)",
+     "Ron 8/26",
+     "Comparison of scans with no blocking",
+     "no blocking",
+     "A4_LED_3Comp_NoBlock_SiPM1"
+     );
 
-  // fixednumber_3
-  //   (
-  //    //"A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM2", // obvious need for 4...
-  //    //"20150824-1750_A4_LED_NoBlock_VMIN_SIPM2",
-  //    "20150825-1133_A4_LED_NoBlock_VMIN_SIPM2",
-  //    "20150825-1622_A4_LED_NoBlock_VMIN_SIPM2",
-  //    "20150826-0945_A4_LED_NoBlock_VMIN_SIPM2",
-  //    //"Sebastian",
-  //    //"Ron 8/24",
-  //    "Ron 8/25 (early)",
-  //    "Ron 8/25 (late)",
-  //    "Ron 8/26",
-  //    "Comparison of scans with no blocking",
-  //    "no blocking",
-  //    "A4_LED_3Comp_NoBlock_SiPM2"
-  //    );
+  fixednumber_3
+    (
+     //"A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM2", // obvious need for 4...
+     //"20150824-1750_A4_LED_NoBlock_VMIN_SIPM2",
+     "20150825-1133_A4_LED_NoBlock_VMIN_SIPM2",
+     "20150825-1622_A4_LED_NoBlock_VMIN_SIPM2",
+     "20150826-0945_A4_LED_NoBlock_VMIN_SIPM2",
+     //"Sebastian",
+     //"Ron 8/24",
+     "Ron 8/25 (early)",
+     "Ron 8/25 (late)",
+     "Ron 8/26",
+     "Comparison of scans with no blocking",
+     "no blocking",
+     "A4_LED_3Comp_NoBlock_SiPM2"
+     );
 
   // ---
 
@@ -110,6 +110,19 @@ void dofix3()
      "20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM1",
      "20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM1",
      "20150826-1334_A4_LED_PanelAirClad_VMIN_SIPM1",
+     "Ron 8/25 (early)",
+     "Ron 8/25 (late)",
+     "Ron 8/26",
+     "Comparison of scans with panel, air, and clad blocked",
+     "no blocking",
+     "A4_LED_3Comp_LatePanelAirClad_SiPM1"
+     );
+
+  fixednumber_3
+    (
+     "20150825-1422_A4_LED_PanelAirClad_VMIN_SIPM2",
+     "20150825-1515_A4_LED_PanelAirClad_VMIN_SIPM2",
+     "20150826-1334_A4_LED_PanelAirClad_VMIN_SIPM2",
      "Ron 8/25 (early)",
      "Ron 8/25 (late)",
      "Ron 8/26",
@@ -207,6 +220,7 @@ void fixednumber_3(char *name1, char *name2, char *name3, char *short1, char * s
       leg->AddEntry(h2,short2,"l");
       leg->AddEntry(h3,short3,"l");
       leg->SetTextSize(0.04);
+      leg->SetFillStyle(0);
       leg->Draw();
 
       // --- similarly there's no good way to generalize the figure name
@@ -294,27 +308,98 @@ void dofix2()
 
   // ---
 
+  // fixednumber_2
+  //   (
+  //    "20150826-1505_A4_LED_PanelAir_VMIN_SIPM1",
+  //    "20150827-0946_A4_LED_PanelAir_VMIN_SIPM1",
+  //    "Ron 8/26",
+  //    "Ron 8/27",
+  //    "Comparison of scans with panel and air blocked",
+  //    "panel and air blocked",
+  //    "A4_LED_Comp_PanelAir_SiPM1"
+  //    );
+
+  // fixednumber_2
+  //   (
+  //    "20150826-1505_A4_LED_PanelAir_VMIN_SIPM2",
+  //    "20150827-0946_A4_LED_PanelAir_VMIN_SIPM2",
+  //    "Ron 8/26",
+  //    "Ron 8/27",
+  //    "Comparison of scans with panel and air blocked",
+  //    "panel and air blocked",
+  //    "A4_LED_Comp_PanelAir_SiPM2"
+  //    );
+
+  // fixednumber_2
+  //   (
+  //    "20150828-1609_A4_Source_PanelAir_VMIN_SIPM1",
+  //    "20150830-1452_A4_Source_PanelAir_VMIN_SIPM1",
+  //    "Ron 8/28",
+  //    "Ron 8/30",
+  //    "Comparison of source scans with panel and air blocked",
+  //    "panel and air blocked",
+  //    "A4_Source_Comp_PanelAir_SiPM1"
+  //    );
+
+  // fixednumber_2
+  //   (
+  //    "20150828-1609_A4_Source_PanelAir_VMIN_SIPM2",
+  //    "20150830-1452_A4_Source_PanelAir_VMIN_SIPM2",
+  //    "Ron 8/28",
+  //    "Ron 8/30",
+  //    "Comparison of source scans with panel and air blocked",
+  //    "panel and air blocked",
+  //    "A4_Source_Comp_PanelAir_SiPM2"
+  //    );
+
+  // ---
+
   fixednumber_2
     (
-     "20150826-1505_A4_LED_PanelAir_VMIN_SIPM1",
-     "20150827-0946_A4_LED_PanelAir_VMIN_SIPM1",
-     "Ron 8/26",
-     "Ron 8/27",
-     "Comparison of scans with panel and air blocked",
-     "panel and air blocked",
-     "A4_LED_Comp_PanelAir_SiPM1"
+     "20150831-1730_A1_Source_VMIN_SIPM1",
+     "20150901-0950_A1_Source_VMIN_SIPM1",
+     "Ron 8/31",
+     "Ron 9/01",
+     "Comparison of source scans (coated panel)",
+     "coated panel",
+     "A1_Source_Comp_SiPM1"
      );
 
   fixednumber_2
     (
-     "20150826-1505_A4_LED_PanelAir_VMIN_SIPM2",
-     "20150827-0946_A4_LED_PanelAir_VMIN_SIPM2",
-     "Ron 8/26",
-     "Ron 8/27",
-     "Comparison of scans with panel and air blocked",
-     "panel and air blocked",
-     "A4_LED_Comp_PanelAir_SiPM2"
+     "20150831-1730_A1_Source_VMIN_SIPM2",
+     "20150901-0950_A1_Source_VMIN_SIPM2",
+     "Ron 8/31",
+     "Ron 9/01",
+     "Comparison of source scans (coated panel)",
+     "coated panel",
+     "A1_Source_Comp_SiPM2"
      );
+
+  // ---
+
+  fixednumber_2
+    (
+     "20150901-1748_A1_LED_VMIN_SIPM1",
+     "20150902-1005_A1_LED_VMIN_SIPM1",
+     "Ron 9/01",
+     "Ron 9/02",
+     "Comparison of LED scans (coated panel)",
+     "coated panel",
+     "A1_LED_Comp_SiPM1"
+     );
+
+  fixednumber_2
+    (
+     "20150901-1748_A1_LED_VMIN_SIPM2",
+     "20150902-1005_A1_LED_VMIN_SIPM2",
+     "Ron 9/01",
+     "Ron 9/02",
+     "Comparison of LED scans (coated panel)",
+     "coated panel",
+     "A1_LED_Comp_SiPM2"
+     );
+
 
 
 
@@ -375,12 +460,22 @@ void fixednumber_2(char *name1, char *name2, char *short1, char * short2, char *
 	}
       else {cout<<"no maximum found???"<<endl;}
 
+      double xmax = 0;
+      if(max == max1) xmax = h1->GetBinCenter(h1->GetMaximumBin());
+      if(max == max2) xmax = h2->GetBinCenter(h2->GetMaximumBin());
+
       // --- unfortunately the legend has to be controlled completely manually
       // --- there's no way to automate it since it will always vary on a case by case basis
-      TLegend *leg = new TLegend(0.48,0.73,0.88,0.88);
+      TLegend *leg;
+      // --- try these for LED scans
+      // if(xmax<15) leg = new TLegend(0.58,0.73,0.88,0.88);
+      // else leg = new TLegend(0.18,0.73,0.48,0.88);
+      // --- try this for Source scans
+      leg = new TLegend(0.52,0.23,0.72,0.38);
       leg->AddEntry(h1,short1,"l");
       leg->AddEntry(h2,short2,"l");
       leg->SetTextSize(0.04);
+      leg->SetFillStyle(0);
       leg->Draw();
 
       // --- similarly there's no good way to generalize the figure name

@@ -6,6 +6,8 @@ void DrawAsymmetry()
 
   start("20150831-1730_A1_Source");
   start("20150901-0950_A1_Source");
+  start("20150901-1748_A1_LED");
+  start("20150902-1005_A1_LED");
 
 }
 
@@ -89,6 +91,7 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   TLegend *leg = new TLegend(0.4,0.2,0.6,0.4);
   leg->AddEntry(hp5_1,"SiPM1","l");
   leg->AddEntry(hp5_2,"SiPM2","l");
+  leg->SetFillStyle(0);
   leg->Draw();
 
   // generalize

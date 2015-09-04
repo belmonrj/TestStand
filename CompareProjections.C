@@ -1,24 +1,23 @@
 void CompareProjections()
 {
 
-  // fixednumber
-  //   (
-  //    "A4_LED_Assymetry_NoBlock_Recouple_VMin_SiPM1",
-  //    "A4_LED_Assymetry_PannelBlockOnly_Recouple_VMin_SiPM1",
-  //    "A4_LED_Assymetry_PannelAirBlock_Recouple_VMin_SiPM1",
-  //    "A4_LED_Assymetry_CladBlock_Recouple_VMin_SiPM1",
-  //    "A4_LED_Comp_SiPM"
-  //    );
-  // fixednumber
-  //   (
-  //    "20150824-1750_A4_LED_NoBlock_VMIN_SIPM1",
-  //    "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
-  //    "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
-  //    "20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1",
-  //    "20150824_A4_LED_Comp_SiPM"
-  //    );
+  fixednumber
+    (
+     "20150821-1312_A4_LED_NoBlock_VMIN_SIPM1",
+     "20150821-1431_A4_LED_Panel_VMIN_SIPM1",
+     "20150821-1550_A4_LED_PanelAir_VMIN_SIPM1",
+     "20150821-1651_A4_LED_PanelAirClad_VMIN_SIPM1",
+     "20150821_A4_LED_Comp_SiPM1"
+     );
 
-  // ---
+  fixednumber
+    (
+     "20150824-1750_A4_LED_NoBlock_VMIN_SIPM1",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+     "20150824-1701_A4_LED_Panel_VMIN_SIPM1",
+     "20150824-1552_A4_LED_PanelAirClad_VMIN_SIPM1",
+     "20150824_A4_LED_Comp_SiPM"
+     );
 
   fixednumber
     (
@@ -130,6 +129,7 @@ void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outna
       leg->AddEntry(h2,"Add panel light blocking","l");
       leg->AddEntry(h3,"Add air light blocking","l");
       leg->AddEntry(h4,"Add cladding light blocking","l");
+      leg->SetFillStyle(0);
       leg->SetTextSize(0.04);
       leg->Draw();
 
