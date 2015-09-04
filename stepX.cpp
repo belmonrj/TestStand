@@ -3,12 +3,12 @@
 //
 // Author:		Sebastian Seeds
 // Date:		2.24.15
-// Use:			For use with Zaber stepper motors for transport and 
-//				positioning of a radioactive source above static 
+// Use:			For use with Zaber stepper motors for transport and
+//				positioning of a radioactive source above static
 //				scintillating tiles. Includes sample ZABER code for manual
-//				repositioning. Made for the SPHENIX HCal upgrade for use 
+//				repositioning. Made for the SPHENIX HCal upgrade for use
 //				with QA testing.
-// 
+//
 //////////////////////////////////////////////////////////////////////////
 
 // Sample Code Documentation
@@ -123,7 +123,7 @@ void ReadDouble(double *buffer)
 	iscanf(oscillo, "%lf", buffer);
 }
 
-/*void ReadChannel(char* source, double magnitude[], unsigned long &BytesToRead, int &success)
+void ReadChannel(char* source, double magnitude[], unsigned long &BytesToRead, int &success)
 {
 	/// printf(source);
 	/// printf("\n");
@@ -179,11 +179,11 @@ void ReadDouble(double *buffer)
 		cout<<BytesToRead<<" Too many points from scope"<<endl;
 		return;
 	}
-	
+
 	//Read in waveform data
 	ReadWord(waveform, BytesToRead);
 	ReadByte(&Term, 1L);
-	
+
 	for(int ii = 1; ii <= (signed) BytesToRead/2; ii++)
 	{
 		//Calculate voltages
@@ -199,19 +199,19 @@ void ReadDouble(double *buffer)
 // END SCOPE FUNCTIONS ---------------------------------------------------
 
 // BEGIN EXAMPLE CODE ----------------------------------------------------
-/*                                                               //Comment
+                                                               //Comment
 void gotoxy(int x, int y)
 {
-  static HANDLE h = NULL;  
+  static HANDLE h = NULL;
   if(!h)
     h = GetStdHandle(STD_OUTPUT_HANDLE);
-  COORD c = { x,y };  
+  COORD c = { x,y };
   SetConsoleCursorPosition(h,c);
 }
 
-void clrscr() 
-{ 
-  system("cls"); 
+void clrscr()
+{
+  system("cls");
 }
 
 // This is a helper command to redraw the screen
@@ -257,7 +257,7 @@ void Instruction
   Redraw();
   PSERIAL_Send(Unit, Command, Data);
 }
- */ 															 //Comment
+
 
 /*------------------------------------------------------------------------
   // This is the concept behind polled mode operation
@@ -284,8 +284,7 @@ void Instruction
 ------------------------------------------------------------------------*/
 // This is the main function.
 
-/*																  //Comment
-int main
+int xmainx
 (
   void
 )
@@ -369,24 +368,24 @@ int main
   // Exit program
   return 0;
 }
-*/  															  //Comment			
+
 
 // END SAMPLE CODE --------------------------------------------------------
 
 // BEGIN SCAN CODE --------------------------------------------------------
 
-// All commands follow the structure "PSERIAL_Send( X,Y,Z )" where X is the 
-// target drive (for several daisy-chained), Y is the Zaber command (20 is 
-// move absolute, for instance), and Z is data (microsteps to move for 
-// command 20, for instance). All daisy-chained drives must be numbered 
+// All commands follow the structure "PSERIAL_Send( X,Y,Z )" where X is the
+// target drive (for several daisy-chained), Y is the Zaber command (20 is
+// move absolute, for instance), and Z is data (microsteps to move for
+// command 20, for instance). All daisy-chained drives must be numbered
 // for coherent commands. This is accomplished with zaber command 2 (already
-// present in code). Wait times are essential to prevent data collision. 
+// present in code). Wait times are essential to prevent data collision.
 // Data value "64" denotes that the value is irrelevant for the command.
 
 int main(void)
 
 {
-  
+
   time_t t = time(NULL);
   struct tm tm = *localtime(&t);
 
@@ -468,7 +467,7 @@ int main(void)
   double sleeptime2 = 0.0;
 
   // Adjust for number of steps across x and y ////////////////////////////
-  
+
   int xsteps = 58;
   int ysteps = 9;
   //int xsteps = 58;
@@ -559,8 +558,8 @@ int main(void)
   double hardstopx = 0.0;
   double hardstopy = 0.0;
 
-  //Prevents adjustment of the hardstops from running the carriage into the 
-  //end of the drive. 
+  //Prevents adjustment of the hardstops from running the carriage into the
+  //end of the drive.
   if (hardstopx > xmicrosteptot) hardstopx = xmicrosteptot;
   if (hardstopy > ymicrosteptot) hardstopy = ymicrosteptot;
 
@@ -597,7 +596,7 @@ int main(void)
 			sleeptime = 50*1000*((ycurrentpos-yorigin)/ymicrosteptot); //(length of drive in cm)*(ms/cm)*(fractional drive position)
 		}
 		//wait time to send to the origin from zero
-		if(jj==0 && ii ==0){ 
+		if(jj==0 && ii ==0){
 			if(xorigincm > yorigincm)
 			{
 				sleeptime = 1000*xorigincm; //(ms/cm)*(origin)
@@ -609,28 +608,28 @@ int main(void)
 
 		printf("\nMoving to column %i, row %i\n", ii, jj);
 		PSERIAL_Send( 2,20,(yorigin + jj*ygeneralstep) );
-		
+
 		if (jj == 0)
 		{
 			Sleep(sleeptime);
 		}else
 		{
 			Sleep(1000*ysteplengthcm); // (ms/cm)*(cm/step)
-		}	
+		}
 
 
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
 		// Here include method for data aquisition ---------------------------
-		
+
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
 
 		// PULSE FIT INTEGRATION METHOD - For independently written scope code.
 		//oscillo = iopen("gpib1,7");
-		//system("scope.exe");	
+		//system("scope.exe");
 
 
 	///////////////////////////////////////////////////////////////////////////
@@ -638,7 +637,7 @@ int main(void)
 
 		/*
 		// AVERAGING METHOD
-		
+
 		oscillo = iopen("gpib1,7");
 		double hits = 0.0;
 		double mean = 0.0;
@@ -650,7 +649,7 @@ int main(void)
 		//WriteIO(":HISTOGRAM:WINDOW:X1POSITION 85.0e-9");//for strt Y11MCS
 		//WriteIO(":HISTOGRAM:WINDOW:X2POSITION 125.0e-9");
 		WriteIO(":HISTOGRAM:WINDOW:X1POSITION 110.0e-9"); //for custom serpentine
-		WriteIO(":HISTOGRAM:WINDOW:X2POSITION 150.0e-9");	
+		WriteIO(":HISTOGRAM:WINDOW:X2POSITION 150.0e-9");
 		cout << "Averaging enabled" << endl;
 
 		while (hits < 400000)
@@ -663,7 +662,7 @@ int main(void)
 			ReadDouble(&hits);
 			cout << hits << endl;
 		}
-	
+
 		WriteIO(":ACQUIRE:AVERAGE OFF");
 		WriteIO(":STOP");
 		WriteIO(":MEASURE:HISTOGRAM:MEAN?");
@@ -673,21 +672,21 @@ int main(void)
 		file << mean << "\n";
 		printf("Data Collected");
 		Sleep(2000);
-*/		
+*/
 
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
 		//NEW TEST -> INTEGRAL METHOD
 
-		oscillo = iopen("gpib1,7");	
+		oscillo = iopen("gpib1,7");
 		double area1 = 0.0; //New
 		double area2 = 0.0;
 		double vmin1 = 10.0;
 		double vmin2 = 10.0;
 		time_t rawtime;
 		clock_t t;
-		struct tm * timeinfo;		
+		struct tm * timeinfo;
 		time ( &rawtime );
 		timeinfo = localtime ( &rawtime );
 		//double hour = 0.0;
@@ -732,7 +731,7 @@ int main(void)
 			t = clock();
 			WriteIO(":RUN");
 			WriteIO(":ACQUIRE:AVERAGE:COUNT 1000");
-			WriteIO(":ACQUIRE:AVERAGE ON");	
+			WriteIO(":ACQUIRE:AVERAGE ON");
 			cout << "Averaging enabled" << endl;
 			WriteIO(":MEASURE:AREA DISPLAY,CHANNEL2");
 			WriteIO(":MEASURE:AREA DISPLAY,CHANNEL4");
@@ -756,7 +755,7 @@ int main(void)
 			WriteIO(":RUN");
 			WriteIO(":MEASURE:SENDVALID ON");
 			WriteIO(":ACQUIRE:AVERAGE:COUNT 1500");
-			WriteIO(":ACQUIRE:AVERAGE ON");	
+			WriteIO(":ACQUIRE:AVERAGE ON");
 			//cout << "Averaging enabled" << endl;
 
 			// Measure the area for Channel 1
@@ -766,16 +765,16 @@ int main(void)
 			//cout <<"Area 1 "<< area1 << endl;
 			//iclose(oscillo);
 			//oscillo = iopen("gpib1,7");
-			
+
 			// Measure the area for Channel 2
 			//WriteIO(":MEASURE:AREA DISPLAY,CHANNEL2");
-			//WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL2"); 
+			//WriteIO(":MEASURE:AREA? DISPLAY,CHANNEL2");
 			//ReadDouble(&area2);
 			//cout <<"Area 2 "<< area2 << endl;
 			// comment out these two lines if only doing area 1 and area 2
 			//iclose(oscillo);
 			//oscillo = iopen("gpib1,7");
-			
+
 			//// Measure the VMin for Channel 1
 			WriteIO(":MEASURE:SOURCE CHANNEL1");
 			WriteIO(":MEASURE:VMIN");
@@ -784,7 +783,7 @@ int main(void)
 			cout <<"VMin 1 "<< vmin1 << endl;
 			iclose(oscillo);
 			oscillo = iopen("gpib1,7");
-			
+
 			// Measure the VMin for Channel 2
 			WriteIO(":MEASURE:SOURCE CHANNEL2");
 			WriteIO(":MEASURE:VMIN");
@@ -801,7 +800,7 @@ int main(void)
 			WriteIO(":STOP");
 			t = clock() - t;
 		//}
-		
+
 		iclose(oscillo);
 		//cout << "Ch.1 integral: " << area1 << endl; //New
 		//cout << "Ch.2 integral: " << area2 << endl;
@@ -819,16 +818,16 @@ int main(void)
 		printf("Data Collected");
 		Sleep(2000);
 
-		
+
 
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
 		// End data aquisition -----------------------------------------------
 	}
-	
+
   }
-	
+
   // Closing and rezeroing.
   file_1.close();
   file_2.close();
@@ -848,13 +847,9 @@ int main(void)
   */
   // -------------------------------------------------------------------------
   ////////////////////////////////////////////////////////////////////////////
-  
+
   PSERIAL_Close();
 
   // Exiting program.
   return 0;
 }
-
-
-
-
