@@ -1,3 +1,10 @@
+double frac1[9]; // light fraction from SiPM1
+double frac2[9]; // light fraction from SiPM2
+double fracAs[9]; // light fraction from asymmetry
+double fracAv[9]; // average of frac1 and frac2
+
+
+
 void DrawAsymmetry()
 {
 
@@ -32,6 +39,55 @@ void start(const char *basename)
   calc(file1,file2,basename,7);
   calc(file1,file2,basename,8);
 
+  ofstream fout(Form("Data/Text/%s_Asymmetries.txt"));
+  double pn[9];
+  for(int i=0; i<9; i++)
+    {
+      fout<<frac1[i]<<" "
+	  <<frac2[i]<<" "
+	  <<fracAv[i]<<" "
+	  <<fracAs[i]<<" "
+	  <<endl;
+      //pn[i] = i+0.5; // projection number
+      pn[i] = -2.0 + i/2.0; // distance
+    }
+
+  TGraph *tg1 = new TGraph(9,pn,frac1);
+  TGraph *tg2 = new TGraph(9,pn,frac2);
+  TGraph *tgAv = new TGraph(9,pn,fracAv);
+  TGraph *tgAs = new TGraph(9,pn,fracAs);
+  tg1->SetMarkerStyle(kFullCircle);
+  tg2->SetMarkerStyle(kFullCircle);
+  tgAv->SetMarkerStyle(kOpenCircle);
+  tgAs->SetMarkerStyle(kFullSquare);
+  tg1->SetMarkerColor(kBlue);
+  tg2->SetMarkerColor(kRed);
+  tgAv->SetMarkerColor(kBlack);
+  tgAs->SetMarkerColor(kBlack);
+  TMultiGraph *tmg = new TMultiGraph();
+  tmg->Add(tgAs);
+  tmg->Add(tg1);
+  tmg->Add(tg2);
+  tmg->Add(tgAv);
+  tmg->Draw("ap");
+  tmg->SetMaximum(1.0);
+  tmg->SetMinimum(0.0);
+  tmg->GetXaxis()->SetLimits(-2.25,2.25);
+  //tmg->GetXaxis()->SetLimits(0.0,9.0); // projection number
+  tmg->GetXaxis()->SetTitle("Distance from fiber (cm)");
+  tmg->GetYaxis()->SetTitle("f_{core} from different methods");
+  TLegend *leg1 = new TLegend(0.18,0.18,0.28,0.38);
+  leg1->AddEntry(tg1,"SiPM1","p");
+  leg1->AddEntry(tg2,"SiPM2","p");
+  leg1->AddEntry(tgAv,"Average SiPM1+SiPM2","p");
+  leg1->AddEntry(tgAs,"Asymmetry","p");
+  leg1->SetFillStyle(0);
+  leg1->SetTextSize(0.05);
+  leg1->Draw();
+
+  c1->Print(Form("Figures/%s_AsymmetryComparison.png",basename));
+  c1->Print(Form("Figures/%s_AsymmetryComparison.pdf",basename));
+
 }
 
 
@@ -64,8 +120,8 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   double max1 = hp5_1->GetMaximum();
   double max2 = hp5_2->GetMaximum();
 
-  hp5_1->GetXaxis()->SetTitle("distance (cm)");
-  hp5_2->GetXaxis()->SetTitle("distance (cm)");
+  hp5_1->GetXaxis()->SetTitle("Distance (cm)");
+  hp5_2->GetXaxis()->SetTitle("Distance (cm)");
   hp5_1->GetYaxis()->SetTitle("Number of photoelectrons");
   hp5_2->GetYaxis()->SetTitle("Number of photoelectrons");
 
@@ -100,10 +156,10 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
 
   ofstream fout(Form("Data/Text/Asymmetry/%s_asymmetry_p%d.txt",basename,projnumb));
   TH1D *hp5_asymm = (TH1D *)hp5_1->Clone();
-  float x[58];
-  float y[58];
-  float y1[58];
-  float y2[58];
+  double x[58];
+  double y[58];
+  double y1[58];
+  double y2[58];
   TH1D *h1 = new TH1D("h1","",50,0,25);
   TH1D *h2 = new TH1D("h2","",50,0,25);
   for(int i=0; i<nbins; i++)
@@ -130,18 +186,9 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
       // ---
       fout<<hp5_asymm->GetBinCenter(i+1)<<" "
 	  <<hp5_asymm->GetBinContent(i+1)<<endl;
-      // --- picking which points to skip needs to be evaluated on a case-by-case basis
-      // if(i<2||i>(nbins-3)) hp5_asymm->SetBinContent(i+1,-9); // skip the first 2 and last 2
-      // if(i<2||i>(nbins-3)) hp5_asymm->SetBinContent(i+1,-9); // skip the first 2 and last 2
-      // if(i<3||i>(nbins-4)) hp5_asymm->SetBinContent(i+1,-9); // skip the first 2 and last 2
-      // if(i<3||i>(nbins-4)) hp5_asymm->SetBinContent(i+1,-9); // skip the first 2 and last 2
-      // if(i<5||i>(nbins-6)) hp5_asymm->SetBinContent(i+1,-9); // skip the first 5 and last 5
-      // if(i<5||i>(nbins-6)) hp5_asymm->SetBinContent(i+1,-9); // skip the first 5 and last 5
     }
   fout.close();
 
-  // hp5_asymm->Rebin(2);
-  // hp5_asymm->Scale(0.5); // rebinning a th1 requires scaling
   hp5_asymm->SetMarkerColor(kBlack);
   hp5_asymm->SetMarkerStyle(kFullCircle);
   hp5_asymm->Draw("ex0p");
@@ -166,8 +213,8 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   h1->SetMinimum(0);
   h2->SetMinimum(0);
 
-  h1->GetXaxis()->SetTitle("distance (cm)");
-  h2->GetXaxis()->SetTitle("distance (cm)");
+  h1->GetXaxis()->SetTitle("Distance (cm)");
+  h2->GetXaxis()->SetTitle("Distance (cm)");
   h1->GetYaxis()->SetTitle("Number of photoelectrons");
   h2->GetYaxis()->SetTitle("Number of photoelectrons");
 
@@ -181,21 +228,12 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   tgy1->SetMinimum(0);
   tgy2->SetMinimum(0);
 
-  tgy1->GetXaxis()->SetTitle("distance (cm)");
-  tgy2->GetXaxis()->SetTitle("distance (cm)");
+  tgy1->GetXaxis()->SetTitle("Distance (cm)");
+  tgy2->GetXaxis()->SetTitle("Distance (cm)");
   tgy1->GetYaxis()->SetTitle("Number of photoelectrons");
   tgy2->GetYaxis()->SetTitle("Number of photoelectrons");
 
-  // TF1 *funx1 = new TF1("funx1","pol0(0)+expo(1)",0,25);
-  // funx1->SetLineColor(kBlue);
-  // tgy1->Fit(funx1,"R");
-  // TF1 *funx2 = new TF1("funx2","pol0(0)+expo(1)",0,25);
-  // funx2->SetLineColor(kRed);
-  // tgy2->Fit(funx2,"R");
-
-  c1->Clear();
-
-  float maxx = 0;
+  double maxx = 0;
   if(max1>=max2)
     {
       // case 1
@@ -213,39 +251,41 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
 
   TF1 *funx1 = new TF1("funx1","[0]+[1]*TMath::Exp(-x/[2])",0,25);
   funx1->SetLineColor(kBlue);
-  funx1->SetParameter(0,5.0);
-  funx1->SetParameter(1,5.0);
-  funx1->FixParameter(2,5.0);
-  tgy1->Fit(funx1,"","",1,24);
+  funx1->SetParameter(0,5.0); // number of photoelectrons in core
+  funx1->SetParameter(1,5.0); // number of photoelectrons in clad
+  funx1->FixParameter(2,5.0); // clad decay constant
+  tgy1->Fit(funx1,"","",1,24); // need to use TGraph here, fitting h1 produces "Warning in <Fit>: Fit data is empty"
+                               // I don't know why this happening, probably some dumb mistake I'm making
   TF1 *funx2 = new TF1("funx2","[0]+[1]*TMath::Exp((x-25)/[2])",0,25);
   funx2->SetLineColor(kRed);
-  funx2->SetParameter(0,5.0);
-  funx2->SetParameter(1,5.0);
-  funx2->FixParameter(2,5.0);
-  tgy2->Fit(funx2,"","",1,24);
+  funx2->SetParameter(0,5.0); // number of photoelectrons in core
+  funx2->SetParameter(1,5.0); // number of photoelectrons in clad
+  funx2->FixParameter(2,5.0); // clad decay constant
+  tgy2->Fit(funx2,"","",1,24); // need to use TGraph here, fitting h2 produces "Warning in <Fit>: Fit data is empty"
+                               // I don't know why this happening, probably some dumb mistake I'm making
 
-  // tgy1->Draw("same");
-  // tgy2->Draw("same");
+  // tgy1->Draw("same"); // looks cool but distracting
+  // tgy2->Draw("same"); // looks cool but distracting
   funx1->Draw("same");
   funx2->Draw("same");
 
-  float numcore1 = funx1->GetParameter(0);
-  float numclad1 = funx1->GetParameter(1);
-  float numcore2 = funx2->GetParameter(0);
-  float numclad2 = funx2->GetParameter(1);
-  float Enumcore1 = funx1->GetParError(0);
-  float Enumclad1 = funx1->GetParError(1);
-  float Enumcore2 = funx2->GetParError(0);
-  float Enumclad2 = funx2->GetParError(1);
+  double numcore1 = funx1->GetParameter(0);
+  double numclad1 = funx1->GetParameter(1);
+  double numcore2 = funx2->GetParameter(0);
+  double numclad2 = funx2->GetParameter(1);
+  double Enumcore1 = funx1->GetParError(0);
+  double Enumclad1 = funx1->GetParError(1);
+  double Enumcore2 = funx2->GetParError(0);
+  double Enumclad2 = funx2->GetParError(1);
 
-  float fracore1 = (numcore1)/(numcore1+numclad1);
-  float fracore2 = (numcore2)/(numcore2+numclad2);
+  double fracore1 = (numcore1)/(numcore1+numclad1);
+  double fracore2 = (numcore2)/(numcore2+numclad2);
   // ---
-  float partB;
+  double partB;
   partB = sqrt(Enumcore1**2+Enumclad2**2);
-  float Efracore1 = fracore1*sqrt((Enumcore1/numcore1)**2+(partB/(numcore1+numclad1))**2);
+  double Efracore1 = fracore1*sqrt((Enumcore1/numcore1)**2+(partB/(numcore1+numclad1))**2);
   partB = sqrt(Enumcore2**2+Enumclad2**2);
-  float Efracore2 = fracore2*sqrt((Enumcore2/numcore2)**2+(partB/(numcore2+numclad2))**2);
+  double Efracore2 = fracore2*sqrt((Enumcore2/numcore2)**2+(partB/(numcore2+numclad2))**2);
 
   TLatex *texAC1 = new TLatex(2,0.27*maxx,Form("f_{core} = %.3f #pm %.3f",fracore1,Efracore1));
   texAC1->SetTextColor(kBlue);
@@ -267,7 +307,6 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   texAB2->SetTextColor(kRed);
   texAB2->Draw();
 
-
   // ---
 
   c1->Print(Form("Figures/FITATOGETHER_%s_p%d.png",basename,projnumb));
@@ -288,23 +327,13 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   fun2->FixParameter(2,5); // decay constant in fiber cladding
   fun2->SetParameter(3,0.01);
 
-  // fit the data
-  //hp5_asymm->Fit("fun","","",4,25);
-  //fun->Draw("same");
-  //cout<<"entries "<<hp5_asymm->GetEntries()<<endl;
-
-  //nbins = hp5_asymm->GetNbinsX();
-  // float *x = new float[nbins];
-  // float *y = new float[nbins];
-  cout<<"x "<<x[15]<<" y "<<y[15]<<endl;
-  //TGraph *tg = new TGraph(nbins,x,y);
   TGraph *tg = new TGraph(58,x,y);
   tg->SetMarkerStyle(kFullCircle);
   tg->Draw("ap");
   tg->GetYaxis()->SetTitle("Asymmetry of light yields");
-  tg->GetXaxis()->SetTitle("Panel position (cm)");
+  tg->GetXaxis()->SetTitle("Distance (cm)");
   tg->GetXaxis()->SetLimits(0,25);
-  float scale = 0.4;
+  double scale = 0.4;
   tg->SetMinimum(-1*scale);
   tg->SetMaximum(1*scale);
   tg->Fit("fun2","","",0,25);
@@ -322,22 +351,28 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   double Eoff = fun2->GetParError(3);
 
   // use the fit parameters to put text boxes with fit information on the plt
-  TLatex *tex1 = new TLatex(15,-0.45*scale,Form("f_{core} = %.3f #pm %.3f",frac,Efrac));
-  tex1->SetTextColor(kRed);
+  TLatex *tex1 = new TLatex(15,-0.30*scale,Form("f_{core} = %.3f #pm %.3f",frac,Efrac));
+  tex1->SetTextColor(kGreen+2);
   tex1->Draw();
-  TLatex *tex2 = new TLatex(15,-0.60*scale,Form("#lambda_{core} = %.1f (FIXED)",core));
-  tex2->SetTextColor(kBlue);
+  TLatex *tex2 = new TLatex(15,-0.45*scale,Form("#lambda_{core} = %.1f (FIXED)",core));
+  tex2->SetTextColor(kBlack);
   tex2->Draw();
-  TLatex *tex3 = new TLatex(15,-0.75*scale,Form("#lambda_{clad} = %.1f (FIXED)",clad));
-  tex3->SetTextColor(kBlue);
+  TLatex *tex3 = new TLatex(15,-0.60*scale,Form("#lambda_{clad} = %.1f (FIXED)",clad));
+  tex3->SetTextColor(kBlack);
   tex3->Draw();
-  TLatex *texX = new TLatex(5,-0.75*scale,Form("offset = %.3f #pm %.3f",off,Eoff));
+  TLatex *texX = new TLatex(15,-0.75*scale,Form("offset = %.3f #pm %.3f",off,Eoff));
   texX->SetTextColor(kGreen+2);
   texX->Draw();
 
   // generalize
   c1->Print(Form("Figures/FITASYMMETRY_%s_p%d.png",basename,projnumb));
   c1->Print(Form("Figures/FITASYMMETRY_%s_p%d.pdf",basename,projnumb));
+
+  // ---
+  frac1[projnumb] = fracore1;
+  frac2[projnumb] = fracore2;
+  fracAv[projnumb] = (fracore1+fracore2)/2.0;
+  fracAs[projnumb] = frac;
 
   delete h1;
   delete h2;
