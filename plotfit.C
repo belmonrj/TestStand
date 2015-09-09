@@ -53,7 +53,8 @@ void plotfit()
   TF1 *fun = new TF1("fun","(([0]*TMath::Exp((x-25)/[1])+(1-[0])*TMath::Exp((x-25)/[2]))-([0]*TMath::Exp(-x/[1])+(1-[0])*TMath::Exp(-x/[2])))/(([0]*TMath::Exp(-x/[1])+(1-[0])*TMath::Exp(-x/[2]))+([0]*TMath::Exp((x-25)/[1])+(1-[0])*TMath::Exp((x-25)/[2])))",0,25);
   fun->SetParameter(0,0.5); // light fraction in fiber core
   fun->FixParameter(1,350); // decay constant in fiber core
-  fun->FixParameter(2,4); // decay constant in fiber cladding
+  fun->FixParameter(2,5); // decay constant in fiber cladding
+  //fun->FixParameter(2,4); // decay constant in fiber cladding
 
   // fit the UCB data
   tgsebastian->Fit("fun","","",0,25);
@@ -89,6 +90,10 @@ void plotfit()
   tex1->SetTextColor(kBlack);
   tex1->Draw();
   // print the plot to a file and clear the canvas
+  TLine line(0,0,25,0);
+  line.SetLineWidth(2);
+  line.SetLineStyle(2);
+  line.Draw();
   c1->Print("acu-cub-comp_fig.png");
   c1->Print("acu-cub-comp_fig.pdf");
   c1->Clear();
@@ -104,6 +109,7 @@ void plotfit()
   tgsebastian->Fit(funlin1,"","",0,25);
   tgrusty->Fit(funlin2,"","",0,25);
   // print to file and clear the canvas
+  line.Draw();
   c1->Print("acu-cub-comp_figlinfit.png");
   c1->Print("acu-cub-comp_figlinfit.pdf");
   c1->Clear();
@@ -118,6 +124,7 @@ void plotfit()
   fun3->FixParameter(1,350);
   fun3->FixParameter(2,4);
   fun3->Draw();
+  line.Draw();
   c1->Print("fun.png");
 
 
