@@ -39,19 +39,27 @@ void doit(const char *basename)
     }
   h1->Draw();
   h1->Fit(fun,"R");
+  TLatex *tex1 = new TLatex(mu+7*sigma,0.16.5*fun->GetParameter(0),Form("#mu_{in} = %f, #mu_{out} = %f",mu,fun->GetParameter(1)));
+  tex1->Draw();
+  TLatex *tex2 = new TLatex(mu+7*sigma,0.14.5*fun->GetParameter(0),Form("#sigma_{in} = %f, #sigma_{out} = %f",sigma,fun->GetParameter(2)));
+  tex2->Draw();
+  TLatex *tex3 = new TLatex(mu+7*sigma,0.12.5*fun->GetParameter(0),Form("%d random throws",number));
+  tex3->Draw();
   c1->Print(Form("Figures/Distribution/%s_random.png",basename));
 
 
   // --- now make a histogram with actual data in it
   TH1D *h2 = new TH1D("h2","",100,min,max);
   ifstream fin2(Form("TEMP/%s_Unaveraged_VMin1.txt",basename));
-  for(int i=0; i<number; i++)
+  int counter = 0;
+  double voltage;
+  while(fin2>>voltage)
     {
-      double voltage = -9999;
-      fin2>>voltage;
-      voltage *= -1;
-      if(voltage<9999) h2->Fill(voltage);
+      h2->Fill(-voltage);
+      counter++;
     }
+  fin2.close();
+  cout << counter << " events read in " << endl;
   h2->Draw();
   // --- draw a figure with just the histogram
   c1->Print(Form("Figures/Distribution/%s_voltage.png",basename));
@@ -65,13 +73,14 @@ void doit(const char *basename)
   // --- now read in the data file for the other SiPM to draw the distributions together
   TH1D *h3 = new TH1D("h3","",100,min,max);
   ifstream fin3(Form("TEMP/%s_Unaveraged_VMin2.txt",basename));
-  for(int i=0; i<number; i++)
+  counter = 0;
+  while(fin3>>voltage)
     {
-      double voltage = -9999;
-      fin3>>voltage;
-      voltage *= -1;
-      if(voltage<9999) h3->Fill(voltage);
+      h3->Fill(-voltage);
+      counter++;
     }
+  fin3.close();
+  cout << counter << " events read in " << endl;
   h3->SetLineColor(kRed);
   h2->SetLineColor(kBlue);
   double max3 = h3->GetMaximum();
