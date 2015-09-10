@@ -39,6 +39,8 @@ void analyzerV2_mean()
   doana("20150901-0950_A1_Source");
   doana("20150901-1748_A1_LED");
   doana("20150902-1005_A1_LED");
+  doana("20150909-1318_A1_LED");
+  doana("20150910-1215_A1_LED"); // looks bad, triggered on coincidence instead of function generator
 
 }
 
