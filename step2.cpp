@@ -247,7 +247,7 @@ int main(void)
 
 
   // --- Checks to see if parameters are within physics ranges of the stages
-  if (xsteps*xgeneralstep+xorigin > xmicrosteptot || ysteps*ygeneralstep+yorigin > ymicrosteptot)
+  if(xsteps*xgeneralstep+xorigin > xmicrosteptot || ysteps*ygeneralstep+yorigin > ymicrosteptot)
     {
       cout << "Settings take the source beyond the end of the drive. Please readjust." << endl;
       return 0;
@@ -271,7 +271,7 @@ int main(void)
   long Data2;
 
   // --- Give a warning if step settings distort the scan grid
-  if ( xgeneralstep > ygeneralstep + 1000 || xgeneralstep < ygeneralstep - 1000)
+  if( xgeneralstep > ygeneralstep + 1000 || xgeneralstep < ygeneralstep - 1000)
     {
       cout << "Warning: Check Aspect Ratio." << endl;
       cout << "Each step in X is " << xgeneralstep << "." << endl;
@@ -286,26 +286,26 @@ int main(void)
   // --- Rezero the drives (send them to the home position)
   // --- Question from Ron B. to Sebastian S. - is this necessary?
   PSERIAL_Open("com3");
-  PSERIAL_Send( 0,2,0);
+  PSERIAL_Send(0, 2, 0);
   Sleep(1500);
-  //PSERIAL_Send( 1,1,64 );
-  //PSERIAL_Send( 2,1,64 );
+  //PSERIAL_Send(1, 1, 64);
+  //PSERIAL_Send(2, 1, 64);
   // Waiting for drives by current position
   // Returns current position
-  PSERIAL_Send( 1,60,64 );
-  while (1)
+  PSERIAL_Send(1, 60, 64);
+  while (1) // Seems like an odd construction...
     {
-      if (PSERIAL_Receive (&Unit, &Command, &Data) && Unit == 1 && Command == 60)
+      if( PSERIAL_Receive(&Unit, &Command, &Data) && Unit == 1 && Command == 60)
 	{
 	  xcurrentpos = Data;
 	  break;
 	}
     }
   Sleep(1500);
-  PSERIAL_Send( 2,60,64 );
-  while (1)
+  PSERIAL_Send(2, 60, 64);
+  while (1) // Seems like an odd construction...
     {
-      if (PSERIAL_Receive (&Unit, &Command, &Data2) && Unit == 2 && Command == 60)
+      if( PSERIAL_Receive(&Unit, &Command, &Data2) && Unit == 2 && Command == 60)
 	{
 	  ycurrentpos = Data2;
 	  break;
@@ -350,17 +350,17 @@ int main(void)
 
 
   // --- Begin the scan
-  for (int ii = 0; ii < xsteps; ii++)
+  for(int ii = 0; ii < xsteps; ii++)
     {
 
-      PSERIAL_Send( 1,20, (xorigin + ii*xgeneralstep) );
+      PSERIAL_Send(1, 20, (xorigin + ii*xgeneralstep));
 
-      for (int jj = 0; jj < ysteps; jj++)
+      for(int jj = 0; jj < ysteps; jj++)
 	{
 	  //Setting the sleeptime for y to return
 	  if (jj == 0 && ii != 0)
 	    {
-	      PSERIAL_Send( 2,60,64 );
+	      PSERIAL_Send(2, 60, 64);
 	      while (1)
 		{
 		  if (PSERIAL_Receive (&Unit2,&Command,&Data2) && Unit2 == 2 && Command == 60)
@@ -372,12 +372,13 @@ int main(void)
 	      sleeptime = 50*1000*((ycurrentpos-yorigin)/ymicrosteptot); //(length of drive in cm)*(ms/cm)*(fractional drive position)
 	    }
 	  //wait time to send to the origin from zero
-	  if(jj==0 && ii ==0)
+	  if(jj == 0 && ii == 0)
 	    {
 	      if(xorigincm > yorigincm)
 		{
 		  sleeptime = 1000*xorigincm; //(ms/cm)*(origin)
-		}else
+		}
+	      else
 		{
 		  sleeptime = 1000*yorigincm; //(ms/cm)*(origin)
 		}
@@ -516,7 +517,7 @@ int main(void)
 	  WriteIO(":MEASURE:VMIN");
 	  WriteIO(":MEASURE:VMIN?");
 	  ReadDouble(&vmin1);
-	  cout <<"VMin 1 "<< vmin1 << endl;
+	  cout << "VMin 1 "<< vmin1 << endl;
 	  iclose(oscillo);
 	  oscillo = iopen("gpib1,7");
 
@@ -556,9 +557,9 @@ int main(void)
 
 	  // --- End of data aquisition
 
-	} // matches for (jj), inner loop of stepper motor control
+	} // matches for(jj), inner loop of stepper motor control
 
-    } // matches for (ii), outer loop of stepper motor
+    } // matches for(ii), outer loop of stepper motor
 
   // --- Now finished with data files, close them
   file_1.close();
@@ -569,8 +570,8 @@ int main(void)
 
   // --- Rezero the stepper motors
   cout<<"Returning to home positions"<<endl;;
-  PSERIAL_Send( 1,1,64 );
-  PSERIAL_Send( 2,1,64 );
+  PSERIAL_Send(1, 1, 64);
+  PSERIAL_Send(2, 1, 64);
 
 
   // ENABLE IF HODOSCOPE IS ATTACHED! ----------------------------------------
