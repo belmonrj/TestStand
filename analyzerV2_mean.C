@@ -42,6 +42,8 @@ void analyzerV2_mean()
   // doana("20150909-1318_A1_LED");
   // doana("20150910-1215_A1_LED"); // looks bad, problem with background subtraction (alignment)
   doana("20150910-1736_A1_Source"); // looks bad, problem with background subtraction (alignment)
+  doana("20150911-1004_A1_Source");
+  doana("20150911-1150_A1_Source");
 
 }
 
@@ -74,7 +76,6 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
 
   int totalBins = scan_nxpositions * scan_nypositions;
 
-  double background = 0.0; // used for noise subtraction
 
 
 
@@ -145,20 +146,22 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
   TH2D *meanHistSub = new TH2D(Form("%s_meanHistSub",NAME), Form("%s_meanHistSub",NAME),
 			       scan_nxpositions,0.0,distanceX, scan_nypositions,0.0,distanceY);
 
-  // --- calculate the background
+  // --- calculate the background, used for noise subtraction
+  double background = 0.0;
   for(int i = 0; i < meanSize; i++)
     {
       int row = i%scan_nypositions;
       int column = i/scan_nypositions;
       double iMean = means[i];
       // --- THIS IS A HUGE PROBLEM
-      if(column == 1)
-	{
-	  background += iMean;
-	}
+      if(column == 1) background += iMean;
     }
+  // --- this is a huge problem
+  // only valid if first column is off panel
   background = background/scan_nypositions;
-  double AvgBackgroundRate = background/TimeMean; // only valid if first column is off panel // this is a huge problem
+  double AvgBackgroundRate = background/TimeMean;
+
+  // --- make the 2d histograms and use the background subtraction
   for(int j = 0; j < meanSize; j++)
     {
       int row = j%scan_nypositions;
