@@ -35,12 +35,12 @@ void analyzerV2_mean()
   // doana("20150827-1402_A4_Source_PanelAir");
   // doana("20150828-1609_A4_Source_PanelAir");
   // doana("20150830-1452_A4_Source_PanelAir");
-  doana("20150831-1730_A1_Source");
-  doana("20150901-0950_A1_Source");
-  doana("20150901-1748_A1_LED");
-  doana("20150902-1005_A1_LED");
-  doana("20150909-1318_A1_LED");
-  doana("20150910-1215_A1_LED"); // looks bad, problem with background subtraction (alignment)
+  // doana("20150831-1730_A1_Source");
+  // doana("20150901-0950_A1_Source");
+  // doana("20150901-1748_A1_LED");
+  // doana("20150902-1005_A1_LED");
+  // doana("20150909-1318_A1_LED");
+  // doana("20150910-1215_A1_LED"); // looks bad, problem with background subtraction (alignment)
   doana("20150910-1736_A1_Source"); // looks bad, problem with background subtraction (alignment)
 
 }
@@ -145,6 +145,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
   TH2D *meanHistSub = new TH2D(Form("%s_meanHistSub",NAME), Form("%s_meanHistSub",NAME),
 			       scan_nxpositions,0.0,distanceX, scan_nypositions,0.0,distanceY);
 
+  // --- calculate the background
   for(int i = 0; i < meanSize; i++)
     {
       int row = i%scan_nypositions;
@@ -155,15 +156,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
 	{
 	  background += iMean;
 	}
-      // --- fill the histogram without the background subtraction
-      meanHist->SetBinContent(column+1,row+1,iMean);
-      if (PEConvert == true)
-	{
-	  meanHist->SetBinContent(column+1,row+1,iMean/PE);
-	}
     }
-
-  // --- calculate the background
   background = background/scan_nypositions;
   double AvgBackgroundRate = background/TimeMean; // only valid if first column is off panel // this is a huge problem
   for(int j = 0; j < meanSize; j++)
@@ -172,13 +165,17 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
       int column = j/scan_nypositions;
       double iMean = means[j];
       double iTime = times[j];
-      double iMeanSubPE = iMean-(AvgBackgroundRate*iTime);
-      if (PEConvert == true)
+      double iMeanSub = iMean-(AvgBackgroundRate*iTime);
+      // --- convert voltage to photoelectrons
+      if(PEConvert)
 	{
-	  iMeanSubPE = (iMean-(AvgBackgroundRate*iTime))/PE;
+	  iMean /= PE;
+	  iMeanSub /= PE;
 	}
+      // --- fill the histogram without the background subtraction
+      meanHist->SetBinContent(column+1,row+1,iMean);
       // --- fill the histogram with the background subtraction
-      meanHistSub->SetBinContent(column + 1, row + 1, iMeanSubPE);
+      meanHistSub->SetBinContent(column + 1, row + 1, iMeanSub);
     }
   // --- write the background subtracted histogram to a ROOT file
   meanHistSub->SaveAs(Form("Data/ROOT/%s_meanHistSub.root",NAME)); // NEEDS TO BE REVISED
