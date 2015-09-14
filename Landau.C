@@ -19,12 +19,15 @@ void doit(const char *basename)
   fun->SetParameter(1,mu);
   fun->SetParameter(2,sigma);
   fun->Draw();
+  fun->GetXaxis()->SetTitle("Independent variable");
+  fun->GetYaxis()->SetTitle("Probability amplitude");
   TLine line1(mu-0.25*sigma,0.0,mu-0.25*sigma,0.18*height);
   line1.Draw();
   TLine line2(mu-1.6*sigma,0.09*height,mu+2.4*sigma,0.09*height);
   line2.Draw();
   TLine line3(min,0.18*height,max,0.18*height);
   line3.Draw();
+  c1->Print(Form("Figures/Distribution/%s_smooth.pdf",basename));
   c1->Print(Form("Figures/Distribution/%s_smooth.png",basename));
 
 
@@ -39,12 +42,15 @@ void doit(const char *basename)
     }
   h1->Draw();
   h1->Fit(fun,"R");
+  h1->GetXaxis()->SetTitle("Signal (V)");
+  h1->GetYaxis()->SetTitle("Counts");
   TLatex *tex1 = new TLatex(mu+7*sigma,0.16.5*fun->GetParameter(0),Form("#mu_{in} = %f, #mu_{out} = %f",mu,fun->GetParameter(1)));
   tex1->Draw();
   TLatex *tex2 = new TLatex(mu+7*sigma,0.14.5*fun->GetParameter(0),Form("#sigma_{in} = %f, #sigma_{out} = %f",sigma,fun->GetParameter(2)));
   tex2->Draw();
   TLatex *tex3 = new TLatex(mu+7*sigma,0.12.5*fun->GetParameter(0),Form("%d random throws",number));
   tex3->Draw();
+  c1->Print(Form("Figures/Distribution/%s_random.pdf",basename));
   c1->Print(Form("Figures/Distribution/%s_random.png",basename));
 
 
@@ -61,12 +67,18 @@ void doit(const char *basename)
   fin2.close();
   cout << counter << " events read in " << endl;
   h2->Draw();
+  h2->GetXaxis()->SetTitle("Signal (V)");
+  h2->GetYaxis()->SetTitle("Counts");
   // --- draw a figure with just the histogram
+  c1->Print(Form("Figures/Distribution/%s_voltage.pdf",basename));
   c1->Print(Form("Figures/Distribution/%s_voltage.png",basename));
   //h2->Fit(fun,"R"); // looks bad...
   fun->SetParameter(0,1000); // adjust manually
+  fun->SetParameter(1,0.12); // adjust manually
+  fun->SetParameter(2,0.05); // adjust manually
   fun->Draw("same");
   // --- draw a figure with the Landau overlaid
+  c1->Print(Form("Figures/Distribution/%s_foltage.pdf",basename));
   c1->Print(Form("Figures/Distribution/%s_foltage.png",basename));
 
 
@@ -81,8 +93,12 @@ void doit(const char *basename)
     }
   fin3.close();
   cout << counter << " events read in " << endl;
+  h3->GetXaxis()->SetTitle("Signal (V)");
+  h3->GetYaxis()->SetTitle("Counts");
   h3->SetLineColor(kRed);
   h2->SetLineColor(kBlue);
+  h3->SetLineWidth(2);
+  h2->SetLineWidth(2);
   double max3 = h3->GetMaximum();
   double max2 = h2->GetMaximum();
   if(max3>max2)
@@ -95,6 +111,16 @@ void doit(const char *basename)
       h2->Draw();
       h3->Draw("same");
     }
+  TLegend *leg = new TLegend(0.68,0.73,0.88,0.88);
+  leg->AddEntry(h2,"SiPM1","l");
+  leg->AddEntry(h3,"SiPM2","l");
+  leg->Draw();
+  c1->Print(Form("Figures/Distribution/%s_woltage.pdf",basename));
   c1->Print(Form("Figures/Distribution/%s_woltage.png",basename));
+  fun->SetLineColor(kBlack);
+  fun->Draw("same");
+  // --- draw a figure with the Landau overlaid
+  c1->Print(Form("Figures/Distribution/%s_boltage.pdf",basename));
+  c1->Print(Form("Figures/Distribution/%s_boltage.png",basename));
 
 }
