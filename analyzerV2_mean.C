@@ -8,7 +8,8 @@
 // Modified by Ron Belmont
 // local version control with git, will add to github repository
 
-
+#include <algorithm> // for std::min_element
+//#include <iterator> // for std::begin(vector), end
 
 void analyzerV2_mean()
 {
@@ -41,9 +42,12 @@ void analyzerV2_mean()
   // doana("20150902-1005_A1_LED");
   // doana("20150909-1318_A1_LED");
   // doana("20150910-1215_A1_LED"); // looks bad, problem with background subtraction (alignment)
-  doana("20150910-1736_A1_Source"); // looks bad, problem with background subtraction (alignment)
-  doana("20150911-1004_A1_Source");
+  // doana("20150910-1736_A1_Source"); // looks bad, problem with background subtraction (alignment)
+  // doana("20150911-1004_A1_Source");
   doana("20150911-1150_A1_Source");
+  doana("20150911-1328_A1_Source");
+  doana("20150911-1607_A1_LED");
+  doana("20150911-1700_A1_LED");
 
 }
 
@@ -73,10 +77,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
   // --- CHECK THESE WHEN USING
   int scan_nxpositions = 58;
   int scan_nypositions = 9;
-
   int totalBins = scan_nxpositions * scan_nypositions;
-
-
 
 
   // ------------------------------
@@ -103,6 +104,12 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
     }
   file.close();
   int meanSize = means.size();
+  double minimum1 = *min_element(means.begin(),means.end());
+  double minimum2 = means[0];
+  for(int i=0; i<meanSize; i++)
+    {
+      if(means[i]<minimum2) minimum2 = means[i];
+    }
 
 
   // -------------------------
@@ -160,6 +167,10 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
   // only valid if first column is off panel
   background = background/scan_nypositions;
   double AvgBackgroundRate = background/TimeMean;
+
+  // ----------------------------------------------------------------------------------------
+  cout << "minimum1 is " << minimum1 <<  " minimum2 is " << minimum2 << " and est background is " << AvgBackgroundRate << endl;
+  // ----------------------------------------------------------------------------------------
 
   // --- make the 2d histograms and use the background subtraction
   for(int j = 0; j < meanSize; j++)
