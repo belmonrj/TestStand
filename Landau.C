@@ -1,10 +1,14 @@
 void Landau()
 {
 
-  doit("20150910-1357");
-
   dorandom(2000);
   dorandom(10000);
+
+  doit("20150910-1357");
+  doit("20150915-1539");
+  doit("20150915-1557");
+  doit("20150915-1612");
+
 
 }
 
@@ -167,6 +171,33 @@ void doit(const char *basename)
   // --- draw a figure with the Landau overlaid
   c1->Print(Form("Figures/Distribution/%s_boltage.pdf",basename));
   c1->Print(Form("Figures/Distribution/%s_boltage.png",basename));
+
+
+  // --- now do PE conversion
+  h2->GetXaxis()->SetLimits(min/0.00502,max/0.00502);
+  h3->GetXaxis()->SetLimits(min/0.00502,max/0.00502);
+  h2->GetXaxis()->SetTitle("Number of photoelectrons");
+  h3->GetXaxis()->SetTitle("Number of photoelectrons");
+  if(max3>max2)
+    {
+      h3->Draw();
+      h2->Draw("same");
+    }
+  else
+    {
+      h2->Draw();
+      h3->Draw("same");
+    }
+  leg->Draw();
+  c1->Print(Form("Figures/Distribution/%s_pe.pdf",basename));
+  c1->Print(Form("Figures/Distribution/%s_pe.png",basename));
+  // --- needs some work
+  // fun->Draw("same");
+  // // --- draw a figure with the Landau overlaid
+  // c1->Print(Form("Figures/Distribution/%s_fpe.pdf",basename));
+  // c1->Print(Form("Figures/Distribution/%s_fpe.png",basename));
+
+
 
   delete h1;
   delete fun;
