@@ -9,6 +9,149 @@ void Landau()
   doit("20150915-1557");
   doit("20150915-1612");
 
+  compare("20150915-1539","20150915-1612","20150915_FGBG");
+
+}
+
+void compare(const char *fgname, const char *bgname, const char *outname)
+{
+
+  // --- first draw a simple histogram to show the basic shape and properties of the Landau distribution
+  double height = 1.0;
+  double mu = 0.1;
+  double sigma = 0.05;
+  // double min = mu - sigma*5;
+  // double max = mu + sigma*25;
+  double min = mu - sigma*3;
+  double max = mu + sigma*9;
+  TF1 *fun = new TF1("fun","[0]*TMath::Landau(x,[1],[2])",min,max);
+  fun->SetParameter(0,height);
+  fun->SetParameter(1,mu);
+  fun->SetParameter(2,sigma);
+
+
+  // --- Signal SiPM1
+  TH1D *h1 = new TH1D("h1","",100,min,max);
+  ifstream fin1(Form("TEMP/%s_Unaveraged_VMin1.txt",fgname));
+  int counter = 0;
+  double voltage;
+  while(fin1>>voltage)
+    {
+      h1->Fill(-voltage);
+      counter++;
+    }
+  fin1.close();
+  cout << counter << " events read in " << endl;
+  // --- Signal SiPM2
+  TH1D *h2 = new TH1D("h2","",100,min,max);
+  ifstream fin2(Form("TEMP/%s_Unaveraged_VMin2.txt",fgname));
+  counter = 0;
+  double voltage;
+  while(fin2>>voltage)
+    {
+      h2->Fill(-voltage);
+      counter++;
+    }
+  fin2.close();
+  cout << counter << " events read in " << endl;
+
+
+  // --- Background SiPM1
+  TH1D *h3 = new TH1D("h3","",100,min,max);
+  ifstream fin3(Form("TEMP/%s_Unaveraged_VMin1.txt",bgname));
+  counter = 0;
+  while(fin3>>voltage)
+    {
+      h3->Fill(-voltage);
+      counter++;
+    }
+  fin3.close();
+  cout << counter << " events read in " << endl;
+  // --- Background SiPM2
+  TH1D *h4 = new TH1D("h4","",100,min,max);
+  ifstream fin4(Form("TEMP/%s_Unaveraged_VMin2.txt",bgname));
+  counter = 0;
+  while(fin4>>voltage)
+    {
+      h4->Fill(-voltage);
+      counter++;
+    }
+  fin4.close();
+  cout << counter << " events read in " << endl;
+
+
+
+
+
+  h1->SetLineColor(kRed);
+  h2->SetLineColor(kBlue);
+  h1->SetLineWidth(2);
+  h2->SetLineWidth(2);
+
+  h3->SetLineColor(kRed);
+  h4->SetLineColor(kBlue);
+  h3->SetLineWidth(2);
+  h4->SetLineWidth(2);
+
+  double fgrate = 1038.0; // Hz
+  double bgrate = 27.0; // Hz
+  double bgscalefactor = bgrate/fgrate;
+
+  h3->Scale(bgscalefactor);
+  h4->Scale(bgscalefactor);
+
+  // --- now do PE conversion
+  double peconvert = 0.00502; // volts per photoelectrion
+  h1->GetXaxis()->SetLimits(min/peconvert,max/peconvert);
+  h2->GetXaxis()->SetLimits(min/peconvert,max/peconvert);
+  h3->GetXaxis()->SetLimits(min/peconvert,max/peconvert);
+  h4->GetXaxis()->SetLimits(min/peconvert,max/peconvert);
+  h1->GetYaxis()->SetTitle("Counts");
+  h2->GetYaxis()->SetTitle("Counts");
+  h1->GetXaxis()->SetTitle("Number of photoelectrons");
+  h2->GetXaxis()->SetTitle("Number of photoelectrons");
+
+  // --- now draw
+  double max1 = h1->GetMaximum();
+  double max2 = h2->GetMaximum();
+  if(max1>max2)
+    {
+      h1->Draw();
+      h2->Draw("same");
+      h3->Draw("same");
+      h4->Draw("same");
+    }
+  else
+    {
+      h2->Draw();
+      h1->Draw("same");
+      h3->Draw("same");
+      h4->Draw("same");
+    }
+  TLegend *leg = new TLegend(0.68,0.73,0.88,0.88);
+  leg->AddEntry(h1,"SiPM1","l");
+  leg->AddEntry(h2,"SiPM2","l");
+  leg->Draw();
+  c1->Print(Form("Figures/Distribution/%s_pe.pdf",outname));
+  c1->Print(Form("Figures/Distribution/%s_pe.png",outname));
+  h1->SetMinimum(0.1);
+  h2->SetMinimum(0.1);
+  c1->SetLogy();
+  c1->Print(Form("Figures/Distribution/%s_log_pe.pdf",outname));
+  c1->Print(Form("Figures/Distribution/%s_log_pe.png",outname));
+
+
+
+
+
+
+  delete fun;
+  delete h1;
+  delete h2;
+  delete h3;
+  delete h4;
+
+
 
 }
 
@@ -174,8 +317,9 @@ void doit(const char *basename)
 
 
   // --- now do PE conversion
-  h2->GetXaxis()->SetLimits(min/0.00502,max/0.00502);
-  h3->GetXaxis()->SetLimits(min/0.00502,max/0.00502);
+  double peconvert = 0.00502;
+  h2->GetXaxis()->SetLimits(min/peconvert,max/peconvert);
+  h3->GetXaxis()->SetLimits(min/peconvert,max/peconvert);
   h2->GetXaxis()->SetTitle("Number of photoelectrons");
   h3->GetXaxis()->SetTitle("Number of photoelectrons");
   if(max3>max2)
@@ -200,6 +344,8 @@ void doit(const char *basename)
 
 
   delete h1;
+  delete h2;
+  delete h3;
   delete fun;
 
 }
