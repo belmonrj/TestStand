@@ -3,6 +3,51 @@ void Landau()
 
   doit("20150910-1357");
 
+  dorandom(2000);
+  dorandom(10000);
+
+}
+
+void dorandom(int number = 2000)
+{
+
+  gRandom->SetSeed(0);
+
+  // --- parameters for fit
+  double height = 1.0;
+  double mu = 0.1;
+  double sigma = 0.05;
+  double min = mu - sigma*5;
+  double max = mu + sigma*25;
+
+  // --- next make a histogram and fill with random values weighted by the Landau distribution
+  TH1D *h1 = new TH1D("h1","",100,min,max);
+  TF1 *fun = new TF1("fun","[0]*TMath::Landau(x,[1],[2])",min,max);
+  fun->SetParameter(0,height);
+  fun->SetParameter(1,mu);
+  fun->SetParameter(2,sigma);
+  fun->SetParameter(0,number*0.3); // give good initial guess
+  for(int i=0; i<number; i++)
+    {
+      double value = gRandom->Landau(mu,sigma);
+      h1->Fill(value);
+    }
+  h1->Draw();
+  h1->Fit(fun,"R");
+  h1->GetXaxis()->SetTitle("Independent variable");
+  h1->GetYaxis()->SetTitle("Counts");
+  TLatex *tex1 = new TLatex(mu+7*sigma,0.16.5*fun->GetParameter(0),Form("#mu_{in} = %f, #mu_{out} = %f",mu,fun->GetParameter(1)));
+  tex1->Draw();
+  TLatex *tex2 = new TLatex(mu+7*sigma,0.14.5*fun->GetParameter(0),Form("#sigma_{in} = %f, #sigma_{out} = %f",sigma,fun->GetParameter(2)));
+  tex2->Draw();
+  TLatex *tex3 = new TLatex(mu+7*sigma,0.12.5*fun->GetParameter(0),Form("%d random throws",number));
+  tex3->Draw();
+  c1->Print(Form("Figures/Distribution/Landau_%d_random.pdf",number));
+  c1->Print(Form("Figures/Distribution/Landau_%d_random.png",number));
+
+  delete h1;
+  delete fun;
+
 }
 
 void doit(const char *basename)
@@ -74,7 +119,7 @@ void doit(const char *basename)
   c1->Print(Form("Figures/Distribution/%s_voltage.png",basename));
   //h2->Fit(fun,"R"); // looks bad...
   fun->SetParameter(0,1000); // adjust manually
-  fun->SetParameter(1,0.12); // adjust manually
+  fun->SetParameter(1,0.10); // adjust manually
   fun->SetParameter(2,0.05); // adjust manually
   fun->Draw("same");
   // --- draw a figure with the Landau overlaid
@@ -122,5 +167,8 @@ void doit(const char *basename)
   // --- draw a figure with the Landau overlaid
   c1->Print(Form("Figures/Distribution/%s_boltage.pdf",basename));
   c1->Print(Form("Figures/Distribution/%s_boltage.png",basename));
+
+  delete h1;
+  delete fun;
 
 }
