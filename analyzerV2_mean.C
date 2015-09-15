@@ -48,6 +48,8 @@ void analyzerV2_mean()
   doana("20150911-1328_A1_Source");
   doana("20150911-1607_A1_LED");
   doana("20150911-1700_A1_LED");
+  doana("20150914-1138_A1_Source");
+  doana("20150914-1750_A1_LED");
 
 }
 
@@ -59,7 +61,8 @@ void doana(const char *basename)
   char *sipm2name = Form("%s_VMIN_SIPM2",basename);
   char *timename = Form("%s_TIME.txt",basename);
   bool doPEConvert = true;
-  double PEvalue = 0.004386;
+  //double PEvalue = 0.004386; // old value
+  double PEvalue = 0.00502; // trimmed mean from 9/14/2015
 
   analyze(sipm1name,timename,doPEConvert,PEvalue);
   analyze(sipm2name,timename,doPEConvert,PEvalue);

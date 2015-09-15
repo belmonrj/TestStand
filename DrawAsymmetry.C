@@ -3,6 +3,8 @@ double frac2[9]; // light fraction from SiPM2
 double fracAs[9]; // light fraction from asymmetry
 double fracAv[9]; // average of frac1 and frac2
 
+double cld = 5.0; // cladding decay constant
+
 
 
 void DrawAsymmetry()
@@ -11,10 +13,16 @@ void DrawAsymmetry()
   // start("20150826-1505_A4_LED_PanelAir");
   // start("20150827-0946_A4_LED_PanelAir");
 
-  start("20150831-1730_A1_Source");
-  start("20150901-0950_A1_Source");
+  // start("20150831-1730_A1_Source");
+  // start("20150901-0950_A1_Source");
   // start("20150901-1748_A1_LED");
   // start("20150902-1005_A1_LED");
+  start("20150911-1150_A1_Source");
+  start("20150911-1328_A1_Source");
+  start("20150914-1138_A1_Source");
+  start("20150911-1607_A1_LED");
+  start("20150911-1700_A1_LED");
+  start("20150914-1750_A1_LED");
 
 }
 
@@ -253,14 +261,14 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   funx1->SetLineColor(kBlue);
   funx1->SetParameter(0,5.0); // number of photoelectrons in core
   funx1->SetParameter(1,5.0); // number of photoelectrons in clad
-  funx1->FixParameter(2,5.0); // clad decay constant
+  funx1->FixParameter(2,cld); // clad decay constant
   tgy1->Fit(funx1,"","",1,24); // need to use TGraph here, fitting h1 produces "Warning in <Fit>: Fit data is empty"
                                // I don't know why this happening, probably some dumb mistake I'm making
   TF1 *funx2 = new TF1("funx2","[0]+[1]*TMath::Exp((x-25)/[2])",0,25);
   funx2->SetLineColor(kRed);
   funx2->SetParameter(0,5.0); // number of photoelectrons in core
   funx2->SetParameter(1,5.0); // number of photoelectrons in clad
-  funx2->FixParameter(2,5.0); // clad decay constant
+  funx2->FixParameter(2,cld); // clad decay constant
   tgy2->Fit(funx2,"","",1,24); // need to use TGraph here, fitting h2 produces "Warning in <Fit>: Fit data is empty"
                                // I don't know why this happening, probably some dumb mistake I'm making
 
@@ -320,11 +328,11 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   TF1 *fun = new TF1("fun","(([0]*TMath::Exp((x-25)/[1])+(1-[0])*TMath::Exp((x-25)/[2]))-([0]*TMath::Exp(-x/[1])+(1-[0])*TMath::Exp(-x/[2])))/(([0]*TMath::Exp(-x/[1])+(1-[0])*TMath::Exp(-x/[2]))+([0]*TMath::Exp((x-25)/[1])+(1-[0])*TMath::Exp((x-25)/[2])))",0,29);
   fun->SetParameter(0,0.5); // light fraction in fiber core
   fun->FixParameter(1,350); // decay constant in fiber core
-  fun->FixParameter(2,5); // decay constant in fiber cladding
+  fun->FixParameter(2,cld); // decay constant in fiber cladding
   TF1 *fun2 = new TF1("fun2","[3]+(([0]*TMath::Exp((x-25)/[1])+(1-[0])*TMath::Exp((x-25)/[2]))-([0]*TMath::Exp(-x/[1])+(1-[0])*TMath::Exp(-x/[2])))/(([0]*TMath::Exp(-x/[1])+(1-[0])*TMath::Exp(-x/[2]))+([0]*TMath::Exp((x-25)/[1])+(1-[0])*TMath::Exp((x-25)/[2])))",0,29);
   fun2->SetParameter(0,0.5); // light fraction in fiber core
   fun2->FixParameter(1,350); // decay constant in fiber core
-  fun2->FixParameter(2,5); // decay constant in fiber cladding
+  fun2->FixParameter(2,cld); // decay constant in fiber cladding
   fun2->SetParameter(3,0.01);
 
   TGraph *tg = new TGraph(58,x,y);

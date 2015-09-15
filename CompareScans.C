@@ -3,7 +3,7 @@ gStyle->SetOptTitle(1); // good times...
 void CompareScans()
 {
 
-  //dofix2();
+  dofix2();
 
   dofix3();
 
@@ -14,32 +14,60 @@ void CompareScans()
 void dofix3()
 {
 
-  // --- these look awful because of different alignment
+  // ---
 
   fixednumber_3
     (
-     "20150901-0950_A1_Source_VMIN_SIPM1",
      "20150911-1150_A1_Source_VMIN_SIPM1",
      "20150911-1328_A1_Source_VMIN_SIPM1",
-     "9/01",
+     "20150914-1138_A1_Source_VMIN_SIPM1",
      "9/11 early",
      "9/11 late",
+     "9/14",
      "Comparison of scans",
      "Source",
-     "A1_Source_3Comp_90111-SiPM1"
+     "A1_Source_3Comp_91114-SiPM1"
      );
 
   fixednumber_3
     (
-     "20150901-0950_A1_Source_VMIN_SIPM2",
      "20150911-1150_A1_Source_VMIN_SIPM2",
      "20150911-1328_A1_Source_VMIN_SIPM2",
-     "9/01",
+     "20150914-1138_A1_Source_VMIN_SIPM2",
      "9/11 early",
      "9/11 late",
+     "9/14",
      "Comparison of scans",
      "Source",
-     "A1_Source_3Comp_90111-SiPM2"
+     "A1_Source_3Comp_91114-SiPM2"
+     );
+
+  // ---
+
+  fixednumber_3
+    (
+     "20150911-1607_A1_LED_VMIN_SIPM1",
+     "20150911-1700_A1_LED_VMIN_SIPM1",
+     "20150914-1750_A1_LED_VMIN_SIPM1",
+     "9/11 early",
+     "9/11 late",
+     "9/14",
+     "Comparison of scans",
+     "LED",
+     "A1_LED_3Comp_91114-SiPM1"
+     );
+
+  fixednumber_3
+    (
+     "20150911-1607_A1_LED_VMIN_SIPM2",
+     "20150911-1700_A1_LED_VMIN_SIPM2",
+     "20150914-1750_A1_LED_VMIN_SIPM2",
+     "9/11 early",
+     "9/11 late",
+     "9/14",
+     "Comparison of scans",
+     "LED",
+     "A1_LED_3Comp_91114-SiPM2"
      );
 
 

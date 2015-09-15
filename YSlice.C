@@ -23,15 +23,20 @@ void YSlice()
   // doyslice("20150827-1402_A4_Source_PanelAir");
   // doyslice("20150828-1609_A4_Source_PanelAir");
   // doyslice("20150830-1452_A4_Source_PanelAir");
-  doyslice("20150831-1730_A1_Source");
-  doyslice("20150901-0950_A1_Source");
-  doyslice("20150901-1748_A1_LED");
-  doyslice("20150902-1005_A1_LED");
-  doyslice("20150909-1318_A1_LED");
-  doyslice("20150910-1215_A1_LED"); // looks bad, alignment problem (background subtraction problem)
-  doyslice("20150910-1736_A1_Source"); // looks bad, alignment problem (background subtraction problem)
-  doyslice("20150911-1004_A1_Source");
+  // doyslice("20150831-1730_A1_Source");
+  // doyslice("20150901-0950_A1_Source");
+  // doyslice("20150901-1748_A1_LED");
+  // doyslice("20150902-1005_A1_LED");
+  // doyslice("20150909-1318_A1_LED");
+  // doyslice("20150910-1215_A1_LED"); // looks bad, alignment problem (background subtraction problem)
+  // doyslice("20150910-1736_A1_Source"); // looks bad, alignment problem (background subtraction problem)
+  // doyslice("20150911-1004_A1_Source");
   doyslice("20150911-1150_A1_Source");
+  doyslice("20150911-1328_A1_Source");
+  doyslice("20150911-1607_A1_LED");
+  doyslice("20150911-1700_A1_LED");
+  doyslice("20150914-1138_A1_Source");
+  doyslice("20150914-1750_A1_LED");
 
 }
 
