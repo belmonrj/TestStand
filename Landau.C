@@ -23,15 +23,16 @@ void compare(const char *fgname, const char *bgname, const char *outname)
   // double min = mu - sigma*5;
   // double max = mu + sigma*25;
   double min = mu - sigma*3;
-  double max = mu + sigma*9;
+  double max = mu + sigma*7;
   TF1 *fun = new TF1("fun","[0]*TMath::Landau(x,[1],[2])",min,max);
   fun->SetParameter(0,height);
   fun->SetParameter(1,mu);
   fun->SetParameter(2,sigma);
 
 
+  int nbins = 50;
   // --- Signal SiPM1
-  TH1D *h1 = new TH1D("h1","",100,min,max);
+  TH1D *h1 = new TH1D("h1","",nbins,min,max);
   ifstream fin1(Form("TEMP/%s_Unaveraged_VMin1.txt",fgname));
   int counter = 0;
   double voltage;
@@ -43,7 +44,7 @@ void compare(const char *fgname, const char *bgname, const char *outname)
   fin1.close();
   cout << counter << " events read in " << endl;
   // --- Signal SiPM2
-  TH1D *h2 = new TH1D("h2","",100,min,max);
+  TH1D *h2 = new TH1D("h2","",nbins,min,max);
   ifstream fin2(Form("TEMP/%s_Unaveraged_VMin2.txt",fgname));
   counter = 0;
   double voltage;
@@ -57,7 +58,7 @@ void compare(const char *fgname, const char *bgname, const char *outname)
 
 
   // --- Background SiPM1
-  TH1D *h3 = new TH1D("h3","",100,min,max);
+  TH1D *h3 = new TH1D("h3","",nbins,min,max);
   ifstream fin3(Form("TEMP/%s_Unaveraged_VMin1.txt",bgname));
   counter = 0;
   while(fin3>>voltage)
@@ -68,7 +69,7 @@ void compare(const char *fgname, const char *bgname, const char *outname)
   fin3.close();
   cout << counter << " events read in " << endl;
   // --- Background SiPM2
-  TH1D *h4 = new TH1D("h4","",100,min,max);
+  TH1D *h4 = new TH1D("h4","",nbins,min,max);
   ifstream fin4(Form("TEMP/%s_Unaveraged_VMin2.txt",bgname));
   counter = 0;
   while(fin4>>voltage)
@@ -114,12 +115,14 @@ void compare(const char *fgname, const char *bgname, const char *outname)
   // --- now draw
   double max1 = h1->GetMaximum();
   double max2 = h2->GetMaximum();
+  double maxX = 0;
   if(max1>max2)
     {
       h1->Draw();
       h2->Draw("same");
       h3->Draw("same");
       h4->Draw("same");
+      maxX = max1;
     }
   else
     {
@@ -127,22 +130,24 @@ void compare(const char *fgname, const char *bgname, const char *outname)
       h1->Draw("same");
       h3->Draw("same");
       h4->Draw("same");
+      maxX = max2;
     }
   TLegend *leg = new TLegend(0.68,0.73,0.88,0.88);
   leg->AddEntry(h1,"SiPM1","l");
   leg->AddEntry(h2,"SiPM2","l");
   leg->Draw();
+  TLatex *tex = new TLatex((0.25*max+min)/peconvert,0.15*maxX,"Scaled background");
+  tex->Draw();
+  TArrow *ar1 = new TArrow((0.25*max+min)/peconvert,0.15*maxX,(0.2*max+min)/peconvert,0.1*maxX,0.02,"|>");
+  ar1->SetLineWidth(2);
+  ar1->Draw();
   c1->Print(Form("Figures/Distribution/%s_pe.pdf",outname));
   c1->Print(Form("Figures/Distribution/%s_pe.png",outname));
-  h1->SetMinimum(0.1);
-  h2->SetMinimum(0.1);
+  h1->SetMinimum(0.05);
+  h2->SetMinimum(0.05);
   c1->SetLogy();
   c1->Print(Form("Figures/Distribution/%s_log_pe.pdf",outname));
   c1->Print(Form("Figures/Distribution/%s_log_pe.png",outname));
-
-
-
-
 
 
   delete fun;
@@ -150,8 +155,8 @@ void compare(const char *fgname, const char *bgname, const char *outname)
   delete h2;
   delete h3;
   delete h4;
-
-
+  delete tex;
+  delete ar1;
 
 }
 
