@@ -20,15 +20,15 @@ void DrawAsymmetry()
   start("20150911-1150_A1_Source");
   start("20150911-1328_A1_Source");
   start("20150914-1138_A1_Source");
-  start("20150911-1607_A1_LED");
-  start("20150911-1700_A1_LED");
-  start("20150914-1750_A1_LED");
+  start("20150911-1607_A1_LED",0.5);
+  start("20150911-1700_A1_LED",0.5);
+  start("20150914-1750_A1_LED",0.5);
 
 }
 
 
 
-void start(const char *basename)
+void start(const char *basename, const double offset = 0.0)
 {
 
   TFile *file1 = TFile::Open(Form("Data/ROOT/%s_VMIN_SIPM1_meanHistSub_projections.root",basename));
@@ -58,6 +58,7 @@ void start(const char *basename)
 	  <<endl;
       //pn[i] = i+0.5; // projection number
       pn[i] = -2.0 + i/2.0; // distance
+      pn[i] += offset;
     }
 
   TGraph *tg1 = new TGraph(9,pn,frac1);
@@ -80,7 +81,7 @@ void start(const char *basename)
   tmg->Draw("ap");
   tmg->SetMaximum(1.0);
   tmg->SetMinimum(0.0);
-  tmg->GetXaxis()->SetLimits(-2.25,2.25);
+  tmg->GetXaxis()->SetLimits(-2.25+offset,2.25+offset);
   //tmg->GetXaxis()->SetLimits(0.0,9.0); // projection number
   tmg->GetXaxis()->SetTitle("Distance from fiber (cm)");
   tmg->GetYaxis()->SetTitle("f_{core} from different methods");
