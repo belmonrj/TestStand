@@ -1,19 +1,23 @@
 void Landau()
 {
 
-  dorandom(2000);
-  dorandom(10000);
+  // dorandom(2000);
+  // dorandom(10000);
 
-  doit("20150910-1357");
-  doit("20150915-1539");
-  doit("20150915-1557");
-  doit("20150915-1612");
+  // doit("20150910-1357");
+  // doit("20150915-1539");
+  // doit("20150915-1557");
+  // doit("20150915-1612");
 
   compare("20150915-1539","20150915-1612","20150915_FGBG");
 
+  doit("20150921-1152");
+
+  compare("20150921-1152","20150915-1612","20150921_FGBG",10);
+
 }
 
-void compare(const char *fgname, const char *bgname, const char *outname)
+void compare(const char *fgname, const char *bgname, const char *outname, const double extra = 1.0)
 {
 
   // --- first draw a simple histogram to show the basic shape and properties of the Landau distribution
@@ -96,7 +100,7 @@ void compare(const char *fgname, const char *bgname, const char *outname)
 
   double fgrate = 1038.0; // Hz
   double bgrate = 27.0; // Hz
-  double bgscalefactor = bgrate/fgrate;
+  double bgscalefactor = (bgrate/fgrate)*extra;
 
   h3->Scale(bgscalefactor);
   h4->Scale(bgscalefactor);
@@ -149,6 +153,27 @@ void compare(const char *fgname, const char *bgname, const char *outname)
   c1->Print(Form("Figures/Distribution/%s_log_pe.pdf",outname));
   c1->Print(Form("Figures/Distribution/%s_log_pe.png",outname));
 
+  c1->SetLogy(0);
+  h1->SetMinimum(0.0);
+  h2->SetMinimum(0.0);
+  TH1D *h5 = (TH1D *)h1->Clone("h5");
+  TH1D *h6 = (TH1D *)h2->Clone("h6");
+  h5->Add(h3,-1.0);
+  h6->Add(h4,-1.0);
+  h5->SetLineStyle(2);
+  h6->SetLineStyle(2);
+  h5->SetLineWidth(3);
+  h6->SetLineWidth(3);
+  h5->Draw("same");
+  h6->Draw("same");
+  c1->Print(Form("Figures/Distribution/%s_pe_sub.pdf",outname));
+  c1->Print(Form("Figures/Distribution/%s_pe_sub.png",outname));
+  h1->SetMinimum(0.05);
+  h2->SetMinimum(0.05);
+  c1->SetLogy();
+  c1->Print(Form("Figures/Distribution/%s_log_pe_sub.pdf",outname));
+  c1->Print(Form("Figures/Distribution/%s_log_pe_sub.png",outname));
+  c1->SetLogy(0);
 
   delete fun;
   delete h1;
