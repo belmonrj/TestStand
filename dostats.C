@@ -36,6 +36,17 @@ int main()
   // --- SiPM2, earlier
   dostats({4.83,5.35,6.03,4.31,4.83,5.34,5.18,4.48});
 
+  cout<<"And now for something completely different!"<<endl;
+  cout<<"Actually it's basically the exact same stuff"<<endl;
+
+  // --- SiPM1, 20151005
+  dostats({4.66,5.17,5.17,5.00,5.00,5.00,5.00,5.17,5.93,5.02});
+
+  cout<<"And now for something completely different!"<<endl;
+  cout<<"Actually it's basically the exact same stuff"<<endl;
+
+  // --- SiPM1, 20151005
+  dostats({5.35,5.00,5.69,4.82,4.66,5.00,5.00,5.35,5.00,4.83});
 
   return 0;
 
