@@ -70,12 +70,12 @@ void simplecosmics()
   c1->SetLogy();
   // c1->Print("uglydatalog.png");
   c1->SetLogy(0);
-  h1->SetMaximum(120);
+  h1->SetMaximum(210);
   // c1->Print("uglydatanotlog.png");
 
   // --- define Landau function and draw
   // --- don't fit yet because the data have tons of ugly low voltage1 background
-  double height = 600;
+  double height = 1049;
   double mu = 23;
   double sigma = 3;
   TF1 *fun = new TF1("fun","[0]*TMath::Landau(x,[1],[2])",newmin/peconvert,newmax/peconvert);
@@ -96,5 +96,14 @@ void simplecosmics()
   c1->Print("uglydatabothnotlogfit.png");
   c1->SetLogy(1);
   c1->Print("uglydatabothlogfit.png");
+
+  h1->SetMaximum(1.1*h1->GetBinContent(h1->GetMaximumBin()));
+
+  c1->SetLogy(0);
+  c1->Print("fuglydatabothnotlogfit.png");
+  c1->SetLogy(1);
+  c1->Print("fuglydatabothlogfit.png");
+
+
 
 }
