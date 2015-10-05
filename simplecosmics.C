@@ -11,18 +11,28 @@ void simplecosmics()
   // --- but the user would do well do double check all output files anyway
   ifstream fin1("TEMP/20150930-1720_Unaveraged_VMin1.txt");
   double content;
-  vector<double> voltage;
+  vector<double> voltage1;
   while(fin1>>content)
     {
-      voltage.push_back(content);
+      voltage1.push_back(content);
     }
   fin1.close();
-  cout << voltage.size() << endl;
+  cout << voltage1.size() << endl;
+
+  // --- do the same for SiPM2
+  ifstream fin2("TEMP/20150930-1720_Unaveraged_VMin2.txt");
+  vector<double> voltage2;
+  while(fin2>>content)
+    {
+      voltage2.push_back(content);
+    }
+  fin2.close();
+  cout << voltage2.size() << endl;
 
   // --- get the number of entries and the min and max
-  int number = voltage.size();
-  double max = *max_element(voltage.begin(),voltage.end());
-  double min = *min_element(voltage.begin(),voltage.end());
+  int number = voltage1.size();
+  double max = *max_element(voltage1.begin(),voltage1.end());
+  double min = *min_element(voltage1.begin(),voltage1.end());
   cout << max << endl;
   cout << min << endl;
   // --- use the min and max to calculate a range for the histogram
@@ -30,11 +40,16 @@ void simplecosmics()
   double newmin = max*-1.05 - newmax*0.1;
   // --- create the new histogram
   TH1D *h1 = new TH1D("h1","",50,newmin,newmax);
+  TH1D *h2 = new TH1D("h2","",50,newmin,newmax);
   // --- loop over the vector to fill the histogram
   for(int i=0; i<number; i++)
     {
-      content = -1*voltage[i];
+      // --- SiPM1
+      content = -1*voltage1[i];
       h1->Fill(content);
+      // --- SiPM2
+      content = -1*voltage2[i];
+      h2->Fill(content);
     }
 
   // --- make a canvas and draw the histogram
@@ -59,7 +74,7 @@ void simplecosmics()
   // c1->Print("uglydatanotlog.png");
 
   // --- define Landau function and draw
-  // --- don't fit yet because the data have tons of ugly low voltage background
+  // --- don't fit yet because the data have tons of ugly low voltage1 background
   double height = 600;
   double mu = 23;
   double sigma = 3;
@@ -72,7 +87,14 @@ void simplecosmics()
   c1->SetLogy(1);
   c1->Print("uglydatalogfit.png");
 
-
-
+  // --- now draw SiPM2 on top
+  h1->SetLineColor(kRed);
+  h2->SetLineColor(kBlue);
+  h2->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  h2->Draw("same");
+  c1->SetLogy(0);
+  c1->Print("uglydatabothnotlogfit.png");
+  c1->SetLogy(1);
+  c1->Print("uglydatabothlogfit.png");
 
 }
