@@ -61,9 +61,9 @@ void backgrounds()
   h4->Draw("same");
   // --- print figures
   c1->SetLogy(0);
-  c1->Print("backgrounds_part1.png");
+  c1->Print("Backgrounds/backgrounds_part1.png");
   c1->SetLogy(1);
-  c1->Print("backgrounds_part1_log.png");
+  c1->Print("Backgrounds/backgrounds_part1_log.png");
 
   //20150915-1612
 
@@ -119,9 +119,9 @@ void backgrounds()
   h6->Draw("same");
 
   c1->SetLogy(0);
-  c1->Print("backgrounds_part2.png");
+  c1->Print("Backgrounds/backgrounds_part2.png");
   c1->SetLogy(1);
-  c1->Print("backgrounds_part2_log.png");
+  c1->Print("Backgrounds/backgrounds_part2_log.png");
 
 
 
@@ -175,14 +175,14 @@ void backgrounds()
   h8->Draw("same");
 
   c1->SetLogy(0);
-  c1->Print("backgrounds_part3.png");
+  c1->Print("Backgrounds/backgrounds_part3.png");
   c1->SetLogy(1);
-  c1->Print("backgrounds_part3_log.png");
+  c1->Print("Backgrounds/backgrounds_part3_log.png");
 
 
 
-  h7->Scale(numberD);
-  h8->Scale(numberD);
+  // h7->Scale(numberD);
+  // h8->Scale(numberD);
   h7->Draw();
   h8->Draw("same");
 
@@ -201,9 +201,9 @@ void backgrounds()
   funl2->Draw("same");
 
   c1->SetLogy(0);
-  c1->Print("backgrounds_part4_fit.png");
+  c1->Print("Backgrounds/backgrounds_part4_fit.png");
   c1->SetLogy(1);
-  c1->Print("backgrounds_part4_fit_log.png");
+  c1->Print("Backgrounds/backgrounds_part4_fit_log.png");
 
   // ---
 
@@ -230,9 +230,9 @@ void backgrounds()
   ffunl2->Draw("same");
 
   c1->SetLogy(0);
-  c1->Print("backgrounds_part5_fit.png");
+  c1->Print("Backgrounds/backgrounds_part5_fit.png");
   c1->SetLogy(1);
-  c1->Print("backgrounds_part5_fit_log.png");
+  c1->Print("Backgrounds/backgrounds_part5_fit_log.png");
 
 
 
@@ -244,9 +244,9 @@ void backgrounds()
   superfun->Draw("same");
 
   c1->SetLogy(0);
-  c1->Print("backgrounds_part6_fit.png");
+  c1->Print("Backgrounds/backgrounds_part6_fit.png");
   c1->SetLogy(1);
-  c1->Print("backgrounds_part6_fit_log.png");
+  c1->Print("Backgrounds/backgrounds_part6_fit_log.png");
 
 
 
@@ -260,9 +260,9 @@ void backgrounds()
   h7->Fit(superfun2,"","",6,100);
 
   c1->SetLogy(0);
-  c1->Print("backgrounds_part7_fit.png");
+  c1->Print("Backgrounds/backgrounds_part7_fit.png");
   c1->SetLogy(1);
-  c1->Print("backgrounds_part7_fit_log.png");
+  c1->Print("Backgrounds/backgrounds_part7_fit_log.png");
 
 
 
@@ -276,9 +276,9 @@ void backgrounds()
   h7->Fit(superfun3,"","",6,100);
 
   c1->SetLogy(0);
-  c1->Print("backgrounds_part8_fit.png");
+  c1->Print("Backgrounds/backgrounds_part8_fit.png");
   c1->SetLogy(1);
-  c1->Print("backgrounds_part8_fit_log.png");
+  c1->Print("Backgrounds/backgrounds_part8_fit_log.png");
 
 
 
