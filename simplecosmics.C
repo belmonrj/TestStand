@@ -55,23 +55,23 @@ void simplecosmics()
   // --- make a canvas and draw the histogram
   TCanvas *c1 = new TCanvas("c1","",800,600);
   h1->Draw();
-  // c1->Print("uglydata.png");
+  // c1->Print("Cosmics/uglydata.png");
   c1->SetLogy();
-  // c1->Print("uglydatalog.png");
+  // c1->Print("Cosmics/uglydatalog.png");
   c1->SetLogy(0);
   // h1->SetMaximum(120);
-  // c1->Print("uglydatanotlog.png");
+  // c1->Print("Cosmics/uglydatanotlog.png");
 
   // --- rescale the histograms from volts to photoelectrons
   double peconvert = 0.00502; // volts per photoelectrion
   h1->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h1->Draw();
-  // c1->Print("uglydata.png");
+  // c1->Print("Cosmics/uglydata.png");
   c1->SetLogy();
-  // c1->Print("uglydatalog.png");
+  // c1->Print("Cosmics/uglydatalog.png");
   c1->SetLogy(0);
   h1->SetMaximum(210);
-  // c1->Print("uglydatanotlog.png");
+  // c1->Print("Cosmics/uglydatanotlog.png");
 
   // --- define Landau function and draw
   // --- don't fit yet because the data have tons of ugly low voltage1 background
@@ -84,9 +84,9 @@ void simplecosmics()
   fun->SetParameter(2,sigma);
   fun->Draw("same");
   fun->SetLineColor(kBlack);
-  c1->Print("uglydatanotlogfit.png");
+  c1->Print("Cosmics/uglydatanotlogfit.png");
   c1->SetLogy(1);
-  c1->Print("uglydatalogfit.png");
+  c1->Print("Cosmics/uglydatalogfit.png");
 
   // --- now draw SiPM2 on top
   h1->SetLineColor(kRed);
@@ -94,16 +94,16 @@ void simplecosmics()
   h2->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h2->Draw("same");
   c1->SetLogy(0);
-  c1->Print("uglydatabothnotlogfit.png");
+  c1->Print("Cosmics/uglydatabothnotlogfit.png");
   c1->SetLogy(1);
-  c1->Print("uglydatabothlogfit.png");
+  c1->Print("Cosmics/uglydatabothlogfit.png");
 
   h1->SetMaximum(1.15*h1->GetBinContent(h1->GetMaximumBin()));
 
   c1->SetLogy(0);
-  c1->Print("fuglydatabothnotlogfit.png");
+  c1->Print("Cosmics/fuglydatabothnotlogfit.png");
   c1->SetLogy(1);
-  c1->Print("fuglydatabothlogfit.png");
+  c1->Print("Cosmics/fuglydatabothlogfit.png");
 
   double bgscale = 650; // guess...
   TF1 *bun = new TF1("bun","[0]*TMath::Exp([1]*x) + [2]*TMath::Exp([3]*x)",newmin/peconvert,newmax/peconvert);
@@ -115,9 +115,9 @@ void simplecosmics()
   bun->Draw("same");
 
   c1->SetLogy(0);
-  c1->Print("buglydatabothnotlogfit.png");
+  c1->Print("Cosmics/buglydatabothnotlogfit.png");
   c1->SetLogy(1);
-  c1->Print("buglydatabothlogfit.png");
+  c1->Print("Cosmics/buglydatabothlogfit.png");
 
 
 
