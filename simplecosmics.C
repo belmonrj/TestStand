@@ -83,6 +83,7 @@ void simplecosmics()
   fun->SetParameter(1,mu);
   fun->SetParameter(2,sigma);
   fun->Draw("same");
+  fun->SetLineColor(kBlack);
   c1->Print("uglydatanotlogfit.png");
   c1->SetLogy(1);
   c1->Print("uglydatalogfit.png");
@@ -97,12 +98,28 @@ void simplecosmics()
   c1->SetLogy(1);
   c1->Print("uglydatabothlogfit.png");
 
-  h1->SetMaximum(1.1*h1->GetBinContent(h1->GetMaximumBin()));
+  h1->SetMaximum(1.15*h1->GetBinContent(h1->GetMaximumBin()));
 
   c1->SetLogy(0);
   c1->Print("fuglydatabothnotlogfit.png");
   c1->SetLogy(1);
   c1->Print("fuglydatabothlogfit.png");
+
+  double bgscale = 650; // guess...
+  TF1 *bun = new TF1("bun","[0]*TMath::Exp([1]*x) + [2]*TMath::Exp([3]*x)",newmin/peconvert,newmax/peconvert);
+  bun->SetParameter(0,bgscale*7.17020);
+  bun->SetParameter(1,-5.10223e-1);
+  bun->SetParameter(2,bgscale*1.22363e-1);
+  bun->SetParameter(3,-8.84094e-2);
+  bun->SetLineColor(kBlack);
+  bun->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print("buglydatabothnotlogfit.png");
+  c1->SetLogy(1);
+  c1->Print("buglydatabothlogfit.png");
+
+
 
 
 
