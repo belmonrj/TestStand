@@ -34,8 +34,8 @@ void backgrounds()
 
   int numberB = voltage3.size();
 
-  TH1D *h3 = new TH1D("h3","",50,newmin,newmax);
-  TH1D *h4 = new TH1D("h4","",50,newmin,newmax);
+  TH1D *h3 = new TH1D("h3","",100,newmin,newmax);
+  TH1D *h4 = new TH1D("h4","",100,newmin,newmax);
   for(int i=0; i<numberB; i++)
     {
       // --- SiPM1
@@ -55,6 +55,8 @@ void backgrounds()
   h3->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h4->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   // --- draw
+  h3->Scale(1.0/numberB);
+  h4->Scale(1.0/numberB);
   h3->Draw("");
   h4->Draw("same");
   // --- print figures
@@ -63,6 +65,145 @@ void backgrounds()
   c1->SetLogy(1);
   c1->Print("backgrounds_part1_log.png");
 
+  //20150915-1612
+
+
+  // ------------------------------------------------------
+
+
+  ifstream fin5("TEMP/20150915-1612_Unaveraged_VMin1.txt");
+  double content;
+  vector<double> voltage5;
+  while(fin5>>content)
+    {
+      voltage5.push_back(content);
+    }
+  fin5.close();
+  cout << voltage5.size() << endl;
+
+  ifstream fin6("TEMP/20150915-1612_Unaveraged_VMin2.txt");
+  vector<double> voltage6;
+  while(fin6>>content)
+    {
+      voltage6.push_back(content);
+    }
+  fin6.close();
+  cout << voltage6.size() << endl;
+
+  int numberC = voltage5.size();
+
+  TH1D *h5 = new TH1D("h5","",100,newmin,newmax);
+  TH1D *h6 = new TH1D("h6","",100,newmin,newmax);
+  for(int i=0; i<numberC; i++)
+    {
+      // --- SiPM1
+      content = -1*voltage5[i];
+      h5->Fill(content);
+      // --- SiPM2
+      content = -1*voltage6[i];
+      h6->Fill(content);
+    }
+
+  h5->SetLineColor(kRed);
+  h5->SetLineWidth(2);
+  h6->SetLineColor(kBlue);
+  h6->SetLineWidth(2);
+  // --- adjust limits
+  double peconvert = 0.00502; // volts per photoelectrion
+  h5->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  h6->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  // --- draw
+  h5->Scale(1.0/numberC);
+  h6->Scale(1.0/numberC);
+  h5->Draw("same");
+  h6->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print("backgrounds_part2.png");
+  c1->SetLogy(1);
+  c1->Print("backgrounds_part2_log.png");
+
+
+
+  // ------------------------------------------------------
+
+  ifstream fin7("TEMP/20151005-1452_Unaveraged_VMin1.txt");
+  double content;
+  vector<double> voltage7;
+  while(fin7>>content)
+    {
+      voltage7.push_back(content);
+    }
+  fin7.close();
+  cout << voltage7.size() << endl;
+
+  ifstream fin8("TEMP/20151005-1452_Unaveraged_VMin2.txt");
+  vector<double> voltage8;
+  while(fin8>>content)
+    {
+      voltage8.push_back(content);
+    }
+  fin8.close();
+  cout << voltage8.size() << endl;
+
+  int numberD = voltage7.size();
+
+  TH1D *h7 = new TH1D("h7","",100,newmin,newmax);
+  TH1D *h8 = new TH1D("h8","",100,newmin,newmax);
+  for(int i=0; i<numberD; i++)
+    {
+      // --- SiPM1
+      content = -1*voltage7[i];
+      h7->Fill(content);
+      // --- SiPM2
+      content = -1*voltage8[i];
+      h8->Fill(content);
+    }
+
+  h7->SetLineColor(kRed);
+  h7->SetLineWidth(2);
+  h8->SetLineColor(kBlue);
+  h8->SetLineWidth(2);
+  // --- adjust limits
+  double peconvert = 0.00502; // volts per photoelectrion
+  h7->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  h8->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  // --- draw
+  h7->Scale(1.0/numberD);
+  h8->Scale(1.0/numberD);
+  h7->Draw("same");
+  h8->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print("backgrounds_part3.png");
+  c1->SetLogy(1);
+  c1->Print("backgrounds_part3_log.png");
+
+
+
+  h7->Scale(numberD);
+  h8->Scale(numberD);
+  h7->Draw();
+  h8->Draw("same");
+
+  TF1 *fun = new TF1("fun","expo",0,150);
+  h7->Fit(fun,"","",15,100);
+
+  TF1 *fun2 = (TF1 *)fun->Clone("fun2");
+  fun2->SetLineColor(kBlack);
+  fun2->Draw("same");
+
+  TF1 *funl = new TF1("funl","expo",0,150);
+  h7->Fit(funl,"","",6,15);
+
+  TF1 *funl2 = (TF1 *)funl->Clone("funl2");
+  funl2->SetLineColor(kBlack);
+  funl2->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print("backgrounds_part4_fit.png");
+  c1->SetLogy(1);
+  c1->Print("backgrounds_part4_fit_log.png");
 
 
 }
