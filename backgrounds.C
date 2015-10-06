@@ -205,5 +205,81 @@ void backgrounds()
   c1->SetLogy(1);
   c1->Print("backgrounds_part4_fit_log.png");
 
+  // ---
+
+  TF1 *ffun = new TF1("ffun","[0]*TMath::Exp([1]*x)",0,150);
+  ffun->SetParameter(0,TMath::Exp(fun->GetParameter(0)));
+  ffun->SetParameter(1,fun->GetParameter(1));
+  h7->Fit(ffun,"","",15,100);
+
+  TF1 *ffun2 = (TF1 *)ffun->Clone("ffun2");
+  ffun2->SetParameter(0,TMath::Exp(fun2->GetParameter(0)));
+  ffun2->SetParameter(1,fun2->GetParameter(1));
+  ffun2->SetLineColor(kBlack);
+  ffun2->Draw("same");
+
+  TF1 *ffunl = new TF1("ffunl","[0]*TMath::Exp([1]*x)",0,150);
+  ffunl->SetParameter(0,TMath::Exp(funl->GetParameter(0)));
+  ffunl->SetParameter(1,funl->GetParameter(1));
+  h7->Fit(ffunl,"","",6,15);
+
+  TF1 *ffunl2 = (TF1 *)ffunl->Clone("ffunl2");
+  ffunl2->SetParameter(0,TMath::Exp(funl2->GetParameter(0)));
+  ffunl2->SetParameter(1,funl2->GetParameter(1));
+  ffunl2->SetLineColor(kBlack);
+  ffunl2->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print("backgrounds_part5_fit.png");
+  c1->SetLogy(1);
+  c1->Print("backgrounds_part5_fit_log.png");
+
+
+
+  TF1 *superfun = new TF1("superfun","[0]*TMath::Exp([1]*x) + [2]*TMath::Exp([3]*x)",0,150);
+  superfun->SetParameter(0,0.8*ffunl->GetParameter(0));
+  superfun->SetParameter(1,ffunl->GetParameter(1));
+  superfun->SetParameter(2,ffun->GetParameter(0));
+  superfun->SetParameter(3,ffun->GetParameter(1));
+  superfun->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print("backgrounds_part6_fit.png");
+  c1->SetLogy(1);
+  c1->Print("backgrounds_part6_fit_log.png");
+
+
+
+  TF1 *superfun2 = new TF1("superfun2","[0]*TMath::Exp([1]*x) + [2]*TMath::Exp([3]*x)",0,150);
+  superfun2->SetParameter(0,0.8*ffunl->GetParameter(0));
+  superfun2->SetParameter(1,ffunl->GetParameter(1));
+  superfun2->SetParameter(2,ffun->GetParameter(0));
+  superfun2->SetParameter(3,ffun->GetParameter(1));
+  h7->Draw();
+  h8->Draw("same");
+  h7->Fit(superfun2,"","",6,100);
+
+  c1->SetLogy(0);
+  c1->Print("backgrounds_part7_fit.png");
+  c1->SetLogy(1);
+  c1->Print("backgrounds_part7_fit_log.png");
+
+
+
+  TF1 *superfun3 = new TF1("superfun3","expo(0)+expo(2)",0,150);
+  superfun3->SetParameter(0,0.8*funl->GetParameter(0));
+  superfun3->SetParameter(1,funl->GetParameter(1));
+  superfun3->SetParameter(2,fun->GetParameter(0));
+  superfun3->SetParameter(3,fun->GetParameter(1));
+  h7->Draw();
+  h8->Draw("same");
+  h7->Fit(superfun3,"","",6,100);
+
+  c1->SetLogy(0);
+  c1->Print("backgrounds_part8_fit.png");
+  c1->SetLogy(1);
+  c1->Print("backgrounds_part8_fit_log.png");
+
+
 
 }
