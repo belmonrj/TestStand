@@ -83,7 +83,8 @@ void simplecosmics()
   fun->SetParameter(1,mu);
   fun->SetParameter(2,sigma);
   fun->Draw("same");
-  fun->SetLineColor(kBlack);
+  fun->SetLineColor(kGreen+2);
+  fun->SetLineWidth(1);
   c1->Print("Cosmics/uglydatanotlogfit.png");
   c1->SetLogy(1);
   c1->Print("Cosmics/uglydatalogfit.png");
@@ -111,7 +112,8 @@ void simplecosmics()
   bun->SetParameter(1,-5.10223e-1);
   bun->SetParameter(2,bgscale*1.22363e-1);
   bun->SetParameter(3,-8.84094e-2);
-  bun->SetLineColor(kBlack);
+  bun->SetLineColor(kGreen+2);
+  bun->SetLineWidth(1);
   bun->Draw("same");
 
   c1->SetLogy(0);
@@ -121,6 +123,57 @@ void simplecosmics()
 
 
 
+  TF1 *ultrafun = new TF1("ultrafun","[0]*TMath::Exp([1]*x) + [2]*TMath::Exp([3]*x) + [4]*TMath::Landau(x,[5],[6])",newmin/peconvert,newmax/peconvert);
+  ultrafun->SetParameter(0,bgscale*7.17020);
+  ultrafun->SetParameter(1,-5.10223e-1);
+  ultrafun->SetParameter(2,bgscale*1.22363e-1);
+  ultrafun->SetParameter(3,-8.84094e-2);
+  ultrafun->SetParameter(4,height);
+  ultrafun->SetParameter(5,mu);
+  ultrafun->SetParameter(6,sigma);
+  ultrafun->SetLineColor(kBlack);
+  ultrafun->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print("Cosmics/bhuglydatabothnotlogfit.png");
+  c1->SetLogy(1);
+  c1->Print("Cosmics/bhuglydatabothlogfit.png");
+
+  h1->Fit(ultrafun,"R");
+  c1->SetLogy(0);
+  c1->Print("Cosmics/fbhuglydatabothnotlogfit.png");
+  c1->SetLogy(1);
+  c1->Print("Cosmics/fbhuglydatabothlogfit.png");
+
+  h1->SetMaximum(210);
+  c1->SetLogy(0);
+  c1->Print("Cosmics/pfbhuglydatabothnotlogfit.png");
+  c1->SetLogy(1);
+  c1->Print("Cosmics/pfbhuglydatabothlogfit.png");
+
+
+
+  // ---
+
+  h1->SetMaximum(1.15*h1->GetBinContent(h1->GetMaximumBin()));
+  h1->Draw();
+  h2->Draw("same");
+
+  TF1 *pain = new TF1("pain","[0]*7.17020*TMath::Exp([1]*x) + [0]*1.22363*TMath::Exp([2]*x) + [3]*TMath::Landau(x,[4],[5])",newmin/peconvert,newmax/peconvert);
+  pain->SetParameter(0,bgscale);
+  pain->FixParameter(1,-5.10223e-1);
+  pain->FixParameter(2,-8.84094e-2);
+  pain->SetParameter(3,height);
+  pain->SetParameter(4,mu);
+  pain->SetParameter(5,sigma);
+  pain->SetLineColor(kBlack);
+  pain->Draw("same");
+
+  h1->Fit(pain,"R");
+  c1->SetLogy(0);
+  c1->Print("Cosmics/iampain.png");
+  c1->SetLogy(1);
+  c1->Print("Cosmics/iampain_log.png");
 
 
 }
