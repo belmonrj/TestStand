@@ -293,9 +293,9 @@ void backgrounds()
   TLegend *leg = new TLegend(0.48,0.68,0.88,0.88);
   leg->AddEntry(h7,"SiPM1","l");
   leg->AddEntry(h8,"SiPM2","l");
-  leg->AddEntry(superfun3,"Combined bg (double expo)","l");
   leg->AddEntry(funl,"low exponential","l");
   leg->AddEntry(fun,"high exponential","l");
+  leg->AddEntry(superfun3,"Combined bg (double expo)","l");
   leg->Draw();
   c1->SetLogy(0);
   c1->Print("Backgrounds/backgrounds_part8_fit.png");
