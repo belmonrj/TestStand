@@ -144,6 +144,14 @@ void simplecosmics()
   ultrafun->SetLineColor(kBlack);
   ultrafun->Draw("same");
 
+  TLegend *leg = new TLegend(0.48,0.68,0.88,0.88);
+  leg->AddEntry(h1,"SiPM1","l");
+  leg->AddEntry(h2,"SiPM2","l");
+  leg->AddEntry(fun,"Signal (Landau)","l");
+  leg->AddEntry(bun,"Background (double expo)","l");
+  leg->AddEntry(ultrafun,"Combined functional fit","l");
+  leg->Draw();
+
   c1->SetLogy(0);
   c1->Print("Cosmics/bhuglydatabothnotlogfit.png");
   c1->Print("Cosmics/bhuglydatabothnotlogfit.pdf");
