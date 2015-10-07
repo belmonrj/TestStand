@@ -295,5 +295,23 @@ void backgrounds()
   c1->Print("Backgrounds/backgrounds_part8_fit_log.pdf");
 
 
+  h7->Scale(numberD);
+  h8->Scale(numberD);
+  h7->Fit(superfun3,"","",6,100);
+  funl->SetParameter(0,superfun3->GetParameter(0));
+  funl->SetParameter(1,superfun3->GetParameter(1));
+  fun->SetParameter(0,superfun3->GetParameter(2));
+  fun->SetParameter(1,superfun3->GetParameter(3));
+  superfun3->Draw("same");
+  funl->Draw("same");
+  fun->Draw("same");
+  c1->SetLogy(0);
+  c1->Print("Backgrounds/backgrounds_part9_fit.png");
+  c1->Print("Backgrounds/backgrounds_part9_fit.pdf");
+  c1->SetLogy(1);
+  c1->Print("Backgrounds/backgrounds_part9_fit_log.png");
+  c1->Print("Backgrounds/backgrounds_part9_fit_log.pdf");
+
+
 
 }
