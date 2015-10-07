@@ -88,8 +88,10 @@ void simplecosmics()
   fun->SetLineColor(kGreen+2);
   fun->SetLineWidth(1);
   c1->Print("Cosmics/uglydatanotlogfit.png");
+  c1->Print("Cosmics/uglydatanotlogfit.pdf");
   c1->SetLogy(1);
   c1->Print("Cosmics/uglydatalogfit.png");
+  c1->Print("Cosmics/uglydatalogfit.pdf");
 
   // --- now draw SiPM2 on top
   h1->SetLineColor(kRed);
@@ -98,15 +100,19 @@ void simplecosmics()
   h2->Draw("same");
   c1->SetLogy(0);
   c1->Print("Cosmics/uglydatabothnotlogfit.png");
+  c1->Print("Cosmics/uglydatabothnotlogfit.pdf");
   c1->SetLogy(1);
   c1->Print("Cosmics/uglydatabothlogfit.png");
+  c1->Print("Cosmics/uglydatabothlogfit.pdf");
 
   h1->SetMaximum(1.15*h1->GetBinContent(h1->GetMaximumBin()));
 
   c1->SetLogy(0);
   c1->Print("Cosmics/fuglydatabothnotlogfit.png");
+  c1->Print("Cosmics/fuglydatabothnotlogfit.pdf");
   c1->SetLogy(1);
   c1->Print("Cosmics/fuglydatabothlogfit.png");
+  c1->Print("Cosmics/fuglydatabothlogfit.pdf");
 
   double bgscale = 650; // guess...
   TF1 *bun = new TF1("bun","[0]*TMath::Exp([1]*x) + [2]*TMath::Exp([3]*x)",newmin/peconvert,newmax/peconvert);
@@ -120,8 +126,10 @@ void simplecosmics()
 
   c1->SetLogy(0);
   c1->Print("Cosmics/buglydatabothnotlogfit.png");
+  c1->Print("Cosmics/buglydatabothnotlogfit.pdf");
   c1->SetLogy(1);
   c1->Print("Cosmics/buglydatabothlogfit.png");
+  c1->Print("Cosmics/buglydatabothlogfit.pdf");
 
 
 
@@ -138,20 +146,33 @@ void simplecosmics()
 
   c1->SetLogy(0);
   c1->Print("Cosmics/bhuglydatabothnotlogfit.png");
+  c1->Print("Cosmics/bhuglydatabothnotlogfit.pdf");
   c1->SetLogy(1);
   c1->Print("Cosmics/bhuglydatabothlogfit.png");
+  c1->Print("Cosmics/bhuglydatabothlogfit.pdf");
 
   h1->Fit(ultrafun,"R");
+  bun->SetParameter(0,ultrafun->GetParameter(0));
+  bun->SetParameter(1,ultrafun->GetParameter(1));
+  bun->SetParameter(2,ultrafun->GetParameter(2));
+  bun->SetParameter(3,ultrafun->GetParameter(3));
+  fun->SetParameter(0,ultrafun->GetParameter(4));
+  fun->SetParameter(1,ultrafun->GetParameter(5));
+  fun->SetParameter(2,ultrafun->GetParameter(6));
   c1->SetLogy(0);
-  c1->Print("Cosmics/fbhuglydatabothnotlogfit.png");
+  c1->Print("Cosmics/bhfuglydatabothnotlogfit.png");
+  c1->Print("Cosmics/bhfuglydatabothnotlogfit.pdf");
   c1->SetLogy(1);
-  c1->Print("Cosmics/fbhuglydatabothlogfit.png");
+  c1->Print("Cosmics/bhfuglydatabothlogfit.png");
+  c1->Print("Cosmics/bhfuglydatabothlogfit.pdf");
 
   h1->SetMaximum(210);
   c1->SetLogy(0);
-  c1->Print("Cosmics/pfbhuglydatabothnotlogfit.png");
+  c1->Print("Cosmics/pfuglydatabothnotlogfit.png");
+  c1->Print("Cosmics/pfuglydatabothnotlogfit.pdf");
   c1->SetLogy(1);
-  c1->Print("Cosmics/pfbhuglydatabothlogfit.png");
+  c1->Print("Cosmics/pfuglydatabothlogfit.png");
+  c1->Print("Cosmics/pfuglydatabothlogfit.pdf");
 
 
 
@@ -174,8 +195,10 @@ void simplecosmics()
   h1->Fit(pain,"R");
   c1->SetLogy(0);
   c1->Print("Cosmics/iampain.png");
+  c1->Print("Cosmics/iampain.pdf");
   c1->SetLogy(1);
   c1->Print("Cosmics/iampain_log.png");
+  c1->Print("Cosmics/iampain_log.pdf");
 
 
 }
