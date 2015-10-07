@@ -271,14 +271,28 @@ void backgrounds()
   superfun3->SetParameter(1,funl->GetParameter(1));
   superfun3->SetParameter(2,fun->GetParameter(0));
   superfun3->SetParameter(3,fun->GetParameter(1));
+  superfun3->SetLineColor(kBlack);
+  h7->SetLineWidth(1);
+  h8->SetLineWidth(1);
   h7->Draw();
   h8->Draw("same");
   h7->Fit(superfun3,"","",6,100);
-
+  funl->SetParameter(0,superfun3->GetParameter(0));
+  funl->SetParameter(1,superfun3->GetParameter(1));
+  fun->SetParameter(0,superfun3->GetParameter(2));
+  fun->SetParameter(1,superfun3->GetParameter(3));
+  funl->SetLineColor(kGreen+2);
+  fun->SetLineColor(kGreen+2);
+  funl->SetLineWidth(1);
+  fun->SetLineWidth(1);
+  funl->Draw("same");
+  fun->Draw("same");
   c1->SetLogy(0);
   c1->Print("Backgrounds/backgrounds_part8_fit.png");
+  c1->Print("Backgrounds/backgrounds_part8_fit.pdf");
   c1->SetLogy(1);
   c1->Print("Backgrounds/backgrounds_part8_fit_log.png");
+  c1->Print("Backgrounds/backgrounds_part8_fit_log.pdf");
 
 
 
