@@ -264,6 +264,9 @@ void backgrounds()
   c1->SetLogy(1);
   c1->Print("Backgrounds/backgrounds_part7_fit_log.png");
 
+  h7->GetYaxis()->SetTitle("Counts");
+  h7->GetXaxis()->SetTitle("Number of photoelectrons");
+
 
 
   TF1 *superfun3 = new TF1("superfun3","expo(0)+expo(2)",0,150);
@@ -287,6 +290,13 @@ void backgrounds()
   fun->SetLineWidth(1);
   funl->Draw("same");
   fun->Draw("same");
+  TLegend *leg = new TLegend(0.48,0.68,0.88,0.88);
+  leg->AddEntry(h7,"SiPM1","l");
+  leg->AddEntry(h8,"SiPM2","l");
+  leg->AddEntry(superfun3,"Combined bg (double expo)","l");
+  leg->AddEntry(funl,"low exponential","l");
+  leg->AddEntry(fun,"high exponential","l");
+  leg->Draw();
   c1->SetLogy(0);
   c1->Print("Backgrounds/backgrounds_part8_fit.png");
   c1->Print("Backgrounds/backgrounds_part8_fit.pdf");
