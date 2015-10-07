@@ -65,6 +65,8 @@ void simplecosmics()
   // --- rescale the histograms from volts to photoelectrons
   double peconvert = 0.00502; // volts per photoelectrion
   h1->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  h1->GetXaxis()->SetTitle("Number of photoelectrons");
+  h1->GetYaxis()->SetTitle("Counts");
   h1->Draw();
   // c1->Print("Cosmics/uglydata.png");
   c1->SetLogy();
