@@ -111,8 +111,8 @@ void source()
   c1->Print("Source/source_1v2.png");
   c1->Print("Source/source_1v2.pdf");
   c1->SetLogz(1);
-  c1->Print("Source/source_1v2.png");
-  c1->Print("Source/source_1v2.pdf");
+  c1->Print("Source/source_1v2_log.png");
+  c1->Print("Source/source_1v2_log.pdf");
 
   hhSvA->Draw("colz");
   hhSvA->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
@@ -122,8 +122,8 @@ void source()
   c1->Print("Source/source_SvA.png");
   c1->Print("Source/source_SvA.pdf");
   c1->SetLogz(1);
-  c1->Print("Source/source_SvA.png");
-  c1->Print("Source/source_SvA.pdf");
+  c1->Print("Source/source_SvA_log.png");
+  c1->Print("Source/source_SvA_log.pdf");
 
 
 }
