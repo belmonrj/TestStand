@@ -34,16 +34,14 @@ void backgrounds()
 
   int numberB = voltage3.size();
 
-  TH1D *h3 = new TH1D("h3","",100,newmin,newmax);
-  TH1D *h4 = new TH1D("h4","",100,newmin,newmax);
+  TH1D *h3 = new TH1D("h3","",100,newmin,newmax); // SiPM1 distribution
+  TH1D *h4 = new TH1D("h4","",100,newmin,newmax); // SiPM2 distribution
   for(int i=0; i<numberB; i++)
     {
       // --- SiPM1
-      content = -1*voltage3[i];
-      h3->Fill(content);
+      h3->Fill(-voltage3[i]);
       // --- SiPM2
-      content = -1*voltage4[i];
-      h4->Fill(content);
+      h4->Fill(-voltage4[i]);
     }
 
   h3->SetLineColor(kRed);
@@ -72,7 +70,6 @@ void backgrounds()
 
 
   ifstream fin5("TEMP/20150915-1612_Unaveraged_VMin1.txt");
-  double content;
   vector<double> voltage5;
   while(fin5>>content)
     {
@@ -97,11 +94,9 @@ void backgrounds()
   for(int i=0; i<numberC; i++)
     {
       // --- SiPM1
-      content = -1*voltage5[i];
-      h5->Fill(content);
+      h5->Fill(-voltage5[i]);
       // --- SiPM2
-      content = -1*voltage6[i];
-      h6->Fill(content);
+      h6->Fill(-voltage6[i]);
     }
 
   h5->SetLineColor(kRed);
@@ -128,7 +123,6 @@ void backgrounds()
   // ------------------------------------------------------
 
   ifstream fin7("TEMP/20151005-1452_Unaveraged_VMin1.txt");
-  double content;
   vector<double> voltage7;
   while(fin7>>content)
     {
@@ -150,14 +144,24 @@ void backgrounds()
 
   TH1D *h7 = new TH1D("h7","",100,newmin,newmax);
   TH1D *h8 = new TH1D("h8","",100,newmin,newmax);
+  TH2D *hh1v2 = new TH2D("hh1v2","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
+  TH2D *hhSvA = new TH2D("hhSvA","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
+  vector<double> sum;
+  vector<double> asym;
   for(int i=0; i<numberD; i++)
     {
       // --- SiPM1
-      content = -1*voltage7[i];
-      h7->Fill(content);
+      h7->Fill(-voltage7[i]);
       // --- SiPM2
-      content = -1*voltage8[i];
-      h8->Fill(content);
+      h8->Fill(-voltage8[i]);
+      // --- SiPM1 vs SiPM2
+      hh1v2->Fill(-voltage7[i],-voltage8[i]);
+      // --- sum vs asymmetry
+      double tempsum = -voltage7[i] + -voltage8[i];
+      double tempasym = (voltage7[i] - voltage8[i]) / (-voltage7[i] + -voltage8[i]);
+      hhSvA->Fill(tempsum,tempasym);
+      sum.push_back(tempsum);
+      asym.push_back(tempasym);
     }
 
   h7->SetLineColor(kRed);
@@ -323,5 +327,31 @@ void backgrounds()
   c1->Print("Backgrounds/backgrounds_part9_fit_log.pdf");
 
 
+
+
+  c1->SetLogy(0);
+  c1->Clear();
+  hh1v2->Draw("colz");
+  hh1v2->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2->GetYaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2->GetXaxis()->SetTitle("#pe SiPM1");
+  hh1v2->GetYaxis()->SetTitle("#pe SiPM2");
+  c1->SetLogz(0);
+  c1->Print("Backgrounds/backgrounds_1v2.png");
+  c1->Print("Backgrounds/backgrounds_1v2.pdf");
+  c1->SetLogz(1);
+  c1->Print("Backgrounds/backgrounds_1v2.png");
+  c1->Print("Backgrounds/backgrounds_1v2.pdf");
+
+  hhSvA->Draw("colz");
+  hhSvA->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
+  hhSvA->GetXaxis()->SetTitle("Sum");
+  hhSvA->GetYaxis()->SetTitle("Asymmetry");
+  c1->SetLogz(0);
+  c1->Print("Backgrounds/backgrounds_SvA.png");
+  c1->Print("Backgrounds/backgrounds_SvA.pdf");
+  c1->SetLogz(1);
+  c1->Print("Backgrounds/backgrounds_SvA.png");
+  c1->Print("Backgrounds/backgrounds_SvA.pdf");
 
 }
