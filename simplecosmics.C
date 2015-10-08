@@ -41,15 +41,25 @@ void simplecosmics()
   // --- create the new histogram
   TH1D *h1 = new TH1D("h1","",50,newmin,newmax);
   TH1D *h2 = new TH1D("h2","",50,newmin,newmax);
+  TH2D *hh1v2 = new TH2D("hh1v2","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
+  TH2D *hhSvA = new TH2D("hhSvA","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
+  vector<double> sum;
+  vector<double> asym;
   // --- loop over the vector to fill the histogram
   for(int i=0; i<number; i++)
     {
       // --- SiPM1
-      content = -1*voltage1[i];
-      h1->Fill(content);
+      h1->Fill(-voltage1[i]);
       // --- SiPM2
-      content = -1*voltage2[i];
-      h2->Fill(content);
+      h2->Fill(-voltage2[i]);
+      // --- SiPM1 vs SiPM2
+      hh1v2->Fill(-voltage1[i],-voltage2[i]);
+      // --- sum vs asymmetry
+      double tempsum = -voltage1[i] + -voltage2[i];
+      double tempasym = (voltage1[i] - voltage2[i]) / (-voltage1[i] + -voltage2[i]);
+      hhSvA->Fill(tempsum,tempasym);
+      sum.push_back(tempsum);
+      asym.push_back(tempasym);
     }
 
   // --- make a canvas and draw the histogram
@@ -207,6 +217,34 @@ void simplecosmics()
   c1->SetLogy(1);
   c1->Print("Cosmics/iampain_log.png");
   c1->Print("Cosmics/iampain_log.pdf");
+
+
+
+
+  c1->SetLogy(0);
+  c1->Clear();
+  hh1v2->Draw("colz");
+  hh1v2->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2->GetYaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2->GetXaxis()->SetTitle("#pe SiPM1");
+  hh1v2->GetYaxis()->SetTitle("#pe SiPM2");
+  c1->SetLogz(0);
+  c1->Print("Cosmics/cosmics_1v2.png");
+  c1->Print("Cosmics/cosmics_1v2.pdf");
+  c1->SetLogz(1);
+  c1->Print("Cosmics/cosmics_1v2.png");
+  c1->Print("Cosmics/cosmics_1v2.pdf");
+
+  hhSvA->Draw("colz");
+  hhSvA->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
+  hhSvA->GetXaxis()->SetTitle("Sum");
+  hhSvA->GetYaxis()->SetTitle("Asymmetry");
+  c1->SetLogz(0);
+  c1->Print("Cosmics/cosmics_SvA.png");
+  c1->Print("Cosmics/cosmics_SvA.pdf");
+  c1->SetLogz(1);
+  c1->Print("Cosmics/cosmics_SvA.png");
+  c1->Print("Cosmics/cosmics_SvA.pdf");
 
 
 }
