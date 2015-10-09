@@ -1,6 +1,6 @@
 #include <algorithm> // for min_element, max_element
 
-
+double peconvert = 0.00502; // volts per photoelectrion
 
 void simplecosmics()
 {
@@ -43,6 +43,10 @@ void simplecosmics()
   TH1D *h2 = new TH1D("h2","",50,newmin,newmax);
   TH2D *hh1v2 = new TH2D("hh1v2","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
   TH2D *hhSvA = new TH2D("hhSvA","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
+  TH2D *hh1v2_cut1 = new TH2D("hh1v2_cut1","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
+  TH2D *hhSvA_cut1 = new TH2D("hhSvA_cut1","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
+  TH2D *hh1v2_cut2 = new TH2D("hh1v2_cut2","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
+  TH2D *hhSvA_cut2 = new TH2D("hhSvA_cut2","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
   vector<double> sum;
   vector<double> asym;
   // --- loop over the vector to fill the histogram
@@ -60,6 +64,17 @@ void simplecosmics()
       hhSvA->Fill(tempsum,tempasym);
       sum.push_back(tempsum);
       asym.push_back(tempasym);
+      // --- now do some cuts...
+      if(fabs(tempasym)<0.4)
+	{
+	  hh1v2_cut1->Fill(-voltage1[i],-voltage2[i]);
+	  hhSvA_cut1->Fill(tempsum,tempasym);
+	}
+      if((voltage1[i]<(voltage2[i]+20*peconvert))&&(voltage2[i]<(voltage1[i]+20*peconvert)))
+	{
+	  hh1v2_cut2->Fill(-voltage1[i],-voltage2[i]);
+	  hhSvA_cut2->Fill(tempsum,tempasym);
+	}
     }
 
   // --- make a canvas and draw the histogram
@@ -73,7 +88,6 @@ void simplecosmics()
   // c1->Print("Cosmics/uglydatanotlog.png");
 
   // --- rescale the histograms from volts to photoelectrons
-  double peconvert = 0.00502; // volts per photoelectrion
   h1->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h1->GetXaxis()->SetTitle("Number of photoelectrons");
   h1->GetYaxis()->SetTitle("Counts");
@@ -245,6 +259,72 @@ void simplecosmics()
   c1->SetLogz(1);
   c1->Print("Cosmics/cosmics_SvA_log.png");
   c1->Print("Cosmics/cosmics_SvA_log.pdf");
+
+
+  // --- now for some cuts...
+
+  c1->SetLogz(0);
+  hh1v2_cut1->Draw("colz");
+  hh1v2_cut1->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2_cut1->GetYaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2_cut1->GetXaxis()->SetTitle("#pe SiPM1");
+  hh1v2_cut1->GetYaxis()->SetTitle("#pe SiPM2");
+  TLatex *tex1 = new TLatex(0.2,0.8,"|Asymmetry|<0.4");
+  tex1->SetTextSize(0.05);
+  tex1->SetNDC(kTRUE);
+  tex1->Draw();
+  c1->SetLogz(0);
+  c1->Print("Cosmics/cosmics_1v2_cut1.png");
+  c1->Print("Cosmics/cosmics_1v2_cut1.pdf");
+  c1->SetLogz(1);
+  c1->Print("Cosmics/cosmics_1v2_cut1_log.png");
+  c1->Print("Cosmics/cosmics_1v2_cut1_log.pdf");
+
+  hhSvA_cut1->Draw("colz");
+  hhSvA_cut1->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
+  hhSvA_cut1->GetXaxis()->SetTitle("Sum");
+  hhSvA_cut1->GetYaxis()->SetTitle("Asymmetry");
+  tex1->Draw();
+  c1->SetLogz(0);
+  c1->Print("Cosmics/cosmics_SvA_cut1.png");
+  c1->Print("Cosmics/cosmics_SvA_cut1.pdf");
+  c1->SetLogz(1);
+  c1->Print("Cosmics/cosmics_SvA_cut1_log.png");
+  c1->Print("Cosmics/cosmics_SvA_cut1_log.pdf");
+
+
+
+
+  c1->SetLogz(0);
+  hh1v2_cut2->Draw("colz");
+  hh1v2_cut2->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2_cut2->GetYaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2_cut2->GetXaxis()->SetTitle("#pe SiPM1");
+  hh1v2_cut2->GetYaxis()->SetTitle("#pe SiPM2");
+  TLatex *tex2 = new TLatex(0.2,0.8,"SiPMA < SiPMB + 20");
+  tex2->SetTextSize(0.05);
+  tex2->SetNDC(kTRUE);
+  tex2->Draw();
+  c1->SetLogz(0);
+  c1->Print("Cosmics/cosmics_1v2_cut2.png");
+  c1->Print("Cosmics/cosmics_1v2_cut2.pdf");
+  c1->SetLogz(1);
+  c1->Print("Cosmics/cosmics_1v2_cut2_log.png");
+  c1->Print("Cosmics/cosmics_1v2_cut2_log.pdf");
+
+  hhSvA_cut2->Draw("colz");
+  hhSvA_cut2->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
+  hhSvA_cut2->GetXaxis()->SetTitle("Sum");
+  hhSvA_cut2->GetYaxis()->SetTitle("Asymmetry");
+  tex2->Draw();
+  c1->SetLogz(0);
+  c1->Print("Cosmics/cosmics_SvA_cut2.png");
+  c1->Print("Cosmics/cosmics_SvA_cut2.pdf");
+  c1->SetLogz(1);
+  c1->Print("Cosmics/cosmics_SvA_cut2_log.png");
+  c1->Print("Cosmics/cosmics_SvA_cut2_log.pdf");
+
+
 
 
 }
