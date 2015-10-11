@@ -41,6 +41,7 @@ void simplecosmics()
   // --- create the new histogram
   TH1D *h1 = new TH1D("h1","",50,newmin,newmax);
   TH1D *h2 = new TH1D("h2","",50,newmin,newmax);
+  TH1D *hsum = new TH1D("hsum","",50,2*newmin,2*newmax);
   TH2D *hh1v2 = new TH2D("hh1v2","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
   TH2D *hhSvA = new TH2D("hhSvA","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
   TH2D *hh1v2_cut1 = new TH2D("hh1v2_cut1","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
@@ -61,6 +62,7 @@ void simplecosmics()
       // --- sum vs asymmetry
       double tempsum = -voltage1[i] + -voltage2[i];
       double tempasym = (voltage1[i] - voltage2[i]) / (-voltage1[i] + -voltage2[i]);
+      hsum->Fill(tempsum);
       hhSvA->Fill(tempsum,tempasym);
       sum.push_back(tempsum);
       asym.push_back(tempasym);
@@ -326,5 +328,10 @@ void simplecosmics()
 
 
 
+  hsum->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hsum->Draw();
+  c1->Print("temp.png");
+  c1->SetLogy();
+  c1->Print("templog.png");
 
 }
