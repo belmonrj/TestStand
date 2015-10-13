@@ -5,11 +5,21 @@ double peconvert = 0.00502; // volts per photoelectrion
 void simplecosmics()
 {
 
+  doit("20150930-1720");
+  doit("20151009-1743");
+
+}
+
+
+void doit(const char *basename)
+{
+
   // --- read in the data and create a vector with all the values
   // --- note that this code requires an duplicates to have already been cleaned out
   // --- this is automatically fixed with the new version of the DAQ/stepper code
   // --- but the user would do well do double check all output files anyway
-  ifstream fin1("TEMP/20150930-1720_Unaveraged_VMin1.txt");
+  //ifstream fin1("TEMP/20150930-1720_Unaveraged_VMin1.txt");
+  ifstream fin1(Form("TEMP/%s_Unaveraged_VMin1.txt",basename));
   double content;
   vector<double> voltage1;
   while(fin1>>content)
@@ -20,7 +30,8 @@ void simplecosmics()
   cout << voltage1.size() << endl;
 
   // --- do the same for SiPM2
-  ifstream fin2("TEMP/20150930-1720_Unaveraged_VMin2.txt");
+  //ifstream fin2("TEMP/20150930-1720_Unaveraged_VMin2.txt");
+  ifstream fin2(Form("TEMP/%s_Unaveraged_VMin2.txt",basename));
   vector<double> voltage2;
   while(fin2>>content)
     {
@@ -82,24 +93,24 @@ void simplecosmics()
   // --- make a canvas and draw the histogram
   TCanvas *c1 = new TCanvas("c1","",800,600);
   h1->Draw();
-  // c1->Print("Cosmics/uglydata.png");
+  // c1->Print(Form("Cosmics/%s_uglydata.png",basename));
   c1->SetLogy();
-  // c1->Print("Cosmics/uglydatalog.png");
+  // c1->Print(Form("Cosmics/%s_uglydatalog.png",basename));
   c1->SetLogy(0);
   // h1->SetMaximum(120);
-  // c1->Print("Cosmics/uglydatanotlog.png");
+  // c1->Print(Form("Cosmics/%s_uglydatanotlog.png",basename));
 
   // --- rescale the histograms from volts to photoelectrons
   h1->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h1->GetXaxis()->SetTitle("Number of photoelectrons");
   h1->GetYaxis()->SetTitle("Counts");
   h1->Draw();
-  // c1->Print("Cosmics/uglydata.png");
+  // c1->Print(Form("Cosmics/%s_uglydata.png",basename));
   c1->SetLogy();
-  // c1->Print("Cosmics/uglydatalog.png");
+  // c1->Print(Form("Cosmics/%s_uglydatalog.png",basename));
   c1->SetLogy(0);
   h1->SetMaximum(210);
-  // c1->Print("Cosmics/uglydatanotlog.png");
+  // c1->Print(Form("Cosmics/%s_uglydatanotlog.png",basename));
 
   // --- define Landau function and draw
   // --- don't fit yet because the data have tons of ugly low voltage1 background
@@ -113,11 +124,11 @@ void simplecosmics()
   fun->Draw("same");
   fun->SetLineColor(kGreen+2);
   fun->SetLineWidth(1);
-  c1->Print("Cosmics/uglydatanotlogfit.png");
-  c1->Print("Cosmics/uglydatanotlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_uglydatanotlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_uglydatanotlogfit.pdf",basename));
   c1->SetLogy(1);
-  c1->Print("Cosmics/uglydatalogfit.png");
-  c1->Print("Cosmics/uglydatalogfit.pdf");
+  c1->Print(Form("Cosmics/%s_uglydatalogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_uglydatalogfit.pdf",basename));
 
   // --- now draw SiPM2 on top
   h1->SetLineColor(kRed);
@@ -125,20 +136,20 @@ void simplecosmics()
   h2->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h2->Draw("same");
   c1->SetLogy(0);
-  c1->Print("Cosmics/uglydatabothnotlogfit.png");
-  c1->Print("Cosmics/uglydatabothnotlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_uglydatabothnotlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_uglydatabothnotlogfit.pdf",basename));
   c1->SetLogy(1);
-  c1->Print("Cosmics/uglydatabothlogfit.png");
-  c1->Print("Cosmics/uglydatabothlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_uglydatabothlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_uglydatabothlogfit.pdf",basename));
 
   h1->SetMaximum(1.15*h1->GetBinContent(h1->GetMaximumBin()));
 
   c1->SetLogy(0);
-  c1->Print("Cosmics/fuglydatabothnotlogfit.png");
-  c1->Print("Cosmics/fuglydatabothnotlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_fuglydatabothnotlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_fuglydatabothnotlogfit.pdf",basename));
   c1->SetLogy(1);
-  c1->Print("Cosmics/fuglydatabothlogfit.png");
-  c1->Print("Cosmics/fuglydatabothlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_fuglydatabothlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_fuglydatabothlogfit.pdf",basename));
 
   double bgscale = 650; // guess...
   TF1 *bun = new TF1("bun","[0]*TMath::Exp([1]*x) + [2]*TMath::Exp([3]*x)",newmin/peconvert,newmax/peconvert);
@@ -151,11 +162,11 @@ void simplecosmics()
   bun->Draw("same");
 
   c1->SetLogy(0);
-  c1->Print("Cosmics/buglydatabothnotlogfit.png");
-  c1->Print("Cosmics/buglydatabothnotlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_buglydatabothnotlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_buglydatabothnotlogfit.pdf",basename));
   c1->SetLogy(1);
-  c1->Print("Cosmics/buglydatabothlogfit.png");
-  c1->Print("Cosmics/buglydatabothlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_buglydatabothlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_buglydatabothlogfit.pdf",basename));
 
 
 
@@ -179,11 +190,11 @@ void simplecosmics()
   leg->Draw();
 
   c1->SetLogy(0);
-  c1->Print("Cosmics/bhuglydatabothnotlogfit.png");
-  c1->Print("Cosmics/bhuglydatabothnotlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_bhuglydatabothnotlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_bhuglydatabothnotlogfit.pdf",basename));
   c1->SetLogy(1);
-  c1->Print("Cosmics/bhuglydatabothlogfit.png");
-  c1->Print("Cosmics/bhuglydatabothlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_bhuglydatabothlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_bhuglydatabothlogfit.pdf",basename));
 
   h1->Fit(ultrafun,"R");
   bun->SetParameter(0,ultrafun->GetParameter(0));
@@ -194,19 +205,19 @@ void simplecosmics()
   fun->SetParameter(1,ultrafun->GetParameter(5));
   fun->SetParameter(2,ultrafun->GetParameter(6));
   c1->SetLogy(0);
-  c1->Print("Cosmics/bhfuglydatabothnotlogfit.png");
-  c1->Print("Cosmics/bhfuglydatabothnotlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_bhfuglydatabothnotlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_bhfuglydatabothnotlogfit.pdf",basename));
   c1->SetLogy(1);
-  c1->Print("Cosmics/bhfuglydatabothlogfit.png");
-  c1->Print("Cosmics/bhfuglydatabothlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_bhfuglydatabothlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_bhfuglydatabothlogfit.pdf",basename));
 
   h1->SetMaximum(210);
   c1->SetLogy(0);
-  c1->Print("Cosmics/pfuglydatabothnotlogfit.png");
-  c1->Print("Cosmics/pfuglydatabothnotlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_pfuglydatabothnotlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_pfuglydatabothnotlogfit.pdf",basename));
   c1->SetLogy(1);
-  c1->Print("Cosmics/pfuglydatabothlogfit.png");
-  c1->Print("Cosmics/pfuglydatabothlogfit.pdf");
+  c1->Print(Form("Cosmics/%s_pfuglydatabothlogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_pfuglydatabothlogfit.pdf",basename));
 
 
 
@@ -228,11 +239,11 @@ void simplecosmics()
 
   h1->Fit(pain,"R");
   c1->SetLogy(0);
-  c1->Print("Cosmics/iampain.png");
-  c1->Print("Cosmics/iampain.pdf");
+  c1->Print(Form("Cosmics/%s_iampain.png",basename));
+  c1->Print(Form("Cosmics/%s_iampain.pdf",basename));
   c1->SetLogy(1);
-  c1->Print("Cosmics/iampain_log.png");
-  c1->Print("Cosmics/iampain_log.pdf");
+  c1->Print(Form("Cosmics/%s_iampain_log.png",basename));
+  c1->Print(Form("Cosmics/%s_iampain_log.pdf",basename));
 
 
 
@@ -245,22 +256,22 @@ void simplecosmics()
   hh1v2->GetXaxis()->SetTitle("#pe SiPM1");
   hh1v2->GetYaxis()->SetTitle("#pe SiPM2");
   c1->SetLogz(0);
-  c1->Print("Cosmics/cosmics_1v2.png");
-  c1->Print("Cosmics/cosmics_1v2.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_1v2.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_1v2.pdf",basename));
   c1->SetLogz(1);
-  c1->Print("Cosmics/cosmics_1v2_log.png");
-  c1->Print("Cosmics/cosmics_1v2_log.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_log.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_log.pdf",basename));
 
   hhSvA->Draw("colz");
   hhSvA->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
   hhSvA->GetXaxis()->SetTitle("Sum");
   hhSvA->GetYaxis()->SetTitle("Asymmetry");
   c1->SetLogz(0);
-  c1->Print("Cosmics/cosmics_SvA.png");
-  c1->Print("Cosmics/cosmics_SvA.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_SvA.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_SvA.pdf",basename));
   c1->SetLogz(1);
-  c1->Print("Cosmics/cosmics_SvA_log.png");
-  c1->Print("Cosmics/cosmics_SvA_log.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_log.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_log.pdf",basename));
 
 
   // --- now for some cuts...
@@ -276,11 +287,11 @@ void simplecosmics()
   tex1->SetNDC(kTRUE);
   tex1->Draw();
   c1->SetLogz(0);
-  c1->Print("Cosmics/cosmics_1v2_cut1.png");
-  c1->Print("Cosmics/cosmics_1v2_cut1.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_cut1.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_cut1.pdf",basename));
   c1->SetLogz(1);
-  c1->Print("Cosmics/cosmics_1v2_cut1_log.png");
-  c1->Print("Cosmics/cosmics_1v2_cut1_log.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_cut1_log.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_cut1_log.pdf",basename));
 
   hhSvA_cut1->Draw("colz");
   hhSvA_cut1->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
@@ -288,11 +299,11 @@ void simplecosmics()
   hhSvA_cut1->GetYaxis()->SetTitle("Asymmetry");
   tex1->Draw();
   c1->SetLogz(0);
-  c1->Print("Cosmics/cosmics_SvA_cut1.png");
-  c1->Print("Cosmics/cosmics_SvA_cut1.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_cut1.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_cut1.pdf",basename));
   c1->SetLogz(1);
-  c1->Print("Cosmics/cosmics_SvA_cut1_log.png");
-  c1->Print("Cosmics/cosmics_SvA_cut1_log.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_cut1_log.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_cut1_log.pdf",basename));
 
 
 
@@ -308,11 +319,11 @@ void simplecosmics()
   tex2->SetNDC(kTRUE);
   tex2->Draw();
   c1->SetLogz(0);
-  c1->Print("Cosmics/cosmics_1v2_cut2.png");
-  c1->Print("Cosmics/cosmics_1v2_cut2.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_cut2.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_cut2.pdf",basename));
   c1->SetLogz(1);
-  c1->Print("Cosmics/cosmics_1v2_cut2_log.png");
-  c1->Print("Cosmics/cosmics_1v2_cut2_log.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_cut2_log.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_1v2_cut2_log.pdf",basename));
 
   hhSvA_cut2->Draw("colz");
   hhSvA_cut2->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
@@ -320,18 +331,43 @@ void simplecosmics()
   hhSvA_cut2->GetYaxis()->SetTitle("Asymmetry");
   tex2->Draw();
   c1->SetLogz(0);
-  c1->Print("Cosmics/cosmics_SvA_cut2.png");
-  c1->Print("Cosmics/cosmics_SvA_cut2.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_cut2.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_cut2.pdf",basename));
   c1->SetLogz(1);
-  c1->Print("Cosmics/cosmics_SvA_cut2_log.png");
-  c1->Print("Cosmics/cosmics_SvA_cut2_log.pdf");
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_cut2_log.png",basename));
+  c1->Print(Form("Cosmics/%s_cosmics_SvA_cut2_log.pdf",basename));
 
 
 
   hsum->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hsum->GetXaxis()->SetTitle("Number of photoelectrons (SiPM1+SiPM2)/2");
   hsum->Draw();
-  c1->Print("temp.png");
+  c1->Print(Form("Cosmics/%s_temp.png",basename));
   c1->SetLogy();
-  c1->Print("templog.png");
+  c1->Print(Form("Cosmics/%s_templog.png",basename));
+
+
+  bgscale = 100;
+  TF1 *simplefun = new TF1("simplefun","[0]*TMath::Exp([1]*x) + [2]*TMath::Landau(x,[3],[4])",newmin/peconvert,newmax/peconvert);
+  simplefun->SetParameter(0,bgscale*7.17020);
+  simplefun->SetParameter(1,-5.10223e-1);
+  simplefun->SetParameter(2,height);
+  simplefun->SetParameter(3,mu);
+  simplefun->SetParameter(4,sigma);
+  simplefun->SetLineColor(kBlack);
+  //simplefun->Draw("same");
+  //hsum->Fit(simplefun,"","",0,120);
+  //hsum->Fit(ultrafun,"","",0,120);
+  //hsum->Fit("landau","","",15,120);
+  hsum->Fit(fun,"","",20,120);
+  fun->SetLineColor(kRed);
+  fun->SetLineWidth(2);
+  fun->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print(Form("Cosmics/%s_tempfit.png",basename));
+  c1->SetLogy(1);
+  c1->Print(Form("Cosmics/%s_templogfit.png",basename));
+
 
 }
