@@ -1,7 +1,8 @@
 void Landau()
 {
 
-  // dorandom(2000);
+  dorandom(2000);
+  return;
   // dorandom(10000);
 
   // doit("20150910-1357");
@@ -204,6 +205,20 @@ void dorandom(int number = 2000)
   fun->SetParameter(1,mu);
   fun->SetParameter(2,sigma);
   fun->SetParameter(0,number*0.3); // give good initial guess
+
+  fun->Draw();
+  fun->GetXaxis()->SetTitle("Independent variable");
+  fun->GetYaxis()->SetTitle("Probability amplitude");
+  height = fun->GetParameter(0);
+  TLine line1(mu-0.25*sigma,0.0,mu-0.25*sigma,0.18*height); // mode line
+  line1.Draw();
+  TLine line2(mu-1.6*sigma,0.09*height,mu+2.4*sigma,0.09*height); // FWHM line
+  line2.Draw();
+  TLine line3(min,0.18*height,max,0.18*height); // height/normalization line
+  line3.Draw();
+  c1->Print(Form("Figures/Distribution/Landau_smooth.pdf"));
+  c1->Print(Form("Figures/Distribution/Landau_smooth.png"));
+
   for(int i=0; i<number; i++)
     {
       double value = gRandom->Landau(mu,sigma);
@@ -219,8 +234,24 @@ void dorandom(int number = 2000)
   tex2->Draw();
   TLatex *tex3 = new TLatex(mu+7*sigma,0.12.5*fun->GetParameter(0),Form("%d random throws",number));
   tex3->Draw();
+  TLatex *tex4 = new TLatex(mu+7*sigma,0.10.5*fun->GetParameter(0),Form("mean_{histo} = %f",h1->GetMean()));
+  tex4->Draw();
+  // TLatex *tex5 = new TLatex(mu+7*sigma,0.08.5*fun->GetParameter(0),Form("#mu_{out}/mean = %f",fun->GetParameter(1)/h1->GetMean()));
+  // tex5->Draw();
+  TLatex *tex5 = new TLatex(mu+7*sigma,0.08.5*fun->GetParameter(0),
+			    Form("mode_{histo} = %f, mode_{fun} = %f",h1->GetBinCenter(h1->GetMaximumBin()),mu-0.25*sigma));
+  tex5->Draw();
+  height = fun->GetParameter(0);
+  TLine line1(mu-0.25*sigma,0.0,mu-0.25*sigma,0.18*height);
+  line1.Draw();
+  TLine line2(mu-1.6*sigma,0.09*height,mu+2.4*sigma,0.09*height);
+  line2.Draw();
+  TLine line3(min,0.18*height,max,0.18*height);
+  line3.Draw();
   c1->Print(Form("Figures/Distribution/Landau_%d_random.pdf",number));
   c1->Print(Form("Figures/Distribution/Landau_%d_random.png",number));
+
+
 
   delete h1;
   delete fun;
