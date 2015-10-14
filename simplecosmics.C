@@ -50,15 +50,16 @@ void doit(const char *basename)
   double newmax = min*-0.95;
   double newmin = max*-1.05 - newmax*0.1;
   // --- create the new histogram
-  TH1D *h1 = new TH1D("h1","",50,newmin,newmax);
-  TH1D *h2 = new TH1D("h2","",50,newmin,newmax);
-  TH1D *hsum = new TH1D("hsum","",50,2*newmin,2*newmax);
-  TH2D *hh1v2 = new TH2D("hh1v2","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
-  TH2D *hhSvA = new TH2D("hhSvA","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
-  TH2D *hh1v2_cut1 = new TH2D("hh1v2_cut1","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
-  TH2D *hhSvA_cut1 = new TH2D("hhSvA_cut1","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
-  TH2D *hh1v2_cut2 = new TH2D("hh1v2_cut2","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
-  TH2D *hhSvA_cut2 = new TH2D("hhSvA_cut2","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
+  const int nbins = 100;
+  TH1D *h1 = new TH1D("h1","",nbins,newmin,newmax);
+  TH1D *h2 = new TH1D("h2","",nbins,newmin,newmax);
+  TH1D *hsum = new TH1D("hsum","",nbins,2*newmin,2*newmax);
+  TH2D *hh1v2 = new TH2D("hh1v2","",nbins*2,newmin,newmax,nbins*2,newmin,newmax); // SiPM1 vs SiPM2
+  TH2D *hhSvA = new TH2D("hhSvA","",nbins*2,2*newmin,2*newmax,nbins*2,-1,1); // Sum vs Asymmetry
+  TH2D *hh1v2_cut1 = new TH2D("hh1v2_cut1","",nbins*2,newmin,newmax,nbins*2,newmin,newmax); // SiPM1 vs SiPM2
+  TH2D *hhSvA_cut1 = new TH2D("hhSvA_cut1","",nbins*2,2*newmin,2*newmax,nbins*2,-1,1); // Sum vs Asymmetry
+  TH2D *hh1v2_cut2 = new TH2D("hh1v2_cut2","",nbins*2,newmin,newmax,nbins*2,newmin,newmax); // SiPM1 vs SiPM2
+  TH2D *hhSvA_cut2 = new TH2D("hhSvA_cut2","",nbins*2,2*newmin,2*newmax,nbins*2,-1,1); // Sum vs Asymmetry
   vector<double> sum;
   vector<double> asym;
   // --- loop over the vector to fill the histogram
@@ -343,8 +344,14 @@ void doit(const char *basename)
   hsum->GetXaxis()->SetTitle("Number of photoelectrons (SiPM1+SiPM2)/2");
   hsum->Draw();
   c1->Print(Form("Cosmics/%s_temp.png",basename));
+  c1->Print(Form("Cosmics/%s_temp.pdf",basename));
+  hsum->SetMaximum(175);
+  c1->Print(Form("Cosmics/%s_templow.png",basename));
+  c1->Print(Form("Cosmics/%s_templow.pdf",basename));
   c1->SetLogy();
+  hsum->SetMaximum(1.1*h1->GetBinContent(hsum->GetMaximumBin()));
   c1->Print(Form("Cosmics/%s_templog.png",basename));
+  c1->Print(Form("Cosmics/%s_templog.pdf",basename));
 
 
   bgscale = 100;
@@ -359,15 +366,21 @@ void doit(const char *basename)
   //hsum->Fit(simplefun,"","",0,120);
   //hsum->Fit(ultrafun,"","",0,120);
   //hsum->Fit("landau","","",15,120);
-  hsum->Fit(fun,"","",20,120);
+  hsum->Fit(fun,"","",20,60);
   fun->SetLineColor(kRed);
   fun->SetLineWidth(2);
   fun->Draw("same");
 
   c1->SetLogy(0);
   c1->Print(Form("Cosmics/%s_tempfit.png",basename));
+  c1->Print(Form("Cosmics/%s_tempfit.pdf",basename));
+  hsum->SetMaximum(175);
+  c1->Print(Form("Cosmics/%s_templowfit.png",basename));
+  c1->Print(Form("Cosmics/%s_templowfit.pdf",basename));
   c1->SetLogy(1);
+  hsum->SetMaximum(1.1*h1->GetBinContent(hsum->GetMaximumBin()));
   c1->Print(Form("Cosmics/%s_templogfit.png",basename));
+  c1->Print(Form("Cosmics/%s_templogfit.pdf",basename));
 
 
 }
