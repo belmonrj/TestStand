@@ -1,7 +1,150 @@
 #include <algorithm> // for min_element, max_element
 
-
 void backgrounds()
+{
+
+  //dobulk();
+  donewpart("20151005-1452",100);
+  donewpart("20151013-1531",20);
+
+}
+
+
+void donewpart(const char *basename, int nbins)
+{
+
+  double content;
+
+  ifstream fin7(Form("TEMP/%s_Unaveraged_VMin1.txt",basename));
+  vector<double> voltage7;
+  while(fin7>>content)
+    {
+      voltage7.push_back(content);
+    }
+  fin7.close();
+  cout << voltage7.size() << endl;
+
+  ifstream fin8(Form("TEMP/%s_Unaveraged_VMin2.txt",basename));
+  vector<double> voltage8;
+  while(fin8>>content)
+    {
+      voltage8.push_back(content);
+    }
+  fin8.close();
+  cout << voltage8.size() << endl;
+
+  int numberD = voltage7.size();
+  cout << numberD << endl;
+
+  // --- get the max, min of the vector
+  double max = *max_element(voltage7.begin(),voltage7.end());
+  double min = *min_element(voltage7.begin(),voltage7.end());
+  cout << max << endl;
+  cout << min << endl;
+  // --- calculate the limits for the histograms
+  double newmax = min*-0.95;
+  double newmin = max*-1.05 - newmax*0.1;
+
+  TH1D *h7 = new TH1D("h7","",nbins,newmin,newmax);
+  TH1D *h8 = new TH1D("h8","",nbins,newmin,newmax);
+  TH2D *hh1v2 = new TH2D("hh1v2","",nbins,newmin,newmax,nbins,newmin,newmax); // SiPM1 vs SiPM2
+  TH2D *hhSvA = new TH2D("hhSvA","",nbins,2*newmin,2*newmax,nbins,-1,1); // Sum vs Asymmetry
+  vector<double> sum;
+  vector<double> asym;
+  for(int i=0; i<numberD; i++)
+    {
+      // --- SiPM1
+      h7->Fill(-voltage7[i]);
+      // --- SiPM2
+      h8->Fill(-voltage8[i]);
+      // --- SiPM1 vs SiPM2
+      hh1v2->Fill(-voltage7[i],-voltage8[i]);
+      // --- sum vs asymmetry
+      double tempsum = -voltage7[i] + -voltage8[i];
+      double tempasym = (voltage7[i] - voltage8[i]) / (-voltage7[i] + -voltage8[i]);
+      hhSvA->Fill(tempsum,tempasym);
+      sum.push_back(tempsum);
+      asym.push_back(tempasym);
+    }
+
+  h7->SetLineColor(kRed);
+  h7->SetLineWidth(2);
+  h8->SetLineColor(kBlue);
+  h8->SetLineWidth(2);
+  // --- adjust limits
+  double peconvert = 0.00502; // volts per photoelectrion
+  h7->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  h8->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  // --- draw
+  // h7->Scale(1.0/numberD);
+  // h8->Scale(1.0/numberD);
+  h7->Draw();
+  h8->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3.pdf",basename));
+  c1->SetLogy(1);
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3_log.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3_log.pdf",basename));
+
+  h7->Fit("expo","","",6,16);
+
+  c1->SetLogy(0);
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3F.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3F.pdf",basename));
+  c1->SetLogy(1);
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3F_log.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3F_log.pdf",basename));
+
+  TF1 *superfun3 = new TF1("superfun3","expo(0)+expo(2)",0,150);
+  superfun3->SetParameter(0,10);
+  superfun3->SetParameter(1,-0.7);
+  superfun3->SetParameter(2,1);
+  superfun3->SetParameter(3,-0.2);
+
+  h7->Fit(superfun3,"","",6,120);
+
+  c1->SetLogy(0);
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3FF.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3FF.pdf",basename));
+  c1->SetLogy(1);
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3FF_log.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_part3FF_log.pdf",basename));
+
+  c1->SetLogy(0);
+  c1->Clear();
+  hh1v2->Draw("colz");
+  hh1v2->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2->GetYaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hh1v2->GetXaxis()->SetTitle("#pe SiPM1");
+  hh1v2->GetYaxis()->SetTitle("#pe SiPM2");
+  c1->SetLogz(0);
+  c1->Print(Form("Backgrounds/%s_backgrounds_1v2.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_1v2.pdf",basename));
+  c1->SetLogz(1);
+  c1->Print(Form("Backgrounds/%s_backgrounds_1v2_log.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_1v2_log.pdf",basename));
+
+  hhSvA->Draw("colz");
+  hhSvA->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
+  hhSvA->GetXaxis()->SetTitle("Sum");
+  hhSvA->GetYaxis()->SetTitle("Asymmetry");
+  c1->SetLogz(0);
+  c1->Print(Form("Backgrounds/%s_backgrounds_SvA.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_SvA.pdf",basename));
+  c1->SetLogz(1);
+  c1->Print(Form("Backgrounds/%s_backgrounds_SvA_log.png",basename));
+  c1->Print(Form("Backgrounds/%s_backgrounds_SvA_log.pdf",basename));
+
+  delete h7;
+  delete h8;
+  delete hh1v2;
+  delete hhSvA;
+
+}
+
+void dobulk()
 {
 
   ifstream fin3("TEMP/20151005-1352_Unaveraged_VMin1.txt");
