@@ -4,7 +4,7 @@ void Landau()
   dorandom(2000);
   // dorandom(10000);
   // dorandom(100000);
-  // dorandom(1000000);
+  dorandom(1000000);
   return;
 
   // doit("20150910-1357");
@@ -289,6 +289,16 @@ void dorandom(int number = 2000)
 
   c1->Print("Figures/Distribution/Landau_parameterized.png");
   c1->Print("Figures/Distribution/Landau_parameterized.pdf");
+
+  TLine line1(mu2,0,mu2,height*0.18);
+  line1.Draw();
+
+  //TLine line2(height*0.09,mu2,height*0.09,mu2+sigma2);
+  TLine line2(mu2,height*0.09,mu2+sigma2,height*0.09);
+  line2.Draw();
+
+  c1->Print("Figures/Distribution/Landau_parameterized2.png");
+  c1->Print("Figures/Distribution/Landau_parameterized2.pdf");
 
 }
 
