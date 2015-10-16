@@ -2,8 +2,10 @@ void Landau()
 {
 
   dorandom(2000);
-  return;
   // dorandom(10000);
+  // dorandom(100000);
+  // dorandom(1000000);
+  return;
 
   // doit("20150910-1357");
   // doit("20150915-1539");
@@ -206,6 +208,12 @@ void dorandom(int number = 2000)
   fun->SetParameter(2,sigma);
   fun->SetParameter(0,number*0.3); // give good initial guess
 
+  TF1 *fun = new TF1("fun","[0]*TMath::Landau(x,[1],[2])",min,max);
+  fun->SetParameter(0,height);
+  fun->SetParameter(1,mu);
+  fun->SetParameter(2,sigma);
+  fun->SetParameter(0,number*0.3); // give good initial guess
+
   fun->Draw();
   fun->GetXaxis()->SetTitle("Independent variable");
   fun->GetYaxis()->SetTitle("Probability amplitude");
@@ -255,6 +263,32 @@ void dorandom(int number = 2000)
 
   delete h1;
   delete fun;
+
+
+  height = 1.0;
+  mu = 0.1;
+  sigma = 0.05;
+
+  TF1 *fun = new TF1("fun","[0]*TMath::Landau(x,[1],[2])",min,0.5*max);
+  fun->SetParameter(0,height);
+  fun->SetParameter(1,mu);
+  fun->SetParameter(2,sigma);
+
+  double height2 = 0.748*height;
+  double mu2 = 0.9*mu;
+  double sigma2 = 1.05*sigma;
+
+  TF1 *fun2 = new TF1("fun2","([0]/sqrt(6.28))*TMath::Exp(-0.5*((x-[1])/[2] + TMath::Exp(-(x-[1])/[2])))",min,0.5*max);
+  fun2->SetParameter(0,height2);
+  fun2->SetParameter(1,mu2);
+  fun2->SetParameter(2,sigma2);
+
+  fun->Draw();
+  fun2->SetLineColor(kBlue);
+  fun2->Draw("same");
+
+  c1->Print("Figures/Distribution/Landau_parameterized.png");
+  c1->Print("Figures/Distribution/Landau_parameterized.pdf");
 
 }
 
