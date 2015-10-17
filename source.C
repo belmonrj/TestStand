@@ -154,7 +154,6 @@ void source()
 
   c1->Clear();
   TF1 *gengaus = new TF1("gengaus","[0]*TMath::Exp(-pow(fabs(x-[1]),[3])/[2])",2*newmin/peconvert,2*newmax/peconvert);
-  //TF1 *gengaus = new TF1("gengaus","[0]*TMath::Exp(-pow(fabs((x-[1])/[2]),[3]))",2*newmin/peconvert,2*newmax/peconvert);
   gengaus->SetParameter(0,fungaus->GetParameter(0));
   gengaus->SetParameter(1,fungaus->GetParameter(1));
   gengaus->SetParameter(2,fungaus->GetParameter(2));
@@ -176,26 +175,24 @@ void source()
   skewgaus->SetParameter(1,fungaus->GetParameter(1));
   skewgaus->SetParameter(2,fungaus->GetParameter(2));
   skewgaus->SetParameter(3,0.1);
-  // hsum->Fit(skewgaus,"","",5,80);
-  // skewgaus->Draw("same");
+  hsum->Fit(skewgaus,"","",5,80);
+  skewgaus->Draw("same");
 
-  // c1->SetLogy(0);
-  // c1->Print(Form("Source/source_skewgaus_sum.png"));
-  // c1->Print(Form("Source/source_skewgaus_sum.pdf"));
-  // c1->SetLogy(1);
-  // c1->Print(Form("Source/source_skewgaus_sumlog.png"));
-  // c1->Print(Form("Source/source_skewgaus_sumlog.pdf"));
+  c1->SetLogy(0);
+  c1->Print(Form("Source/source_skewgaus_sum.png"));
+  c1->Print(Form("Source/source_skewgaus_sum.pdf"));
+  c1->SetLogy(1);
+  c1->Print(Form("Source/source_skewgaus_sumlog.png"));
+  c1->Print(Form("Source/source_skewgaus_sumlog.pdf"));
 
 
   c1->Clear();
   TF1 *skewgengaus = new TF1("skewgengaus","[0]*TMath::Exp(-pow(fabs(x-[1]),[3])/[2])*(0.5+0.5*(TMath::Erf([4]*(x-[1])/[2])))",2*newmin/peconvert,2*newmax/peconvert);
-  //TF1 *skewgengaus = new TF1("skewgengaus","[0]*TMath::Exp(-pow(fabs(x-[1]),[3])/[2])*(0.5+0.5*(TMath::Erf([4]*(x-[1])/[2])))",2*newmin/peconvert,2*newmax/peconvert);
-  //TF1 *skewgengaus = new TF1("skewgengaus","[0]*TMath::Exp(-pow(fabs((x-[1])/[2]),[3]))*(0.5+0.5*(TMath::Erf([4]*(x-[1])/[2])))",2*newmin/peconvert,2*newmax/peconvert);
-  skewgengaus->SetParameter(0,gengaus->GetParameter(0));
-  skewgengaus->SetParameter(1,gengaus->GetParameter(1));
-  skewgengaus->SetParameter(2,gengaus->GetParameter(2));
-  skewgengaus->SetParameter(3,gengaus->GetParameter(3));
-  skewgengaus->SetParameter(4,3000);
+  skewgengaus->SetParameter(0,fungaus->GetParameter(0));
+  skewgengaus->SetParameter(1,fungaus->GetParameter(1));
+  skewgengaus->SetParameter(2,fungaus->GetParameter(2));
+  skewgengaus->SetParameter(3,2.2);
+  skewgengaus->SetParameter(4,0.1);
   hsum->Fit(skewgengaus,"","",5,80);
   skewgengaus->Draw("same");
 
