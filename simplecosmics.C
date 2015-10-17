@@ -362,6 +362,7 @@ void doit(const char *basename)
   simplefun->SetParameter(3,mu);
   simplefun->SetParameter(4,sigma);
   simplefun->SetLineColor(kBlack);
+  c1->Clear();
   //simplefun->Draw("same");
   //hsum->Fit(simplefun,"","",0,120);
   //hsum->Fit(ultrafun,"","",0,120);
@@ -370,6 +371,8 @@ void doit(const char *basename)
   fun->SetLineColor(kRed);
   fun->SetLineWidth(2);
   fun->Draw("same");
+
+  cout << fun->GetChisquare() << "/" << fun->GetNDF() << endl;
 
   c1->SetLogy(0);
   c1->Print(Form("Cosmics/%s_tempfit.png",basename));
@@ -381,6 +384,44 @@ void doit(const char *basename)
   hsum->SetMaximum(1.1*h1->GetBinContent(hsum->GetMaximumBin()));
   c1->Print(Form("Cosmics/%s_templogfit.png",basename));
   c1->Print(Form("Cosmics/%s_templogfit.pdf",basename));
+
+  c1->Clear();
+  hsum->Draw();
+  double hax = fun->GetParameter(0);
+  double mux = fun->GetParameter(1);
+  double six = fun->GetParameter(2);
+  fun->SetParameter(0,0.95*hax);
+  fun->SetParameter(1,mux);
+  fun->SetParameter(2,1.1*six);
+  //fun->Draw("same");
+  //hsum->Fit(simplefun,"","",0,60);
+
+  TF1 *fun2 = new TF1("fun2","([0]/sqrt(6.28))*TMath::Exp(-0.5*((x-[1])/[2] + TMath::Exp(-(x-[1])/[2])))",0,120);
+  fun2->SetParameter(0,hax);
+  fun2->SetParameter(1,mux);
+  fun2->SetParameter(2,six);
+  //fun2->SetLineColor(kBlack);
+
+  hsum->Fit(fun2,"","",15,60);
+  fun2->Draw("same");
+
+  cout << fun2->GetChisquare() << "/" << fun2->GetNDF() << endl;
+
+  double par1 = fun2->GetParameter(1);
+  TLine line(par1,0,par1,0.24*fun2->GetParameter(0));
+  line.Draw();
+
+  c1->SetLogy(0);
+  c1->Print(Form("Cosmics/%s_tempffit.png",basename));
+  c1->Print(Form("Cosmics/%s_tempffit.pdf",basename));
+  hsum->SetMaximum(175);
+  c1->Print(Form("Cosmics/%s_templowffit.png",basename));
+  c1->Print(Form("Cosmics/%s_templowffit.pdf",basename));
+  c1->SetLogy(1);
+  hsum->SetMaximum(1.1*h1->GetBinContent(hsum->GetMaximumBin()));
+  c1->Print(Form("Cosmics/%s_templogffit.png",basename));
+  c1->Print(Form("Cosmics/%s_templogffit.pdf",basename));
+
 
 
 }
