@@ -41,10 +41,12 @@ void source()
   double newmin = max*-1.05 - newmax*0.1;
 
   // --- create the new histogram
-  TH1D *h1 = new TH1D("h1","",50,newmin,newmax);
-  TH1D *h2 = new TH1D("h2","",50,newmin,newmax);
-  TH2D *hh1v2 = new TH2D("hh1v2","",100,newmin,newmax,100,newmin,newmax); // SiPM1 vs SiPM2
-  TH2D *hhSvA = new TH2D("hhSvA","",100,2*newmin,2*newmax,100,-1,1); // Sum vs Asymmetry
+  const int nbins = 50;
+  TH1D *h1 = new TH1D("h1","",nbins,newmin,newmax);
+  TH1D *h2 = new TH1D("h2","",nbins,newmin,newmax);
+  TH1D *hsum = new TH1D("hsum","",nbins,2*newmin,2*newmax);
+  TH2D *hh1v2 = new TH2D("hh1v2","",2*nbins,newmin,newmax,2*nbins,newmin,newmax); // SiPM1 vs SiPM2
+  TH2D *hhSvA = new TH2D("hhSvA","",2*nbins,2*newmin,2*newmax,2*nbins,-1,1); // Sum vs Asymmetry
   vector<double> sum;
   vector<double> asym;
   // --- loop over the vector to fill the histogram
@@ -59,6 +61,7 @@ void source()
       // --- sum vs asymmetry
       double tempsum = -voltage1[i] + -voltage2[i];
       double tempasym = (voltage1[i] - voltage2[i]) / (-voltage1[i] + -voltage2[i]);
+      hsum->Fill(tempsum);
       hhSvA->Fill(tempsum,tempasym);
       sum.push_back(tempsum);
       asym.push_back(tempasym);
@@ -124,6 +127,17 @@ void source()
   c1->SetLogz(1);
   c1->Print("Source/source_SvA_log.png");
   c1->Print("Source/source_SvA_log.pdf");
+
+
+
+  hsum->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
+  hsum->GetXaxis()->SetTitle("Number of photoelectrons SiPM1+SiPM2");
+  hsum->Draw();
+  c1->Print(Form("Source/source_sum.png"));
+  c1->Print(Form("Source/source_sum.pdf"));
+  c1->SetLogy();
+  c1->Print(Form("Source/source_sumlog.png"));
+  c1->Print(Form("Source/source_sumlog.pdf"));
 
 
 }
