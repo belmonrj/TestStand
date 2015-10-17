@@ -203,28 +203,4 @@ void source()
   c1->Print(Form("Source/source_skewgengaus_sumlog.png"));
   c1->Print(Form("Source/source_skewgengaus_sumlog.pdf"));
 
-  skewgengaus->SetParameter(0,1.41950e+03);
-  skewgengaus->SetParameter(1,3.38650e+01);
-  skewgengaus->SetParameter(2,6.34943e+04);
-  skewgengaus->SetParameter(3,2.93596e+00);
-  skewgengaus->SetParameter(4,3.60038e+03);
-
-  c1->Clear();
-  hsum->Draw();
-  skewgengaus->Draw("same");
-
-  c1->SetLogy(0);
-  c1->Print(Form("Source/source_xskewgengaus_sum.png"));
-  c1->Print(Form("Source/source_xskewgengaus_sum.pdf"));
-  c1->SetLogy(1);
-  c1->Print(Form("Source/source_xskewgengaus_sumlog.png"));
-  c1->Print(Form("Source/source_xskewgengaus_sumlog.pdf"));
-
-
-
 }
-   // 1  p0           1.41950e+03   2.07516e+01  -3.51109e-01  -1.27282e-02
-   // 2  p1           3.38650e+01   2.36865e-01  -1.37291e-03   9.39464e-01
-   // 3  p2           6.34943e+04   1.27135e+04   5.24798e+01   5.56933e-03
-   // 4  p3           2.93596e+00   4.76460e-02  -1.14281e-03  -2.80628e+01
-   // 5  p4           3.60038e+03   7.36292e+02   3.46213e+00  -9.46542e-02
