@@ -133,11 +133,40 @@ void source()
   hsum->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
   hsum->GetXaxis()->SetTitle("Number of photoelectrons SiPM1+SiPM2");
   hsum->Draw();
+  c1->SetLogy(0);
   c1->Print(Form("Source/source_sum.png"));
   c1->Print(Form("Source/source_sum.pdf"));
-  c1->SetLogy();
+  c1->SetLogy(1);
   c1->Print(Form("Source/source_sumlog.png"));
   c1->Print(Form("Source/source_sumlog.pdf"));
+
+
+  TF1 *fungaus = new TF1("fungaus","gaus",2*newmin/peconvert,2*newmax/peconvert);
+  hsum->Fit(fungaus,"","",5,80);
+  fungaus->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print(Form("Source/source_gaus_sum.png"));
+  c1->Print(Form("Source/source_gaus_sum.pdf"));
+  c1->SetLogy(1);
+  c1->Print(Form("Source/source_gaus_sumlog.png"));
+  c1->Print(Form("Source/source_gaus_sumlog.pdf"));
+
+  c1->Clear();
+  TF1 *gengaus = new TF1("gengaus","[0]*TMath::Exp(-pow(fabs(x-[1]),[3])/[2])",2*newmin/peconvert,2*newmax/peconvert);
+  gengaus->SetParameter(0,fungaus->GetParameter(0));
+  gengaus->SetParameter(1,fungaus->GetParameter(1));
+  gengaus->SetParameter(2,fungaus->GetParameter(2));
+  gengaus->SetParameter(3,2.2);
+  hsum->Fit(gengaus,"","",5,80);
+  gengaus->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print(Form("Source/source_gengaus_sum.png"));
+  c1->Print(Form("Source/source_gengaus_sum.pdf"));
+  c1->SetLogy(1);
+  c1->Print(Form("Source/source_gengaus_sumlog.png"));
+  c1->Print(Form("Source/source_gengaus_sumlog.pdf"));
 
 
 }
