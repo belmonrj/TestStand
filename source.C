@@ -41,7 +41,7 @@ void source()
   double newmin = max*-1.05 - newmax*0.1;
 
   // --- create the new histogram
-  const int nbins = 50;
+  const int nbins = 100;
   TH1D *h1 = new TH1D("h1","",nbins,newmin,newmax);
   TH1D *h2 = new TH1D("h2","",nbins,newmin,newmax);
   TH1D *hsum = new TH1D("hsum","",nbins,2*newmin,2*newmax);
@@ -154,6 +154,7 @@ void source()
 
   c1->Clear();
   TF1 *gengaus = new TF1("gengaus","[0]*TMath::Exp(-pow(fabs(x-[1]),[3])/[2])",2*newmin/peconvert,2*newmax/peconvert);
+  //TF1 *gengaus = new TF1("gengaus","[0]*TMath::Exp(-pow(fabs((x-[1])/[2]),[3]))",2*newmin/peconvert,2*newmax/peconvert);
   gengaus->SetParameter(0,fungaus->GetParameter(0));
   gengaus->SetParameter(1,fungaus->GetParameter(1));
   gengaus->SetParameter(2,fungaus->GetParameter(2));
@@ -169,4 +170,64 @@ void source()
   c1->Print(Form("Source/source_gengaus_sumlog.pdf"));
 
 
+  c1->Clear();
+  TF1 *skewgaus = new TF1("skewgaus","[0]*TMath::Exp(-pow(fabs(x-[1]),2)/[2])*(0.5+0.5*(TMath::Erf([3]*(x-[1])/[2])))",2*newmin/peconvert,2*newmax/peconvert);
+  skewgaus->SetParameter(0,fungaus->GetParameter(0));
+  skewgaus->SetParameter(1,fungaus->GetParameter(1));
+  skewgaus->SetParameter(2,fungaus->GetParameter(2));
+  skewgaus->SetParameter(3,0.1);
+  // hsum->Fit(skewgaus,"","",5,80);
+  // skewgaus->Draw("same");
+
+  // c1->SetLogy(0);
+  // c1->Print(Form("Source/source_skewgaus_sum.png"));
+  // c1->Print(Form("Source/source_skewgaus_sum.pdf"));
+  // c1->SetLogy(1);
+  // c1->Print(Form("Source/source_skewgaus_sumlog.png"));
+  // c1->Print(Form("Source/source_skewgaus_sumlog.pdf"));
+
+
+  c1->Clear();
+  TF1 *skewgengaus = new TF1("skewgengaus","[0]*TMath::Exp(-pow(fabs(x-[1]),[3])/[2])*(0.5+0.5*(TMath::Erf([4]*(x-[1])/[2])))",2*newmin/peconvert,2*newmax/peconvert);
+  //TF1 *skewgengaus = new TF1("skewgengaus","[0]*TMath::Exp(-pow(fabs(x-[1]),[3])/[2])*(0.5+0.5*(TMath::Erf([4]*(x-[1])/[2])))",2*newmin/peconvert,2*newmax/peconvert);
+  //TF1 *skewgengaus = new TF1("skewgengaus","[0]*TMath::Exp(-pow(fabs((x-[1])/[2]),[3]))*(0.5+0.5*(TMath::Erf([4]*(x-[1])/[2])))",2*newmin/peconvert,2*newmax/peconvert);
+  skewgengaus->SetParameter(0,gengaus->GetParameter(0));
+  skewgengaus->SetParameter(1,gengaus->GetParameter(1));
+  skewgengaus->SetParameter(2,gengaus->GetParameter(2));
+  skewgengaus->SetParameter(3,gengaus->GetParameter(3));
+  skewgengaus->SetParameter(4,3000);
+  hsum->Fit(skewgengaus,"","",5,80);
+  skewgengaus->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print(Form("Source/source_skewgengaus_sum.png"));
+  c1->Print(Form("Source/source_skewgengaus_sum.pdf"));
+  c1->SetLogy(1);
+  c1->Print(Form("Source/source_skewgengaus_sumlog.png"));
+  c1->Print(Form("Source/source_skewgengaus_sumlog.pdf"));
+
+  skewgengaus->SetParameter(0,1.41950e+03);
+  skewgengaus->SetParameter(1,3.38650e+01);
+  skewgengaus->SetParameter(2,6.34943e+04);
+  skewgengaus->SetParameter(3,2.93596e+00);
+  skewgengaus->SetParameter(4,3.60038e+03);
+
+  c1->Clear();
+  hsum->Draw();
+  skewgengaus->Draw("same");
+
+  c1->SetLogy(0);
+  c1->Print(Form("Source/source_xskewgengaus_sum.png"));
+  c1->Print(Form("Source/source_xskewgengaus_sum.pdf"));
+  c1->SetLogy(1);
+  c1->Print(Form("Source/source_xskewgengaus_sumlog.png"));
+  c1->Print(Form("Source/source_xskewgengaus_sumlog.pdf"));
+
+
+
 }
+   // 1  p0           1.41950e+03   2.07516e+01  -3.51109e-01  -1.27282e-02
+   // 2  p1           3.38650e+01   2.36865e-01  -1.37291e-03   9.39464e-01
+   // 3  p2           6.34943e+04   1.27135e+04   5.24798e+01   5.56933e-03
+   // 4  p3           2.93596e+00   4.76460e-02  -1.14281e-03  -2.80628e+01
+   // 5  p4           3.60038e+03   7.36292e+02   3.46213e+00  -9.46542e-02
