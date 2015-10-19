@@ -132,7 +132,9 @@ void source()
 
   hsum->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
   hsum->GetXaxis()->SetTitle("Number of photoelectrons SiPM1+SiPM2");
+  double MAX = 1.1*hsum->GetMaximum();
   hsum->Draw();
+  hsum->SetMaximum(MAX);
   c1->SetLogy(0);
   c1->Print(Form("Source/source_sum.png"));
   c1->Print(Form("Source/source_sum.pdf"));
@@ -145,6 +147,7 @@ void source()
   hsum->Fit(fungaus,"","",5,80);
   fungaus->Draw("same");
 
+  hsum->SetMaximum(MAX);
   c1->SetLogy(0);
   c1->Print(Form("Source/source_gaus_sum.png"));
   c1->Print(Form("Source/source_gaus_sum.pdf"));
@@ -161,6 +164,7 @@ void source()
   hsum->Fit(gengaus,"","",5,80);
   gengaus->Draw("same");
 
+  hsum->SetMaximum(MAX);
   c1->SetLogy(0);
   c1->Print(Form("Source/source_gengaus_sum.png"));
   c1->Print(Form("Source/source_gengaus_sum.pdf"));
@@ -170,6 +174,7 @@ void source()
 
   TLine lline(gengaus->GetParameter(1),0.0,gengaus->GetParameter(1),gengaus->GetParameter(0));
   lline.Draw();
+  hsum->SetMaximum(MAX);
   c1->SetLogy(0);
   c1->Print(Form("Source/source_lgengaus_sum.png"));
   c1->Print(Form("Source/source_lgengaus_sum.pdf"));
@@ -187,6 +192,7 @@ void source()
   hsum->Fit(skewgaus,"","",5,80);
   skewgaus->Draw("same");
 
+  hsum->SetMaximum(MAX);
   c1->SetLogy(0);
   c1->Print(Form("Source/source_skewgaus_sum.png"));
   c1->Print(Form("Source/source_skewgaus_sum.pdf"));
@@ -205,6 +211,7 @@ void source()
   hsum->Fit(skewgengaus,"","",5,80);
   skewgengaus->Draw("same");
 
+  hsum->SetMaximum(MAX);
   c1->SetLogy(0);
   c1->Print(Form("Source/source_skewgengaus_sum.png"));
   c1->Print(Form("Source/source_skewgengaus_sum.pdf"));
@@ -214,6 +221,7 @@ void source()
 
   TLine llline(0.95*gengaus->GetParameter(1),0.0,0.95*gengaus->GetParameter(1),1.05*gengaus->GetParameter(0));
   llline.Draw();
+  hsum->SetMaximum(MAX);
   c1->SetLogy(0);
   c1->Print(Form("Source/source_lskewgengaus_sum.png"));
   c1->Print(Form("Source/source_lskewgengaus_sum.pdf"));
