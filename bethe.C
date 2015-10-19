@@ -112,16 +112,22 @@ double dobethe(double energy = 318, double mass = mu_mass)
   // --- now calculation for MPV, not mean...
   double xi = density*firstblock;
   // cout << "xi " << xi << endl;
-  double ksi = (0.1536/(beta*beta))*ZoverA;// * 1e-3;
+  double ksi = density*(0.1536/(beta*beta))*ZoverA;// * 1e-3;
   // cout << "ksi " << ksi << endl;
+  xi /= 2; // not sure why, but...
+
+  cout << "xi " << xi <<  " ksi " << ksi << " xi/ksi = " << xi/ksi << endl;
 
   double logargument_k = (2*e_mass*beta*beta*gamma*gamma*ksi)/(I*I);
   double logargument_x = (2*e_mass*beta*beta*gamma*gamma*xi)/(I*I);
 
   double mpv = ksi*(log(logargument_k) - (beta*beta) + 1 - 0.577216);
   // cout << "mpv = " << mpv << endl;
-  // mpv = xi*(log(logargument_x) - (beta*beta) + 0.198);
+  //double mpv2 = xi*(log(logargument_x) - (beta*beta) + 0.198);
+  double mpv2 = xi*(log(logargument_x) - (beta*beta) + 1 - 0.577216);
+  //double mpv2 = xi*(log(logargument_x) - (beta*beta) - 0.198);
   // cout << "mpv = " << mpv << endl;
+  cout << "xi " << mpv2 <<  " ksi " << mpv << " xi/ksi = " << mpv2/mpv << endl;
 
   cout << "mpv = " << mpv << " mean = " << answer << " ratio = " << mpv/answer << endl;
 
