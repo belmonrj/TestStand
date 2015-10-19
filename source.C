@@ -168,6 +168,15 @@ void source()
   c1->Print(Form("Source/source_gengaus_sumlog.png"));
   c1->Print(Form("Source/source_gengaus_sumlog.pdf"));
 
+  TLine lline(gengaus->GetParameter(1),0.0,gengaus->GetParameter(1),gengaus->GetParameter(0));
+  lline.Draw();
+  c1->SetLogy(0);
+  c1->Print(Form("Source/source_lgengaus_sum.png"));
+  c1->Print(Form("Source/source_lgengaus_sum.pdf"));
+  c1->SetLogy(1);
+  c1->Print(Form("Source/source_lgengaus_sumlog.png"));
+  c1->Print(Form("Source/source_lgengaus_sumlog.pdf"));
+
 
   c1->Clear();
   TF1 *skewgaus = new TF1("skewgaus","[0]*TMath::Exp(-pow(fabs(x-[1]),2)/[2])*(0.5+0.5*(TMath::Erf([3]*(x-[1])/[2])))",2*newmin/peconvert,2*newmax/peconvert);
@@ -203,4 +212,12 @@ void source()
   c1->Print(Form("Source/source_skewgengaus_sumlog.png"));
   c1->Print(Form("Source/source_skewgengaus_sumlog.pdf"));
 
+  TLine llline(0.95*gengaus->GetParameter(1),0.0,0.95*gengaus->GetParameter(1),1.05*gengaus->GetParameter(0));
+  llline.Draw();
+  c1->SetLogy(0);
+  c1->Print(Form("Source/source_lskewgengaus_sum.png"));
+  c1->Print(Form("Source/source_lskewgengaus_sum.pdf"));
+  c1->SetLogy(1);
+  c1->Print(Form("Source/source_lskewgengaus_sumlog.png"));
+  c1->Print(Form("Source/source_lskewgengaus_sumlog.pdf"));
 }
