@@ -165,6 +165,21 @@ void source()
   h6->Draw("same");
   c1->Print("Source/source_sbpe.pdf");
   c1->Print("Source/source_sbpe.png");
+  hsum->SetLineColor(kBlack);
+  hsum->SetLineWidth(2);
+  hsum->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  hsum->Draw("same");
+  h1->SetMaximum(1.1*hsum->GetMaximum());
+  h2->SetMaximum(1.1*hsum->GetMaximum());
+  TLegend *leg = new TLegend(0.5,0.73,0.88,0.88);
+  leg->AddEntry(h1,"SiPM1","l");
+  leg->AddEntry(h2,"SiPM2","l");
+  leg->AddEntry(hsum,"(SiPM1+SiPM2)/2","l");
+  leg->SetTextSize(0.05);
+  leg->Draw();
+  c1->Print("Source/source_asbpe.pdf");
+  c1->Print("Source/source_asbpe.png");
+
 
 
   c1->SetLogy(0);
