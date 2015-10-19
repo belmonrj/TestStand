@@ -70,14 +70,14 @@ void histograms()
   TLegend *leg = new TLegend(0.4,0.68,0.88,0.88);;
   leg->AddEntry(h_sum,"Combined (observed)","l");
   leg->AddEntry(h_Sr,"Strontium (isolated)","l");
-  leg->AddEntry(h_Y,"Yttrium","l");
+  leg->AddEntry(h_Y,"Yttrium (isolated)","l");
   leg->SetTextSize(0.05);
   leg->Draw();
   h_Sr->Draw("same");
   h_Y->Draw("same");
   h_sum->Draw("same");
-  c1->Print("strontium_kurie.png");
-  c1->Print("strontium_kurie.pdf");
+  c1->Print("Source/strontium_kurie.png");
+  c1->Print("Source/strontium_kurie.pdf");
 
   TH1D *h2_sum = (TH1D*)h2_Sr->Clone();
   h2_sum->Add(h2_Y);
@@ -85,7 +85,7 @@ void histograms()
   h2_sum->GetXaxis()->SetTitle("#beta kinetic energy (MeV)");
   h2_Sr->Draw("same");
   h2_Y->Draw("same");
-  c1->Print("strontium_kurie2.png");
+  c1->Print("Source/strontium_kurie2.png");
 
   TH1D *h2p_sum = (TH1D*)h2p_Sr->Clone();
   h2p_sum->Add(h2p_Y);
@@ -93,12 +93,12 @@ void histograms()
   h2p_sum->GetXaxis()->SetTitle("#beta kinetic energy (MeV)");
   h2p_Sr->Draw("same");
   h2p_Y->Draw("same");
-  c1->Print("strontium_kurie2p2.png");
+  c1->Print("Source/strontium_kurie2p2.png");
 
   TH1D *h2pF_sum = (TH1D*)h2pF_Sr->Clone();
   h2pF_sum->Add(h2pF_Y);
   h2pF_sum->Draw();
-  h2pF_sum->GetYaxis()->SetTitle("Counts");
+  h2pF_sum->GetYaxis()->SetTitle("Counts (arb. norm.)");
   h2pF_sum->GetXaxis()->SetTitle("#beta kinetic energy (MeV)");
   h2pF_sum->SetLineColor(kBlack);
   h2pF_Sr->SetLineColor(kGreen+2);
@@ -106,9 +106,16 @@ void histograms()
   h2pF_Sr->Draw("same");
   h2pF_Y->Draw("same");
   h2pF_sum->Draw("same");
-  c1->Print("strontium_kurie2p2F.png");
-  c1->Print("strontium_kurie2p2F.pdf");
-
+  delete leg;
+  TLegend *leg = new TLegend(0.62,0.68,0.88,0.88);;
+  leg->AddEntry(h_sum,"Combined","l");
+  leg->AddEntry(h_Sr,"Strontium","l");
+  leg->AddEntry(h_Y,"Yttrium","l");
+  leg->SetTextSize(0.05);
+  leg->Draw();
+  c1->Print("Source/strontium_kurie2p2F.png");
+  c1->Print("Source/strontium_kurie2p2F.pdf");
+  delete leg;
 }
 
 void functionsonly()
