@@ -6,7 +6,6 @@ const double pi = 3.1415926535; // pi
 const double N_A = 6.0221415e23; // Avogadro's number
 
 
-
 void bethe()
 {
 
@@ -76,11 +75,31 @@ double dobethe(double energy = 318, double mass = mu_mass)
   //delta/= 2;
   cout << "delta is " << delta << endl;
 
+  double plasma = 21.75; //
+  plasma /= 1e6;
+  double deltaover2 = log(plasma/I) + log(beta*gamma) - 0.5;
+  cout << "other delta is " << deltaover2 << endl;
+
   answer = firstblock * (0.5 * log(logargument) - (beta*beta) - delta);
 
   answer *= density;
 
   cout << "For gamma = " << gamma << " <dE/dx> = " << answer << endl;
+
+
+  // --- now calculation for MPV, not mean...
+  double xi = density*firstblock;
+  cout << "xi " << xi << endl;
+  double ksi = (0.1536/(beta*beta))*ZoverA;// * 1e-3;
+  cout << "ksi " << ksi << endl;
+
+  double logargument_k = (2*e_mass*beta*beta*gamma*gamma*ksi)/(I*I);
+  double logargument_x = (2*e_mass*beta*beta*gamma*gamma*xi)/(I*I);
+
+  double mpv = ksi*(log(logargument_k) - (beta*beta) + 1 - 0.577216);
+  cout << "mpv = " << mpv << endl;
+  mpv = xi*(log(logargument_x) - (beta*beta) + 0.198);
+  cout << "mpv = " << mpv << endl;
 
   return answer;
 
