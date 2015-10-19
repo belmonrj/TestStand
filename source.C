@@ -114,6 +114,8 @@ void source()
   double peconvert = 0.00502;
   h1->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h2->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  h1->GetXaxis()->SetRangeUser(0.0,80.0);
+  h2->GetXaxis()->SetRangeUser(0.0,80.0);
   h1->GetXaxis()->SetTitle("Number of photoelectrons");
   h2->GetXaxis()->SetTitle("Number of photoelectrons");
   if(max2>max1)
@@ -193,6 +195,7 @@ void source()
 
 
   hsum->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
+  hsum->GetXaxis()->SetRangeUser(0.0,160.0);
   hsum->GetXaxis()->SetTitle("Number of photoelectrons SiPM1+SiPM2");
   double MAX = 1.1*hsum->GetMaximum();
   hsum->Draw();
