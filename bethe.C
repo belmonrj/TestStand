@@ -19,6 +19,28 @@ void bethe()
   cout << "electron from Y-90" << endl;
   dobethe(2.484,e_mass);
 
+
+  dobethe(0.55,e_mass);
+  dobethe(1.0,e_mass);
+  dobethe(1.5,e_mass);
+  dobethe(2.0,e_mass);
+  dobethe(2.5,e_mass);
+  dobethe(5.0,e_mass);
+  dobethe(10.0,e_mass);
+  dobethe(50.0,e_mass);
+  dobethe(100.0,e_mass);
+  dobethe(1000.0,e_mass);
+
+  cout << endl;
+
+  dobethe(110.0,mu_mass);
+  dobethe(212.0,mu_mass);
+  dobethe(318.0,mu_mass);
+  dobethe(500.0,mu_mass);
+  dobethe(1000.0,mu_mass);
+  dobethe(10000.0,mu_mass);
+  dobethe(100000.0,mu_mass);
+
 }
 
 
@@ -73,33 +95,35 @@ double dobethe(double energy = 318, double mass = mu_mass)
   if(X>X1) delta = 4.6025*X + C;
 
   //delta/= 2;
-  cout << "delta is " << delta << endl;
+  // cout << "delta is " << delta << endl;
 
   double plasma = 21.75; //
   plasma /= 1e6;
   double deltaover2 = log(plasma/I) + log(beta*gamma) - 0.5;
-  cout << "other delta is " << deltaover2 << endl;
+  // cout << "other delta is " << deltaover2 << endl;
 
   answer = firstblock * (0.5 * log(logargument) - (beta*beta) - delta);
 
   answer *= density;
 
-  cout << "For gamma = " << gamma << " <dE/dx> = " << answer << endl;
+  // cout << "For gamma = " << gamma << " <dE/dx> = " << answer << endl;
 
 
   // --- now calculation for MPV, not mean...
   double xi = density*firstblock;
-  cout << "xi " << xi << endl;
+  // cout << "xi " << xi << endl;
   double ksi = (0.1536/(beta*beta))*ZoverA;// * 1e-3;
-  cout << "ksi " << ksi << endl;
+  // cout << "ksi " << ksi << endl;
 
   double logargument_k = (2*e_mass*beta*beta*gamma*gamma*ksi)/(I*I);
   double logargument_x = (2*e_mass*beta*beta*gamma*gamma*xi)/(I*I);
 
   double mpv = ksi*(log(logargument_k) - (beta*beta) + 1 - 0.577216);
-  cout << "mpv = " << mpv << endl;
-  mpv = xi*(log(logargument_x) - (beta*beta) + 0.198);
-  cout << "mpv = " << mpv << endl;
+  // cout << "mpv = " << mpv << endl;
+  // mpv = xi*(log(logargument_x) - (beta*beta) + 0.198);
+  // cout << "mpv = " << mpv << endl;
+
+  cout << "mpv = " << mpv << " mean = " << answer << " ratio = " << mpv/answer << endl;
 
   return answer;
 
