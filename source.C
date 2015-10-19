@@ -30,6 +30,28 @@ void source()
   fin2.close();
   cout << voltage2.size() << endl;
 
+  // --- Background SiPM1
+  ifstream fin3(Form("TEMP/20150915-1612_Unaveraged_VMin1.txt"));
+  vector<double> voltage3;
+  while(fin3>>content)
+    {
+      voltage3.push_back(content);
+    }
+  fin3.close();
+  cout << voltage3.size() << endl;
+
+  // --- Background SiPM2
+  ifstream fin4(Form("TEMP/20150915-1612_Unaveraged_VMin2.txt"));
+  vector<double> voltage4;
+  while(fin4>>content)
+    {
+      voltage4.push_back(content);
+    }
+  fin4.close();
+  cout << voltage4.size() << endl;
+
+
+
   // --- get the number of entries and the min and max
   int number = voltage1.size();
   double max = *max_element(voltage1.begin(),voltage1.end());
@@ -44,6 +66,8 @@ void source()
   const int nbins = 100;
   TH1D *h1 = new TH1D("h1","",nbins,newmin,newmax);
   TH1D *h2 = new TH1D("h2","",nbins,newmin,newmax);
+  TH1D *h3 = new TH1D("h3","",nbins,newmin,newmax); // bg
+  TH1D *h4 = new TH1D("h4","",nbins,newmin,newmax);
   TH1D *hsum = new TH1D("hsum","",nbins,2*newmin,2*newmax);
   TH2D *hh1v2 = new TH2D("hh1v2","",2*nbins,newmin,newmax,2*nbins,newmin,newmax); // SiPM1 vs SiPM2
   TH2D *hhSvA = new TH2D("hhSvA","",2*nbins,2*newmin,2*newmax,2*nbins,-1,1); // Sum vs Asymmetry
@@ -65,6 +89,12 @@ void source()
       hhSvA->Fill(tempsum,tempasym);
       sum.push_back(tempsum);
       asym.push_back(tempasym);
+      // ---
+      if(i<voltage3.size())
+	{
+	  h3->Fill(-voltage3[i]);
+	  h4->Fill(-voltage4[i]);
+	}
     }
 
 
@@ -100,7 +130,39 @@ void source()
   c1->Print("Source/source_pe.pdf");
   c1->Print("Source/source_pe.png");
 
+  double extra = voltage1.size()/voltage3.size();
+  double fgrate = 1038.0; // Hz
+  double bgrate = 27.0; // Hz
+  double bgscalefactor = (bgrate/fgrate)*extra;
 
+  h3->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  h4->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
+  h3->Scale(bgscalefactor);
+  h4->Scale(bgscalefactor);
+  h3->SetLineColor(kRed);
+  h4->SetLineColor(kBlue);
+  h3->SetLineWidth(2);
+  h4->SetLineWidth(2);
+  h3->Draw("same");
+  h4->Draw("same");
+  c1->Print("Source/source_bpe.pdf");
+  c1->Print("Source/source_bpe.png");
+  TH1D *h5 = (TH1D *)h1->Clone("h5");
+  TH1D *h6 = (TH1D *)h2->Clone("h6");
+  h5->Add(h3,-1.0);
+  h6->Add(h4,-1.0);
+  // h1->SetLineWidth(1);
+  // h2->SetLineWidth(1);
+  // h3->SetLineWidth(1);
+  // h4->SetLineWidth(1);
+  // h5->SetLineWidth(2);
+  // h6->SetLineWidth(2);
+  h5->SetLineWidth(1);
+  h6->SetLineWidth(1);
+  h5->Draw("same");
+  h6->Draw("same");
+  c1->Print("Source/source_sbpe.pdf");
+  c1->Print("Source/source_sbpe.png");
 
 
   c1->SetLogy(0);
