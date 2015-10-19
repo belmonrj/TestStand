@@ -104,7 +104,8 @@ void doit(const char *basename)
   double height = 1049;
   double mu = 23;
   double sigma = 3;
-  TF1 *fun = new TF1("fun","[0]*TMath::Landau(x,[1],[2])",newmin/peconvert,newmax/peconvert);
+  //TF1 *fun = new TF1("fun","[0]*TMath::Landau(x,[1],[2])",newmin/peconvert,newmax/peconvert);
+  TF1 *fun = new TF1("fun","[0]*TMath::Landau(x,[1],[2])",2*newmin/peconvert,2*newmax/peconvert);
   fun->SetParameter(0,height);
   fun->SetParameter(1,mu);
   fun->SetParameter(2,sigma);
@@ -223,7 +224,7 @@ void doit(const char *basename)
 
   bgscale = 100;
   //hsum->Fit(fun,"","",20,60);
-  hsum->Fit(fun,"","",40,120);
+  hsum->Fit(fun,"","",40,80);
   fun->SetLineColor(kRed);
   fun->SetLineWidth(2);
   fun->Draw("same");
