@@ -43,9 +43,11 @@ these are some spare macros from playing around:
 
 4) panelboxes - draws the panel, showing the position of the fibers and scans
 
+5) landau - draws random Landau distribution and compares to Gumbel distribution
+
 these are compiled codes for playing around---all compiled codes are compiled with compile.sh
 
-5) dostats - does a simple statistical analysis on the PE/Volts calibration
+1) dostats - does a simple statistical analysis on the PE/Volts calibration
 
-6) roughcosmics - simple code for doing analysis of the early cosmics data
+2) roughcosmics - simple code for doing analysis of the early cosmics data
 
