@@ -63,7 +63,7 @@ void doit(const char *basename)
   vector<double> sum;
   vector<double> asym;
   // --- loop over the vector to fill the histogram
-  for(int i=0; i<number; i++)
+  for(int i=0; i<500; i++)
     {
       // --- SiPM1
       h1->Fill(-voltage1[i]);
@@ -208,7 +208,10 @@ void doit(const char *basename)
 
 
 
+  hsum->SetLineColor(kBlack);
+  hsum->SetLineWidth(2);
   hsum->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
+  hsum->GetXaxis()->SetRangeUser(0.0,160.0);
   hsum->GetXaxis()->SetTitle("Number of photoelectrons SiPM1+SiPM2");
   hsum->Draw();
   c1->Print(Form("Cosmics/%s_temp.png",basename));
@@ -275,6 +278,9 @@ void doit(const char *basename)
   hsum->SetMaximum(175);
   c1->Print(Form("Cosmics/%s_templowffit.png",basename));
   c1->Print(Form("Cosmics/%s_templowffit.pdf",basename));
+  hsum->SetMaximum(25);
+  c1->Print(Form("Cosmics/%s_tempLOWffit.png",basename));
+  c1->Print(Form("Cosmics/%s_tempLOWffit.pdf",basename));
   c1->SetLogy(1);
   hsum->SetMaximum(1.1*h1->GetBinContent(hsum->GetMaximumBin()));
   c1->Print(Form("Cosmics/%s_templogffit.png",basename));
