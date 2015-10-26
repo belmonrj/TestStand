@@ -29,7 +29,9 @@ these are the macros for analyzing the data:
 
 10) bethe - for calculating values with the Bethe equation
 
-11) bigtilecosmics - copy of simplecosmics, adapted for the big tiles
+11) betaspectrum - for calculating the KE spectrum from the Sr-90 source
+
+12) bigtilecosmics - copy of simplecosmics, adapted for the big tiles
 
 these are some spare macros from playing around:
 
