@@ -330,6 +330,9 @@ void source()
   // --- Kurie squared times momentum squared times Fermi function = number
   TH1D *h2pF_Sr = new TH1D("h2pF_Sr","",100,0.0,2.5);
   TH1D *h2pF_Y = new TH1D("h2pF_Y","",100,0.0,2.5);
+  // --- special for division
+  TH1D *hspecial_Sr = new TH1D("hspecial_Sr","",100,0,115);
+  TH1D *hspecial_Y = new TH1D("hspecial_Y","",100,0,115);
   for(int i=0; i<100; i++)
     {
       double x = h_Sr->GetBinCenter(i+1);
@@ -359,7 +362,20 @@ void source()
       double F = F_N*relcorr; // relativistic Fermi function
       h2pF_Sr->SetBinContent(i+1,F*p2*sspec_Sr);
       h2pF_Y->SetBinContent(i+1,F*p2*sspec_Y);
+      hspecial_Sr->SetBinContent(i+1,F*p2*sspec_Sr);
+      hspecial_Y->SetBinContent(i+1,F*p2*sspec_Y);
     }
+  TH1D *hspecial_dist = new TH1D("hspecial_dist","",100,0,115);
+  for(int i=0; i<voltage1.size(); i++)
+    {
+      double answer = voltage1[i]+voltage2[i];
+      answer *= -1;
+      answer /= peconvert;
+      hspecial_dist->Fill(answer);
+    }
+
+  cout << hsum->GetMean() << endl;
+  cout << hsum->GetRMS() << endl;
 
   c1->SetLogy(0);
   TH1D *h2pF_sum = (TH1D*)h2pF_Sr->Clone();
@@ -370,16 +386,37 @@ void source()
   //h2pF_sum->GetXaxis()->SetLimits(0,75); // default 0,2.5...
   h2pF_sum->SetLineColor(kRed);
   h2pF_sum->SetLineWidth(2);
-  h2pF_sum->GetXaxis()->SetLimits(20,105); // default 0,2.5...
+  h2pF_sum->GetXaxis()->SetLimits(0,105); // default 0,2.5...
   h2pF_sum->Draw("same");
-  c1->Print("monday.png");
+  c1->Print("Source/monday.png");
 
   h2pF_sum->GetXaxis()->SetLimits(0,75); // default 0,2.5...
   h2pF_sum->Draw("same");
-  c1->Print("monday2.png");
+  c1->Print("Source/monday2.png");
 
-  h2pF_sum->GetXaxis()->SetLimits(0,120); // default 0,2.5...
+  h2pF_sum->GetXaxis()->SetLimits(0,115); // default 0,2.5... // factor of 46...
+  h2pF_sum->Scale(1.05);
   h2pF_sum->Draw("same");
-  c1->Print("monday3.png");
+  c1->Print("Source/monday3.png");
+  c1->Print("Source/monday3.pdf");
+
+  // --- this doesn't work, need to figure out appropriate binning scheme...
+  TH1D *hspecial_sum = (TH1D*)hspecial_Sr->Clone();
+  hspecial_sum->Add(hspecial_Y);
+  hspecial_sum->Scale(44.0);
+  hspecial_sum->SetLineColor(kRed);
+  hspecial_dist->SetLineColor(kBlack);
+  hspecial_sum->SetLineWidth(2);
+  hspecial_dist->SetLineWidth(2);
+  hspecial_dist->Draw();
+  hspecial_dist->GetXaxis()->SetTitle("Number of photoelectrons SiPM1+SiPM2");
+  hspecial_sum->Draw("same");
+  c1->Print("Source/monday4.png");
+  c1->Print("Source/monday4.pdf");
+  hspecial_dist->Divide(hspecial_sum);
+  hspecial_dist->Draw();
+  hspecial_dist->SetMaximum(1.2);
+  c1->Print("Source/ratiomonday4.png");
+  c1->Print("Source/ratiomonday4.pdf");
 
 }
