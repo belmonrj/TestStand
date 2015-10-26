@@ -4,7 +4,9 @@ const double density = 1.060; // g/cm^3
 const double e_radius = 2.81794; // fm
 const double pi = 3.1415926535; // pi
 const double N_A = 6.0221415e23; // Avogadro's number
-
+//const double thickness = 0.762; // cm, thickness of panel
+//const double thickness = 0.777; // cm, thickness of panel
+const double thickness = 0.815; // cm, thickness of panel
 
 void bethe()
 {
@@ -12,6 +14,12 @@ void bethe()
   cout << "minimum muon" << endl;
   dobethe(318,mu_mass);
   //dobethe(367,mu_mass); // guessed min by process of elimination
+
+  dobethe(1000.0,mu_mass);
+  dobethe(10000.0,mu_mass);
+  dobethe(100000.0,mu_mass);
+
+  return;
 
   cout << "electron from Sr-90" << endl;
   dobethe(0.546,e_mass);
@@ -48,6 +56,8 @@ void bethe()
 
 double dobethe(double energy = 318, double mass = mu_mass)
 {
+
+  density *= thickness; // to account for panel thickness in calculations
 
   double gamma = energy/mass;
   double beta = calcbeta(gamma);
