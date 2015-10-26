@@ -27,6 +27,10 @@ these are the macros for analyzing the data:
 
 9) simplecosmics - early draft of cosmics code, to eventually be melded into Landau...
 
+10) bethe - for calculating values with the Bethe equation
+
+11) bigtilecosmics - copy of simplecosmics, adapted for the big tiles
+
 these are some spare macros from playing around:
 
 1) a1full3strip - looks at some old raw data, calculates an average and asymmetry
