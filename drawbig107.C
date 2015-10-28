@@ -1,7 +1,7 @@
 void drawbig107()
 {
 
-  int linewidth = 3;
+  int linewidth = 2;
 
   double radius = 27.5;
   double corner = 57.4;
@@ -18,22 +18,18 @@ void drawbig107()
   double aspectratio = longside/shortside;
   cout << shortratio << endl;
   cout << aspectratio << endl;
-  int canvasnumber = int(1000.0/aspectratio);
+  int canvasnumber = int(1300.0/aspectratio);
   cout << canvasnumber << endl;
 
-  TCanvas *c1 = new TCanvas("c1","",1000,canvasnumber);
+  TCanvas *c1 = new TCanvas("c1","",1300,canvasnumber);
   c1->Draw();
 
-  // TLine *line1 = new TLine((1.0/6.0),0.0,(1.0/6.0),1.0);
-  // line1->SetLineColor(kGreen);
-  // line1->SetLineWidth(linewidth);
-  // line1->Draw();
-
-  double xlow = 0.005;
-  double ylow = 0.005;
+  double xlow = 0.001;
+  double ylow = 0.003;
   double xhigh = 0.999;
-  double yhigh_left = 0.999;
-  double yhigh_right = 0.999*shortratio;
+  double yhigh = 0.999;
+  double yhigh_left = yhigh;
+  double yhigh_right = yhigh*shortratio;
 
   TLine *outline_left = new TLine(xlow,ylow,xlow,yhigh_left);
   outline_left->SetLineColor(kBlack);
@@ -105,22 +101,57 @@ void drawbig107()
   ellipse3->SetNoEdges();
   ellipse3->Draw();
 
-  // TBox *box1 = new TBox(0.001,0.001,0.999,0.999);
-  // box1->SetLineColor(kBlack);
-  // box1->SetFillStyle(0);
-  // box1->SetLineWidth(2);
-  // box1->SetLineStyle(1);
-  // box1->Draw("same");
+  // lower right arc
+  TEllipse *ellipse2 = new TEllipse(1-corner/longside,corner/shortside,radius/longside,radius/shortside,-90,0);
+  ellipse2->SetLineColor(kGreen);
+  ellipse2->SetLineWidth(linewidth);
+  ellipse2->SetNoEdges();
+  ellipse2->Draw();
+
+  // upper right arc
+  TEllipse *ellipse4 = new TEllipse(1-corner/longside,shorterupper/shortside,radius/longside,radius/shortside,0,90);
+  ellipse4->SetLineColor(kGreen);
+  ellipse4->SetLineWidth(linewidth);
+  ellipse4->SetNoEdges();
+  ellipse4->Draw();
+
+  // upper left arc, inner
+  TEllipse *ellipse5 = new TEllipse(corner/longside,shortupper/shortside,radius/longside,radius/shortside,180,270);
+  ellipse5->SetLineColor(kGreen);
+  ellipse5->SetLineWidth(linewidth);
+  ellipse5->SetNoEdges();
+  ellipse5->Draw();
+
+  // upper left arc, outer
+  TEllipse *ellipse6 = new TEllipse(0.010,shortupper/shortside,0.79*radius/longside,radius/shortside,0,90);
+  ellipse6->SetLineColor(kGreen);
+  ellipse6->SetLineWidth(linewidth);
+  ellipse6->SetNoEdges();
+  ellipse6->Draw();
 
   c1->Print("PanelFigures/bigpanel107_empty.png");
   c1->Print("PanelFigures/bigpanel107_empty.pdf");
 
-  // TLine *linescan = new TLine((0.2/6.0),0.0,(0.2/6.0),1.0);
-  // linescan->SetLineWidth(linewidth);
-  // linescan->SetLineStyle(2);
-  // linescan->Draw();
-  // c1->Print("PanelFigures/panel2_scanatminus20cm.png");
-  // c1->Print("PanelFigures/panel2_scanatminus20cm.pdf");
-  // delete linescan;
+  TBox *box1 = new TBox(0.2,0.6,0.23,0.7);
+  box1->SetLineColor(kBlack);
+  box1->SetFillStyle(0);
+  box1->SetLineWidth(2);
+  box1->SetLineStyle(1);
+  box1->Draw("same");
+
+  c1->Print("PanelFigures/bigpanel107_box1.png");
+  c1->Print("PanelFigures/bigpanel107_box1.pdf");
+  delete box1;
+
+  TBox *box2 = new TBox(0.5,0.4,0.53,0.5);
+  box2->SetLineColor(kBlack);
+  box2->SetFillStyle(0);
+  box2->SetLineWidth(2);
+  box2->SetLineStyle(1);
+  box2->Draw("same");
+
+  c1->Print("PanelFigures/bigpanel107_box2.png");
+  c1->Print("PanelFigures/bigpanel107_box2.pdf");
+
 }
 
