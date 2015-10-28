@@ -241,7 +241,7 @@ void doit(const char *basename)
   h1->SetMaximum(175);
   c1->Print(Form("Cosmics/%s_templowfit.png",basename));
   c1->Print(Form("Cosmics/%s_templowfit.pdf",basename));
-  h1->SetMaximum(30);
+  h1->SetMaximum(100);
   c1->Print(Form("Cosmics/%s_tempLOWfit.png",basename));
   c1->Print(Form("Cosmics/%s_tempLOWfit.pdf",basename));
   c1->SetLogy(1);
@@ -282,7 +282,7 @@ void doit(const char *basename)
   h1->SetMaximum(175);
   c1->Print(Form("Cosmics/%s_templowffit.png",basename));
   c1->Print(Form("Cosmics/%s_templowffit.pdf",basename));
-  h1->SetMaximum(30);
+  h1->SetMaximum(0.3*fun2->GetParameter(0));
   c1->Print(Form("Cosmics/%s_tempLOWffit.png",basename));
   c1->Print(Form("Cosmics/%s_tempLOWffit.pdf",basename));
   c1->SetLogy(1);
