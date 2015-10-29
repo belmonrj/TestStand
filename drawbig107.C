@@ -152,6 +152,28 @@ void drawbig107()
 
   c1->Print("PanelFigures/bigpanel107_box2.png");
   c1->Print("PanelFigures/bigpanel107_box2.pdf");
+  delete box2;
+
+  TBox *box3 = new TBox(0.06,0.2,0.09,0.3);
+  box3->SetLineColor(kBlack);
+  box3->SetFillStyle(0);
+  box3->SetLineWidth(2);
+  box3->SetLineStyle(1);
+  box3->Draw("same");
+
+  c1->Print("PanelFigures/bigpanel107_box3.png");
+  c1->Print("PanelFigures/bigpanel107_box3.pdf");
+  delete box3;
+
+  TBox *box4 = new TBox(0.06,0.7,0.09,0.8);
+  box4->SetLineColor(kBlack);
+  box4->SetFillStyle(0);
+  box4->SetLineWidth(2);
+  box4->SetLineStyle(1);
+  box4->Draw("same");
+
+  c1->Print("PanelFigures/bigpanel107_box4.png");
+  c1->Print("PanelFigures/bigpanel107_box4.pdf");
 
 }
 
