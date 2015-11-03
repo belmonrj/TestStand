@@ -165,7 +165,7 @@ void drawbig107()
   c1->Print("PanelFigures/bigpanel107_box3.pdf");
   delete box3;
 
-  TBox *box4 = new TBox(0.06,0.7,0.09,0.8);
+  TBox *box4 = new TBox(0.06,0.667,0.09,0.767);
   box4->SetLineColor(kBlack);
   box4->SetFillStyle(0);
   box4->SetLineWidth(2);
@@ -174,6 +174,36 @@ void drawbig107()
 
   c1->Print("PanelFigures/bigpanel107_box4.png");
   c1->Print("PanelFigures/bigpanel107_box4.pdf");
+  delete box4;
+
+  TBox *box5 = new TBox(0.86,0.35,0.89,0.45);
+  box5->SetLineColor(kBlack);
+  box5->SetFillStyle(0);
+  box5->SetLineWidth(2);
+  box5->SetLineStyle(1);
+  box5->Draw("same");
+
+  c1->Print("PanelFigures/bigpanel107_box5.png");
+  c1->Print("PanelFigures/bigpanel107_box5.pdf");
+  delete box5;
+
+  int start = 4;
+  int finish = 171;
+  for ( int i=start; i<finish; i++ )
+    {
+      double xlow = (i-4)/166.0 ;
+      double xhigh = (i-4)/166.0 ;
+      double ylow = 0;
+      double yhigh = 1;
+      TLine *line = new TLine(xlow,ylow,xhigh,yhigh);
+      line->SetLineWidth(3);
+      line->SetLineStyle(2);
+      line->Draw();
+      c1->Print(Form("PanelFigures/bigpanel107_proj_%d.png",i));
+      c1->Print(Form("PanelFigures/bigpanel107_proj_%d.pdf",i));
+      //cout << xlow << endl;
+      delete line;
+    }
 
 }
 
