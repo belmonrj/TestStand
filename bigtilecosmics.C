@@ -5,11 +5,12 @@ double peconvert = 0.00502; // volts per photoelectrion
 void bigtilecosmics()
 {
 
-  doit("20151022-1538");
-  doit("20151023-1307");
-  doit("20151027-1804");
-  doit("20151029-1340");
-  doit("20151030-1532");
+  // doit("20151022-1538");
+  // doit("20151023-1307");
+  // doit("20151027-1804");
+  // doit("20151029-1340");
+  // doit("20151030-1532");
+  doit("20151103-1512");
 
 }
 
@@ -214,12 +215,12 @@ void doit(const char *basename)
   hsum->SetLineColor(kBlack);
   hsum->SetLineWidth(2);
   hsum->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
-  hsum->GetXaxis()->SetRangeUser(0.0,160.0);
+  hsum->GetXaxis()->SetRangeUser(0.0,120.0);
   hsum->GetXaxis()->SetTitle("Number of photoelectrons SiPM1+SiPM2");
   hsum->Draw();
   c1->Print(Form("Cosmics/%s_temp.png",basename));
   c1->Print(Form("Cosmics/%s_temp.pdf",basename));
-  hsum->SetMaximum(175);
+  hsum->SetMaximum(30);
   c1->Print(Form("Cosmics/%s_templow.png",basename));
   c1->Print(Form("Cosmics/%s_templow.pdf",basename));
   c1->SetLogy();
@@ -264,13 +265,17 @@ void doit(const char *basename)
   //h1->Fit(simplefun,"","",0,60);
 
   TF1 *fun2 = new TF1("fun2","([0]/sqrt(6.28))*TMath::Exp(-0.5*((x-[1])/[2] + TMath::Exp(-(x-[1])/[2])))",0,120);
-  fun2->SetParameter(0,hax);
-  fun2->SetParameter(1,mux);
-  fun2->SetParameter(2,six);
+  // fun2->SetParameter(0,hax);
+  // fun2->SetParameter(1,mux);
+  // fun2->SetParameter(2,six);
+  fun2->SetParameter(0,93);
+  fun2->SetParameter(1,35);
+  fun2->SetParameter(2,5);
   //fun2->SetLineColor(kBlack);
 
-  h1->Fit(fun2,"","",15,60);
+  //h1->Fit(fun2,"","",15,60);
   //h1->Fit(fun2,"","",30,120);
+  h1->Fit(fun2,"","",20,80);
   fun2->Draw("same");
 
   cout << fun2->GetChisquare() << "/" << fun2->GetNDF() << endl;
@@ -282,7 +287,7 @@ void doit(const char *basename)
   c1->SetLogy(0);
   c1->Print(Form("Cosmics/%s_tempffit.png",basename));
   c1->Print(Form("Cosmics/%s_tempffit.pdf",basename));
-  h1->SetMaximum(175);
+  h1->SetMaximum(25);
   c1->Print(Form("Cosmics/%s_templowffit.png",basename));
   c1->Print(Form("Cosmics/%s_templowffit.pdf",basename));
   h1->SetMaximum(0.3*fun2->GetParameter(0));
