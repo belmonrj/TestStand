@@ -36,7 +36,7 @@ void YSlice()
   doyslice("20150911-1607_A1_LED");
   doyslice("20150911-1700_A1_LED");
   doyslice("20150914-1138_A1_Source");
-  doyslice("20150914-1750_A1_LED");
+  //  doyslice("20150914-1750_A1_LED");
 
 }
 
@@ -79,12 +79,24 @@ void ySlice(const char *NAME)
   for(int i=0; i<nybins; i++)
     {
       cout<<"in loop "<<i<<" NAME is "<<NAME<<endl;
-      TH1D *hp = (TH1D *)h1->ProjectionX(Form("%s_hproj_%d",NAME,i),i+1,i+1,"");
+      TH1D *hp = (TH1D *)h1->ProjectionX(Form("%s_hprojX_%d",NAME,i),i+1,i+1,"");
       //hp->SetTitle(Form("%s ProjectionX %d",NAME,i));
       //hp->SetTitle("");
       hp->Draw();
-      c1->Print(Form("Figures/Burn/%s_projection_%d.png",NAME,i));
-      c1->Print(Form("Figures/Burn/%s_projection_%d.pdf",NAME,i));
+      c1->Print(Form("Figures/Burn/%s_projectionX_%d.png",NAME,i));
+      c1->Print(Form("Figures/Burn/%s_projectionX_%d.pdf",NAME,i));
+    }
+
+  int nxbins = h1->GetNbinsX();
+  for(int i=0; i<nxbins; i++)
+    {
+      cout<<"in loop "<<i<<" NAME is "<<NAME<<endl;
+      TH1D *hp = (TH1D *)h1->ProjectionY(Form("%s_hprojY_%d",NAME,i),i+1,i+1,"");
+      //hp->SetTitle(Form("%s ProjectionY %d",NAME,i));
+      //hp->SetTitle("");
+      hp->Draw();
+      c1->Print(Form("Figures/Burn/%s_projectionY_%d.png",NAME,i));
+      c1->Print(Form("Figures/Burn/%s_projectionY_%d.pdf",NAME,i));
     }
 
   fout->Write();
