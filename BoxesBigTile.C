@@ -58,14 +58,10 @@ void BoxesBigTile()
 	}
     }
   content /= counter;
-  cout << content << endl;
 
-  TLatex *tex1 = new TLatex(xhi,yhi,Form("%.1f",content));
+  TLatex *tex1 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",26.2/content,0.4/content));
   tex1->SetTextSize(0.05);
   tex1->Draw();
-  TLatex *tex1c = new TLatex(xhi,ylo-1.0,Form("26.2#pm0.4"));
-  tex1c->SetTextSize(0.05);
-  tex1c->Draw();
 
   TBox *box2 = new TBox(xsize*0.5+xoff,ysize*0.4,xsize*0.53+xoff,ysize*0.5);
   box2->SetLineColor(kBlack);
@@ -95,14 +91,10 @@ void BoxesBigTile()
 	}
     }
   content /= counter;
-  cout << content << endl;
 
-  TLatex *tex2 = new TLatex(xhi,yhi,Form("%.1f",content));
+  TLatex *tex2 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",21.6/content,0.4/content));
   tex2->SetTextSize(0.05);
   tex2->Draw();
-  TLatex *tex2c = new TLatex(xhi,ylo-1.0,Form("21.6#pm0.4"));
-  tex2c->SetTextSize(0.05);
-  tex2c->Draw();
 
   TBox *box3 = new TBox(xsize*0.06+xoff,ysize*0.2,xsize*0.09+xoff,ysize*0.3);
   box3->SetLineColor(kBlack);
@@ -132,14 +124,10 @@ void BoxesBigTile()
 	}
     }
   content /= counter;
-  cout << content << endl;
 
-  TLatex *tex3 = new TLatex(xhi,yhi,Form("%.1f",content));
+  TLatex *tex3 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",19.8/content,0.7/content));
   tex3->SetTextSize(0.05);
   tex3->Draw();
-  TLatex *tex3c = new TLatex(xhi,ylo-1.0,Form("19.8#pm0.7"));
-  tex3c->SetTextSize(0.05);
-  tex3c->Draw();
 
   TBox *box4 = new TBox(xsize*0.06+xoff,ysize*0.667,xsize*0.09+xoff,ysize*0.767);
   box4->SetLineColor(kBlack);
@@ -169,14 +157,10 @@ void BoxesBigTile()
 	}
     }
   content /= counter;
-  cout << content << endl;
 
-  TLatex *tex4 = new TLatex(xhi,yhi,Form("%.1f",content));
+  TLatex *tex4 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",27.8/content,0.5/content));
   tex4->SetTextSize(0.05);
   tex4->Draw();
-  TLatex *tex4c = new TLatex(xhi,ylo-1.0,Form("27.8#pm0.5"));
-  tex4c->SetTextSize(0.05);
-  tex4c->Draw();
 
 
   TBox *box5 = new TBox(xsize*0.86+xoff,ysize*0.35,xsize*0.89+xoff,ysize*0.45);
@@ -207,14 +191,10 @@ void BoxesBigTile()
 	}
     }
   content /= counter;
-  cout << content << endl;
 
-  TLatex *tex5 = new TLatex(xhi,yhi,Form("%.1f",content));
+  TLatex *tex5 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",22.4/content,0.6/content));
   tex5->SetTextSize(0.05);
   tex5->Draw();
-  TLatex *tex5c = new TLatex(xhi,ylo-1.0,Form("22.4#pm0.6"));
-  tex5c->SetTextSize(0.05);
-  tex5c->Draw();
 
   c1->Print(Form("Figures/Burn/bboxes_meanHistSub.png"));
   c1->Print(Form("Figures/Burn/bboxes_meanHistSub.pdf"));
