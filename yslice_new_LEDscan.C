@@ -1,9 +1,15 @@
 #include <algorithm> // for min_element, max_element
 
+
+void doyslice(const char*);
+void ySlice(const char*, const char*);
+
+
 void yslice_new_LEDscan()
 {
 
   doyslice("20151105-1515");
+  doyslice("20151106-1503");
 
 }
 
@@ -51,6 +57,7 @@ void ySlice(const char *name1, const char *name2)
       return;
     }
 
+  TCanvas *c1 = new TCanvas("c1","");
 
   TH2D *hnew = (TH2D *)h1->Clone();
   hnew->Add(h2);
@@ -62,18 +69,16 @@ void ySlice(const char *name1, const char *name2)
   TF1 *reggaus = new TF1("reggaus","gaus",0,16);
   hmiddle->Draw();
   hmiddle->Fit(reggaus,"","",3,13);
-  c1->Print("middle_gaus.png");
-  //TF1 *gengaus = new TF1("gengaus","[0]*TMath::Exp(-pow(fabs(x-[1]),[3])/[2])",0,16);
+  c1->Print(Form("middle_gaus_%s.png",name1));
   TF1 *gengaus = new TF1("gengaus","[0]*TMath::Exp(-pow(TMath::Abs(x-[1]),[3])/[2])",0,16);
   gengaus->SetParameter(0,80);
   gengaus->SetParameter(1,7.6);
   gengaus->SetParameter(2,2.4);
   gengaus->SetParameter(3,1);
-  //gengaus->FixParameter(3,0.5);
   hmiddle->Fit(gengaus,"","",1,15);
-  c1->Print("middle_gengaus.png");
+  c1->Print(Form("middle_gengaus_%s.png",name1));
 
-  TFile *fout = new TFile("middle.root","recreate");
+  TFile *fout = new TFile(Form("middle_%s.root",name1),"recreate");
   fout->cd();
   hmiddle->Write();
   reggaus->Write();
@@ -91,8 +96,8 @@ void ySlice(const char *name1, const char *name2)
   for(int i=0; i<nybins; i++)
     {
       cout<<"in loop "<<i<<" name1 is "<<name1<<endl;
-      TH1D *hpx = (TH1D *)h1->ProjectionX(Form("hprojX_%d",name1,i),i+1,i+1,"");
-      TH1D *h2px = (TH1D *)h2->ProjectionX(Form("hprojX_%d",name2,i),i+1,i+1,"");
+      TH1D *hpx = (TH1D *)h1->ProjectionX(Form("h1projX_%d",i),i+1,i+1,"");
+      TH1D *h2px = (TH1D *)h2->ProjectionX(Form("h2projX_%d",i),i+1,i+1,"");
       h2px->SetLineColor(kRed);
       // ---
       if(hpx->GetMaximum() > h2px->GetMaximum())
@@ -114,8 +119,8 @@ void ySlice(const char *name1, const char *name2)
   for(int i=0; i<nxbins; i++)
     {
       cout<<"in loop "<<i<<" name1 is "<<name1<<endl;
-      TH1D *hpy = (TH1D *)h1->ProjectionY(Form("hprojY_%d",name1,i),i+1,i+1,"");
-      TH1D *h2py = (TH1D *)h2->ProjectionY(Form("hprojY_%d",name2,i),i+1,i+1,"");
+      TH1D *hpy = (TH1D *)h1->ProjectionY(Form("h1projY_%d",i),i+1,i+1,"");
+      TH1D *h2py = (TH1D *)h2->ProjectionY(Form("h2projY_%d",i),i+1,i+1,"");
       h2py->SetLineColor(kRed);
       // ---
       if(hpy->GetMaximum() > h2py->GetMaximum())
