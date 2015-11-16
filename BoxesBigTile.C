@@ -57,9 +57,9 @@ void BoxesBigTile()
 	  counter++;
 	}
     }
-  content /= counter;
+  content /= counter/0.581;
 
-  TLatex *tex1 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",26.2/content,0.4/content));
+  TLatex *tex1 = new TLatex(xhi,yhi,Form("%.2f#pm%.2f",26.2/content,0.4/content));
   tex1->SetTextSize(0.05);
   tex1->Draw();
 
@@ -90,9 +90,9 @@ void BoxesBigTile()
 	  counter++;
 	}
     }
-  content /= counter;
+  content /= counter/0.581;
 
-  TLatex *tex2 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",21.6/content,0.4/content));
+  TLatex *tex2 = new TLatex(xhi,yhi,Form("%.2f#pm%.2f",21.6/content,0.4/content));
   tex2->SetTextSize(0.05);
   tex2->Draw();
 
@@ -123,9 +123,9 @@ void BoxesBigTile()
 	  counter++;
 	}
     }
-  content /= counter;
+  content /= counter/0.581;
 
-  TLatex *tex3 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",19.8/content,0.7/content));
+  TLatex *tex3 = new TLatex(xhi,yhi,Form("%.2f#pm%.2f",19.8/content,0.7/content));
   tex3->SetTextSize(0.05);
   tex3->Draw();
 
@@ -156,9 +156,9 @@ void BoxesBigTile()
 	  counter++;
 	}
     }
-  content /= counter;
+  content /= counter/0.581;
 
-  TLatex *tex4 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",27.8/content,0.5/content));
+  TLatex *tex4 = new TLatex(xhi,yhi,Form("%.2f#pm%.2f",27.8/content,0.5/content));
   tex4->SetTextSize(0.05);
   tex4->Draw();
 
@@ -190,9 +190,9 @@ void BoxesBigTile()
 	  counter++;
 	}
     }
-  content /= counter;
+  content /= counter/0.581;
 
-  TLatex *tex5 = new TLatex(xhi,yhi,Form("%.3f#pm%.3f",22.4/content,0.6/content));
+  TLatex *tex5 = new TLatex(xhi,yhi,Form("%.2f#pm%.2f",22.4/content,0.6/content));
   tex5->SetTextSize(0.05);
   tex5->Draw();
 
