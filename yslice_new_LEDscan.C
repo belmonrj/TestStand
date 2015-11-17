@@ -76,7 +76,8 @@ void ySlice(const char *name1, const char *name2)
   gengaus->SetParameter(2,2.4);
   gengaus->SetParameter(3,1);
   hmiddle->Fit(gengaus,"","",1,15);
-  c1->Print(Form("middle_gengaus_%s.png",name1));
+  c1->Print(Form("ShortSideSlices/middle_gengaus_%s.png",name1));
+  c1->Print(Form("ShortSideSlices/middle_gengaus_%s.pdf",name1));
 
   TFile *fout = new TFile(Form("middle_%s.root",name1),"recreate");
   fout->cd();
