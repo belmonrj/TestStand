@@ -289,8 +289,12 @@ void doit(const char *basename)
   c1->Print(Form("Cosmics/%s_templowffit.png",basename));
   c1->Print(Form("Cosmics/%s_templowffit.pdf",basename));
   h1->SetMaximum(0.3*fun2->GetParameter(0));
-  c1->Print(Form("Cosmics/%s_tempLOWffit.png",basename));
-  c1->Print(Form("Cosmics/%s_tempLOWffit.pdf",basename));
+  TLatex *tex = new TLatex(0.6,0.8,Form("MPV = %.1f #pm %.1f",fun2->GetParameter(1),fun2->GetParError(1)));
+  tex->SetNDC();
+  tex->SetTextSize(0.05);
+  tex->Draw();
+  c1->Print(Form("Cosmics/SmallTileCosmics_%s_tempLOWffit.png",basename));
+  c1->Print(Form("Cosmics/SmallTileCosmics_%s_tempLOWffit.pdf",basename));
   c1->SetLogy(1);
   h1->SetMaximum(1.1*h1->GetBinContent(h1->GetMaximumBin()));
   c1->Print(Form("Cosmics/%s_templogffit.png",basename));

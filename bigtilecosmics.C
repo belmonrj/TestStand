@@ -2,14 +2,16 @@
 
 double peconvert = 0.00502; // volts per photoelectrion
 
+void doit(const char*); // function prototype
+
 void bigtilecosmics()
 {
 
-  // doit("20151022-1538");
-  // doit("20151023-1307");
-  // doit("20151027-1804");
-  // doit("20151029-1340");
-  // doit("20151030-1532");
+  doit("20151022-1538");
+  doit("20151023-1307");
+  doit("20151027-1804");
+  doit("20151029-1340");
+  doit("20151030-1532");
   doit("20151103-1512");
 
 }
@@ -22,7 +24,6 @@ void doit(const char *basename)
   // --- note that this code requires an duplicates to have already been cleaned out
   // --- this is automatically fixed with the new version of the DAQ/stepper code
   // --- but the user would do well do double check all output files anyway
-  //ifstream fin1("TEMP/20150930-1720_Unaveraged_VMin1.txt");
   ifstream fin1(Form("TEMP/%s_Unaveraged_VMin1.txt",basename));
   double content;
   vector<double> voltage1;
@@ -34,7 +35,6 @@ void doit(const char *basename)
   cout << voltage1.size() << endl;
 
   // --- do the same for SiPM2
-  //ifstream fin2("TEMP/20150930-1720_Unaveraged_VMin2.txt");
   ifstream fin2(Form("TEMP/%s_Unaveraged_VMin2.txt",basename));
   vector<double> voltage2;
   while(fin2>>content)
@@ -275,7 +275,8 @@ void doit(const char *basename)
 
   //h1->Fit(fun2,"","",15,60);
   //h1->Fit(fun2,"","",30,120);
-  h1->Fit(fun2,"","",20,80);
+  //h1->Fit(fun2,"","",20,80);
+  h1->Fit(fun2,"","",15,80);
   fun2->Draw("same");
 
   cout << fun2->GetChisquare() << "/" << fun2->GetNDF() << endl;
@@ -291,8 +292,12 @@ void doit(const char *basename)
   c1->Print(Form("Cosmics/%s_templowffit.png",basename));
   c1->Print(Form("Cosmics/%s_templowffit.pdf",basename));
   h1->SetMaximum(0.3*fun2->GetParameter(0));
-  c1->Print(Form("Cosmics/%s_tempLOWffit.png",basename));
-  c1->Print(Form("Cosmics/%s_tempLOWffit.pdf",basename));
+  TLatex *tex = new TLatex(0.6,0.8,Form("MPV = %.1f #pm %.1f",fun2->GetParameter(1),fun2->GetParError(1)));
+  tex->SetNDC();
+  tex->SetTextSize(0.05);
+  tex->Draw();
+  c1->Print(Form("Cosmics/BigTileCosmics_%s_tempLOWffit.png",basename));
+  c1->Print(Form("Cosmics/BigTileCosmics_%s_tempLOWffit.pdf",basename));
   c1->SetLogy(1);
   h1->SetMaximum(1.1*h1->GetBinContent(h1->GetMaximumBin()));
   c1->Print(Form("Cosmics/%s_templogffit.png",basename));
