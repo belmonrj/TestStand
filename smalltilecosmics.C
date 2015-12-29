@@ -4,6 +4,8 @@ double peconvert = 0.00502; // volts per photoelectrion
 
 void doit(const char*);
 
+void doit(const char*, const int);
+
 void smalltilecosmics()
 {
 
@@ -11,11 +13,17 @@ void smalltilecosmics()
   doit("20151116-1617");
   doit("20151118-1422");
   doit("20151123-1130");
+  doit("20151221-1413",200);
 
 }
 
 
 void doit(const char *basename)
+{
+  doit(basename,100);
+}
+
+void doit(const char *basename, const int nbins)
 {
 
   // --- read in the data and create a vector with all the values
@@ -52,7 +60,6 @@ void doit(const char *basename)
   double newmax = min*-0.95;
   double newmin = max*-1.05 - newmax*0.1;
   // --- create the new histogram
-  const int nbins = 100;
   TH1D *h1 = new TH1D("h1","",nbins,newmin,newmax);
   TH1D *h2 = new TH1D("h2","",nbins,newmin,newmax);
   TH1D *hsum = new TH1D("hsum","",nbins,2*newmin,2*newmax);
@@ -293,6 +300,7 @@ void doit(const char *basename)
   tex->SetNDC();
   tex->SetTextSize(0.05);
   tex->Draw();
+  h1->GetXaxis()->SetRangeUser(0.0,130.0); // new...
   c1->Print(Form("Cosmics/SmallTileCosmics_%s_tempLOWffit.png",basename));
   c1->Print(Form("Cosmics/SmallTileCosmics_%s_tempLOWffit.pdf",basename));
   c1->SetLogy(1);
