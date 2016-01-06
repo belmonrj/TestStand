@@ -3,27 +3,34 @@
 double peconvert = 0.00502; // volts per photoelectrion
 
 void doit(const char*);
-
 void doit(const char*, const int);
+void doit(const char*, const int, const double, const double);
 
 void smalltilecosmics()
 {
 
-  doit("20151113-1617");
-  doit("20151116-1617");
-  doit("20151118-1422");
-  doit("20151123-1130");
-  doit("20151221-1413",200);
+  //doit("20151113-1617");            // checked 20160106
+  //doit("20151116-1617",50,20,100);  // checked 20160106
+  //doit("20151118-1422");            // checked 20160106
+  //doit("20151123-1130",50,20,100);  // checked 20160106
+  //doit("20151221-1413",100,20,100); // checked 20160106
+  //doit("20151229-1254",100,20,100); // checked 20160106, horrible statistics...
+  doit("20160104-1449");            // checked 20160106
 
 }
 
 
 void doit(const char *basename)
 {
-  doit(basename,100);
+  doit(basename,100,15.0,60.0);
 }
 
 void doit(const char *basename, const int nbins)
+{
+  doit(basename,nbins,15.0,60.0);
+}
+
+void doit(const char *basename, const int nbins, const double lofit, const double hifit)
 {
 
   // --- read in the data and create a vector with all the values
@@ -236,8 +243,7 @@ void doit(const char *basename, const int nbins)
 
   // ---------------------------------------------------------
   bgscale = 100;
-  h1->Fit(fun,"","",20,60);
-  //h1->Fit(fun,"","",40,80);
+  h1->Fit(fun,"","",lofit,hifit);
   fun->SetLineColor(kRed);
   fun->SetLineWidth(2);
   fun->Draw("same");
@@ -278,9 +284,7 @@ void doit(const char *basename, const int nbins)
   fun2->SetParameter(2,5);
   //fun2->SetLineColor(kBlack);
 
-  //h1->Fit(fun2,"","",15,60);
-  h1->Fit(fun2,"","",30,120);
-  //h1->Fit(fun2,"","",20,80);
+  h1->Fit(fun2,"","",lofit,hifit);
   fun2->Draw("same");
 
   cout << fun2->GetChisquare() << "/" << fun2->GetNDF() << endl;
