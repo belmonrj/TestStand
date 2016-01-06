@@ -6,24 +6,25 @@
 //==========================================================================
 
 // Modified by Ron Belmont
-// local version control with git, will add to github repository
+// local version control with git, also on github repository (username belmonrj)
 
 #include <algorithm> // for std::min_element
 //#include <iterator> // for std::begin(vector), end
 
-void doana(const char*);
-void analyze(const char*, const char*, bool, double);
+void doana(const char*, const int, const int);
+void analyze(const char*, const char*, bool, double, const int, const int);
 
 void analyzer_new_LEDscan()
 {
 
-  doana("20151105-1515");
-  doana("20151106-1503");
+  doana("20151105-1515",58,32);
+  doana("20151106-1503",58,32);
+  doana("20151216-1647",44,30);
 
 }
 
 
-void doana(const char *basename)
+void doana(const char *basename, const int nxbins, const int nybins)
 {
 
   char *sipm1name = Form("%s_VMIN_SIPM1",basename);
@@ -33,13 +34,13 @@ void doana(const char *basename)
   //double PEvalue = 0.004386; // old value
   double PEvalue = 0.00502; // trimmed mean from 9/14/2015
 
-  analyze(sipm1name,timename,doPEConvert,PEvalue);
-  analyze(sipm2name,timename,doPEConvert,PEvalue);
+  analyze(sipm1name,timename,doPEConvert,PEvalue,nxbins,nybins);
+  analyze(sipm2name,timename,doPEConvert,PEvalue,nxbins,nybins);
 
 }
 
 
-void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
+void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE, const int nxbins, const int nybins)
 {
 
   // ----------------------------------------------------------------------------------- //
@@ -47,9 +48,12 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
   // ----------------------------------------------------------------------------------- //
 
   // --- CHECK THESE WHEN USING
-  int scan_nxpositions = 58;
-  int scan_nypositions = 32;
-  int totalBins = scan_nxpositions * scan_nypositions;
+  // --- IDEA: PASS THESE AS FUNCTION ARGUMENTS
+  // int nxbins = 58; // small angled tile
+  // int nybins = 32; // small angled tile
+  // int nxbins = 44; // small square bottom tile
+  // int nybins = 30; // small square bottom  tile
+  int totalBins = nxbins * nybins;
 
 
   // ------------------------------
@@ -105,39 +109,39 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
   double TimeSum = 0;  // get total time for first column
   for ( int i=0; i<timeSize; i++ )
     {
-      int row = i%scan_nypositions;
-      int column = i/scan_nypositions;
+      int row = i%nybins;
+      int column = i/nybins;
       if (column == 1) TimeSum += times[i];
     }
-  double TimeMean = TimeSum/scan_nypositions;
+  double TimeMean = TimeSum/nybins;
 
 
   // ---
 
   // --- determine the distance based on the number of steps
   // --- default is 2 steps per cm, double check stepper code
-  double distanceX = (double)scan_nxpositions/2;
-  double distanceY = (double)scan_nypositions/2;
+  double distanceX = (double)nxbins/2;
+  double distanceY = (double)nybins/2;
   // --- make the histogram for the unsubtracted
   TH2D *meanHist = new TH2D(Form("%s_meanHist",NAME), Form("%s_meanHist",NAME),
-			    scan_nxpositions,0.0,distanceX, scan_nypositions,0.0,distanceY);
+			    nxbins,0.0,distanceX, nybins,0.0,distanceY);
   // --- make the histogram for the background subtracted
   TH2D *meanHistSub = new TH2D(Form("%s_meanHistSub",NAME), Form("%s_meanHistSub",NAME),
-			       scan_nxpositions,0.0,distanceX, scan_nypositions,0.0,distanceY);
+			       nxbins,0.0,distanceX, nybins,0.0,distanceY);
 
   // --- calculate the background, used for noise subtraction
   double background = 0.0;
   for(int i = 0; i < meanSize; i++)
     {
-      int row = i%scan_nypositions;
-      int column = i/scan_nypositions;
+      int row = i%nybins;
+      int column = i/nybins;
       double iMean = means[i];
       // --- THIS IS A HUGE PROBLEM
       if(column == 1) background += iMean;
     }
   // --- this is a huge problem
   // only valid if first column is off panel
-  background = background/scan_nypositions;
+  background = background/nybins;
   double AvgBackgroundRate = background/TimeMean;
 
   // ----------------------------------------------------------------------------------------
@@ -147,11 +151,12 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
   // --- make the 2d histograms and use the background subtraction
   for(int j = 0; j < meanSize; j++)
     {
-      int row = j%scan_nypositions;
-      int column = j/scan_nypositions;
+      int row = j%nybins;
+      int column = j/nybins;
       double iMean = means[j];
       double iTime = times[j];
-      double iMeanSub = iMean-(AvgBackgroundRate*iTime);
+      //double iMeanSub = iMean-(AvgBackgroundRate*iTime);
+      double iMeanSub = iMean-minimum1; // new method...
       // --- convert voltage to photoelectrons
       if(PEConvert)
 	{
