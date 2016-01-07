@@ -11,20 +11,23 @@
 #include <algorithm> // for std::min_element
 //#include <iterator> // for std::begin(vector), end
 
-void doana(const char*, const int, const int);
+void doana(const char*, const int, const int, const bool);
 void analyze(const char*, const char*, bool, double, const int, const int);
 
 void analyzer_new_LEDscan()
 {
 
-  doana("20151105-1515",58,32);
-  doana("20151106-1503",58,32);
-  doana("20151216-1647",44,30);
+  // doana("20151105-1515",58,32,true);
+  // doana("20151106-1503",58,32,true);
+  // doana("20151216-1647",44,30,false); // works well, but the data are not useful
+  doana("20151026-1704",174,50,false);
+  doana("20151113-1313",48,30,false); // small angled tile
+  doana("20160106-1320",48,28,false); // small square-bottom tile
 
 }
 
 
-void doana(const char *basename, const int nxbins, const int nybins)
+void doana(const char *basename, const int nxbins, const int nybins, const bool dosipm2)
 {
 
   char *sipm1name = Form("%s_VMIN_SIPM1",basename);
@@ -35,7 +38,7 @@ void doana(const char *basename, const int nxbins, const int nybins)
   double PEvalue = 0.00502; // trimmed mean from 9/14/2015
 
   analyze(sipm1name,timename,doPEConvert,PEvalue,nxbins,nybins);
-  analyze(sipm2name,timename,doPEConvert,PEvalue,nxbins,nybins);
+  if(dosipm2) analyze(sipm2name,timename,doPEConvert,PEvalue,nxbins,nybins);
 
 }
 
@@ -47,12 +50,6 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE, 
   // --- MODIFY FOR SIZE OF PANEL, CHECK TOTAL FILES MANUALLY FOR COMPATIBILITY HERE --- //
   // ----------------------------------------------------------------------------------- //
 
-  // --- CHECK THESE WHEN USING
-  // --- IDEA: PASS THESE AS FUNCTION ARGUMENTS
-  // int nxbins = 58; // small angled tile
-  // int nybins = 32; // small angled tile
-  // int nxbins = 44; // small square bottom tile
-  // int nybins = 30; // small square bottom  tile
   int totalBins = nxbins * nybins;
 
 
@@ -177,33 +174,45 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE, 
   // --- now make figures of the 2d panel plots --- //
   // ---------------------------------------------- //
 
-  TCanvas *c1 = new TCanvas("c1","c1", 900, 588);
-  TCanvas *c2 = new TCanvas("c2","c2", 900, 588);
+  int canvasx = 900;
+  int canvasy = 588;
+  if ( nxbins == 174 )
+    {
+      canvasx = 1800;
+      canvasy = 522;
+    }
+
+  TCanvas *c1 = new TCanvas("c1","c1", canvasx, canvasy);
 
   gStyle->SetOptStat(0);
 
-  c1->cd();
+  const Int_t NRGBs = 5;
+  const Int_t NCont = 255;
+
+  Double_t stops[NRGBs] = { 0.00, 0.34, 0.61, 0.84, 1.00 };
+  Double_t red[NRGBs]   = { 0.00, 0.00, 0.87, 1.00, 0.51 };
+  Double_t green[NRGBs] = { 0.00, 0.81, 1.00, 0.20, 0.00 };
+  Double_t blue[NRGBs]  = { 0.51, 1.00, 0.12, 0.00, 0.00 };
+  TColor::CreateGradientColorTable(NRGBs, stops, red, green, blue, NCont);
+  gStyle->SetNumberContours(NCont);
+
   c1->SetRightMargin(0.15);
   meanHist->GetXaxis()->SetTitle("Position Y (cm)");
   meanHist->GetYaxis()->SetTitle("Position X (cm)");
   if (PEConvert == true) meanHist->GetZaxis()->SetTitle("Pulse Min Value (photoelectrons)");
   else meanHist->GetZaxis()->SetTitle("Pulse Min Value (V)");
   meanHist->Draw("colz");
+  c1->Print(Form("Figures/Burn/%s_meanHist.png",NAME));
+  c1->Print(Form("Figures/Burn/%s_meanHist.pdf",NAME));
 
-  c2->cd();
-  c2->SetRightMargin(0.15);
   meanHistSub->GetXaxis()->SetTitle("Position Y (cm)");
   meanHistSub->GetYaxis()->SetTitle("Position X (cm)");
   if (PEConvert == true) meanHistSub->GetZaxis()->SetTitle("Pulse Min Value (photoelectrons)");
   else meanHistSub->GetZaxis()->SetTitle("Pulse Min Value (V)");
   meanHistSub->Draw("colz");
-
-  c1->Print(Form("Figures/Burn/%s_meanHist.png",NAME));
-  c2->Print(Form("Figures/Burn/%s_meanHistSub.png",NAME));
-  c1->Print(Form("Figures/Burn/%s_meanHist.pdf",NAME));
-  c2->Print(Form("Figures/Burn/%s_meanHistSub.pdf",NAME));
+  c1->Print(Form("Figures/Burn/%s_meanHistSub.png",NAME));
+  c1->Print(Form("Figures/Burn/%s_meanHistSub.pdf",NAME));
 
   delete c1;
-  delete c2;
 
 }
