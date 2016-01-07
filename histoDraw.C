@@ -6,7 +6,9 @@
 
 // Modified by Ron Belmont
 
-
+void dopaletteswap(const char*);
+void paletteSwap(const char*);
+void paletteSwap(const char*, bool, bool, bool, bool);
 
 void histoDraw()
 {
@@ -38,12 +40,17 @@ void histoDraw()
 
 }
 
-void dopaletteswap(char *basename)
+void dopaletteswap(const char *basename)
 {
 
   paletteSwap(Form("%s_VMIN_SIPM1_meanHistSub",basename));
   paletteSwap(Form("%s_VMIN_SIPM2_meanHistSub",basename));
 
+}
+
+void paletteSwap(const char *name)
+{
+  paletteSwap(name,true,true,true,true);
 }
 
 void paletteSwap(const char* loc, bool rot = true, bool average = true, bool varNorm = true, bool flip = true)
@@ -311,7 +318,7 @@ void paletteSwap(const char* loc, bool rot = true, bool average = true, bool var
 
   if (flip == true)
     {
-      f1->SetTitle(Form("Pulse Averaged Test Scan, Mean:  Photo Electrons",PEMean));
+      f1->SetTitle(Form("Pulse Averaged Test Scan, Mean: %f Photo Electrons",PEMean));
       f1->SetTitleSize(0.10);
       f1->GetXaxis()->SetTitle("X-Axis in cm");
       f1->GetXaxis()->SetTitleSize(0.04);
