@@ -1,5 +1,13 @@
 #include <algorithm> // for min_element, max_element
 
+
+const double peconvert = 0.00502; // volts per photoelectrion
+
+
+void dobulk();
+void donewpart(const char*, int);
+
+
 void backgrounds()
 {
 
@@ -12,6 +20,8 @@ void backgrounds()
 
 void donewpart(const char *basename, int nbins)
 {
+
+  TCanvas *c1 = new TCanvas();
 
   double content;
 
@@ -72,7 +82,6 @@ void donewpart(const char *basename, int nbins)
   h8->SetLineColor(kBlue);
   h8->SetLineWidth(2);
   // --- adjust limits
-  double peconvert = 0.00502; // volts per photoelectrion
   h7->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h8->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   // --- draw
@@ -141,11 +150,14 @@ void donewpart(const char *basename, int nbins)
   delete h8;
   delete hh1v2;
   delete hhSvA;
+  delete c1;
 
 }
 
 void dobulk()
 {
+
+  TCanvas *c1 = new TCanvas();
 
   ifstream fin3("TEMP/20151005-1352_Unaveraged_VMin1.txt");
   double content;
@@ -192,7 +204,6 @@ void dobulk()
   h4->SetLineColor(kBlue);
   h4->SetLineWidth(2);
   // --- adjust limits
-  double peconvert = 0.00502; // volts per photoelectrion
   h3->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h4->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   // --- draw
@@ -247,7 +258,6 @@ void dobulk()
   h6->SetLineColor(kBlue);
   h6->SetLineWidth(2);
   // --- adjust limits
-  double peconvert = 0.00502; // volts per photoelectrion
   h5->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h6->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   // --- draw
@@ -312,7 +322,6 @@ void dobulk()
   h8->SetLineColor(kBlue);
   h8->SetLineWidth(2);
   // --- adjust limits
-  double peconvert = 0.00502; // volts per photoelectrion
   h7->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   h8->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
   // --- draw
@@ -496,5 +505,7 @@ void dobulk()
   c1->SetLogz(1);
   c1->Print("Backgrounds/backgrounds_SvA_log.png");
   c1->Print("Backgrounds/backgrounds_SvA_log.pdf");
+
+  delete c1;
 
 }
