@@ -1,5 +1,9 @@
 #include <algorithm> // for min_element, max_element
 
+
+void donewpart(const char*, int);
+
+
 void pedestal()
 {
 
@@ -10,6 +14,8 @@ void pedestal()
 
 void donewpart(const char *basename, int nbins)
 {
+
+  TCanvas *c1 = new TCanvas();
 
   double content;
 
