@@ -1,12 +1,17 @@
 const double mu_mass = 106; // MeV, 105.6583715...
 const double e_mass = 0.511; // MeV, 0.510998910...
-const double density = 1.060; // g/cm^3
+const double cdensity = 1.060; // g/cm^3
 const double e_radius = 2.81794; // fm
 const double pi = 3.1415926535; // pi
 const double N_A = 6.0221415e23; // Avogadro's number
 //const double thickness = 0.762; // cm, thickness of panel
 //const double thickness = 0.777; // cm, thickness of panel
 const double thickness = 0.815; // cm, thickness of panel
+
+
+double calcbeta(double);
+double dobethe(double, double);
+
 
 void bethe()
 {
@@ -57,7 +62,7 @@ void bethe()
 double dobethe(double energy = 318, double mass = mu_mass)
 {
 
-  density *= thickness; // to account for panel thickness in calculations
+  double density = cdensity*thickness; // to account for panel thickness in calculations
 
   double gamma = energy/mass;
   double beta = calcbeta(gamma);
@@ -80,7 +85,7 @@ double dobethe(double energy = 318, double mass = mu_mass)
   //cout << "calcK is " << calcK << endl; // very nice agreement
 
   double firstblock = (K*z*z*ZoverA)/(beta*beta);
-  double Tmax (2*e_mass*beta*beta*gamma*gamma)/(1 + (2*gamma*e_mass/mass) + (e_mass/mass)*(e_mass/mass));
+  double Tmax = (2*e_mass*beta*beta*gamma*gamma)/(1 + (2*gamma*e_mass/mass) + (e_mass/mass)*(e_mass/mass));
   double logargument = (2*e_mass*beta*beta*gamma*gamma*Tmax)/(I*I);
 
   //cout << "log argument is " << logargument << endl;
