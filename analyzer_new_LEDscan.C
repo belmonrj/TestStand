@@ -11,8 +11,10 @@
 #include <algorithm> // for std::min_element
 //#include <iterator> // for std::begin(vector), end
 
-void doana(const char*, const int, const int, const bool);
-void analyze(const char*, const char*, bool, double, const int, const int);
+void doana(const char*, const int, const int, const bool); // without offsets...
+void doana(const char*, const int, const int, const int, const int, const bool); // with offsets...
+void analyze(const char*, const char*, const bool, const double, const int, const int); // without offsets...
+void analyze(const char*, const char*, const bool, const double, const int, const int, const int, const int); // with offsets...
 
 void analyzer_new_LEDscan()
 {
@@ -20,14 +22,18 @@ void analyzer_new_LEDscan()
   // doana("20151105-1515",58,32,true);
   // doana("20151106-1503",58,32,true);
   // doana("20151216-1647",44,30,false); // works well, but the data are not useful
-  doana("20151026-1704",174,50,false);
-  doana("20151113-1313",48,30,false); // small angled tile
-  doana("20160106-1320",48,28,false); // small square-bottom tile
+  // doana("20151113-1313",48,30,false); // small angled tile
+  // doana("20160106-1320",48,28,false); // small square-bottom tile, 405 nm
+  // doana("20160106-1636",48,28,false); // small square-bottom tile, 375 nm
+  // doana("20151026-1704",174,50,false); // large tile, 405 nm
+  // doana("20160107-0222",174,50,false); // large tile, 375 nm, bad alignment
+  doana("20160107-1522",174,50,2,-1,false); // large tile, 361 nm
+  doana("20160111-1335",174,50,1,-1,false); // large tile, 375 nm, improved alignment...
 
 }
 
 
-void doana(const char *basename, const int nxbins, const int nybins, const bool dosipm2)
+void doana(const char *basename, const int nxbins, const int nybins, const int xoff, const int yoff, const bool dosipm2)
 {
 
   char *sipm1name = Form("%s_VMIN_SIPM1",basename);
@@ -37,13 +43,13 @@ void doana(const char *basename, const int nxbins, const int nybins, const bool 
   //double PEvalue = 0.004386; // old value
   double PEvalue = 0.00502; // trimmed mean from 9/14/2015
 
-  analyze(sipm1name,timename,doPEConvert,PEvalue,nxbins,nybins);
-  if(dosipm2) analyze(sipm2name,timename,doPEConvert,PEvalue,nxbins,nybins);
+  analyze(sipm1name,timename,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
+  if(dosipm2) analyze(sipm2name,timename,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
 
 }
 
 
-void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE, const int nxbins, const int nybins)
+void analyze(const char* NAME, const char* timedata, const bool PEConvert, const double PE, const int nxbins, const int nybins, const int xoff, const int yoff)
 {
 
   // ----------------------------------------------------------------------------------- //
@@ -163,7 +169,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE, 
       // --- fill the histogram without the background subtraction
       meanHist->SetBinContent(column+1,row+1,iMean);
       // --- fill the histogram with the background subtraction
-      meanHistSub->SetBinContent(column + 1, row + 1, iMeanSub);
+      meanHistSub->SetBinContent(column + 1 + xoff, row + 1 + yoff, iMeanSub);
     }
   // --- write the background subtracted histogram to a ROOT file
   meanHistSub->SaveAs(Form("Data/NewLED/%s_meanHistSub.root",NAME)); // NEEDS TO BE REVISED
@@ -209,6 +215,8 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE, 
   meanHistSub->GetYaxis()->SetTitle("Position X (cm)");
   if (PEConvert == true) meanHistSub->GetZaxis()->SetTitle("Pulse Min Value (photoelectrons)");
   else meanHistSub->GetZaxis()->SetTitle("Pulse Min Value (V)");
+  //meanHistSub->GetZaxis()->SetMinimum(-0.001); // to correct color scale for bins with exactly zero value
+  meanHistSub->SetMinimum(-0.001); // to correct color scale for bins with exactly zero value
   meanHistSub->Draw("colz");
   c1->Print(Form("Figures/Burn/%s_meanHistSub.png",NAME));
   c1->Print(Form("Figures/Burn/%s_meanHistSub.pdf",NAME));
