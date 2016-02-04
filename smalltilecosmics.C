@@ -1,6 +1,7 @@
 #include <algorithm> // for min_element, max_element
 
-double peconvert = 0.00502; // volts per photoelectrion
+//double peconvert = 0.00502; // volts per photoelectrion
+double peconvert = 0.00035; // volts per photoelectrion
 
 void doit(const char*);
 void doit(const char*, const int);
@@ -15,7 +16,8 @@ void smalltilecosmics()
   //doit("20151123-1130",50,20,100);  // checked 20160106
   //doit("20151221-1413",100,20,100); // checked 20160106
   //doit("20151229-1254",100,20,100); // checked 20160106, horrible statistics...
-  doit("20160104-1449");            // checked 20160106
+  //doit("20160104-1449");            // checked 20160106
+  doit("20160129-1800",100,250.0,1500.0); // low gain, need to adjust peconvert...
 
 }
 
@@ -108,7 +110,7 @@ void doit(const char *basename, const int nbins, const double lofit, const doubl
     }
 
   // --- make a canvas and draw the histogram
-  TCanvas *c1 = new TCanvas("c1","",800,600);
+  TCanvas *c1 = new TCanvas("c1","",800,800);
 
   // --- rescale the histograms from volts to photoelectrons
   h1->GetXaxis()->SetLimits(newmin/peconvert,newmax/peconvert);
@@ -227,7 +229,7 @@ void doit(const char *basename, const int nbins, const double lofit, const doubl
   hsum->SetLineColor(kBlack);
   hsum->SetLineWidth(2);
   hsum->GetXaxis()->SetLimits(2*newmin/peconvert,2*newmax/peconvert);
-  hsum->GetXaxis()->SetRangeUser(0.0,120.0);
+  //hsum->GetXaxis()->SetRangeUser(0.0,120.0);
   hsum->GetXaxis()->SetTitle("Number of photoelectrons SiPM1+SiPM2");
   hsum->Draw();
   c1->Print(Form("Cosmics/%s_temp.png",basename));
@@ -275,13 +277,16 @@ void doit(const char *basename, const int nbins, const double lofit, const doubl
   //fun->Draw("same");
   //h1->Fit(simplefun,"","",0,60);
 
-  TF1 *fun2 = new TF1("fun2","([0]/sqrt(6.28))*TMath::Exp(-0.5*((x-[1])/[2] + TMath::Exp(-(x-[1])/[2])))",0,120);
+  TF1 *fun2 = new TF1("fun2","([0]/sqrt(6.28))*TMath::Exp(-0.5*((x-[1])/[2] + TMath::Exp(-(x-[1])/[2])))",2*newmin/peconvert,2*newmax/peconvert);
   // fun2->SetParameter(0,hax);
   // fun2->SetParameter(1,mux);
   // fun2->SetParameter(2,six);
+  // fun2->SetParameter(0,93);
+  // fun2->SetParameter(1,35);
+  // fun2->SetParameter(2,5);
   fun2->SetParameter(0,93);
-  fun2->SetParameter(1,35);
-  fun2->SetParameter(2,5);
+  fun2->SetParameter(1,500);
+  fun2->SetParameter(2,100);
   //fun2->SetLineColor(kBlack);
 
   h1->Fit(fun2,"","",lofit,hifit);
@@ -304,7 +309,7 @@ void doit(const char *basename, const int nbins, const double lofit, const doubl
   tex->SetNDC();
   tex->SetTextSize(0.05);
   tex->Draw();
-  h1->GetXaxis()->SetRangeUser(0.0,130.0); // new...
+  //h1->GetXaxis()->SetRangeUser(0.0,130.0); // new...
   c1->Print(Form("Cosmics/SmallTileCosmics_%s_tempLOWffit.png",basename));
   c1->Print(Form("Cosmics/SmallTileCosmics_%s_tempLOWffit.pdf",basename));
   c1->SetLogy(1);

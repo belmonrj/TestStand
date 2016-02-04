@@ -6,7 +6,8 @@ const double pi = 3.1415926535; // pi
 const double N_A = 6.0221415e23; // Avogadro's number
 //const double thickness = 0.762; // cm, thickness of panel
 //const double thickness = 0.777; // cm, thickness of panel
-const double thickness = 0.815; // cm, thickness of panel
+//const double thickness = 0.815; // cm, thickness of panel
+const double thickness = 1.0; // cm, thickness of panel
 
 
 double calcbeta(double);
@@ -19,7 +20,7 @@ void bethe()
   cout << "minimum muon" << endl;
   dobethe(318,mu_mass);
   //dobethe(367,mu_mass); // guessed min by process of elimination
-
+  cout << "other stuff" << endl;
   dobethe(1000.0,mu_mass);
   dobethe(10000.0,mu_mass);
   dobethe(100000.0,mu_mass);

@@ -27,8 +27,9 @@ void analyzer_new_LEDscan()
   // doana("20160106-1636",48,28,false); // small square-bottom tile, 375 nm
   // doana("20151026-1704",174,50,false); // large tile, 405 nm
   // doana("20160107-0222",174,50,false); // large tile, 375 nm, bad alignment
-  doana("20160107-1522",174,50,2,-1,false); // large tile, 361 nm
-  doana("20160111-1335",174,50,1,-1,false); // large tile, 375 nm, improved alignment...
+  doana("20160107-1522",174,50,1,-1,false); // large tile, 361 nm
+  doana("20160111-1335",174,50,0,-1,false); // large tile, 375 nm, improved alignment...
+  doana("20160113-1238",174,50,0,0,false); // large tile, 405 nm, changed alignment...
 
 }
 
