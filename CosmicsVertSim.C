@@ -1,5 +1,5 @@
 // --- Primary author: Sebastian Vazquez-Torres
-// --- Secondary euthor: Ron Belmont
+// --- Secondary author: Ron Belmont
 
 void CosmicsVertSim()
 {
@@ -8,9 +8,8 @@ void CosmicsVertSim()
   TCanvas *c1 = new TCanvas();
   c1->SetLogy();
 
-  const int Statistics = 200000;
-  const int nsteps = 100;
-  const double StepSize = 0.1;
+  const int Statistics = 100000;
+  const double StepSize = 0.02;
   const double MeVperCM = 1.82; // MeV/cm
   const double PEperMeV = 31.6; // PE/MeV
   const double TriggerSep = 30;
@@ -38,11 +37,14 @@ void CosmicsVertSim()
 
   const double mpv = MeVperCM;
   const double ksi = 0.385;
-  TF1 *gumbel = new TF1("gumbel","([0]/sqrt(6.28))*TMath::Exp(-0.5*((x-[1])/[2] + TMath::Exp(-(x-[1])/[2])))",0,200);
-  gumbel->SetParameter(0,1.0);
-  gumbel->SetParameter(1,mpv);
-  gumbel->SetParameter(2,ksi);
-
+  TF1 *fgumbel = new TF1("fgumbel","([0]/sqrt(6.28))*TMath::Exp(-0.5*((x-[1])/[2] + TMath::Exp(-(x-[1])/[2])))",0,200);
+  fgumbel->SetParameter(0,1.0);
+  fgumbel->SetParameter(1,mpv);
+  fgumbel->SetParameter(2,ksi);
+  TF1 *flandau = new TF1("flandau","landau",0,200);
+  flandau->SetParameter(0,1.0);
+  flandau->SetParameter(1,mpv);
+  flandau->SetParameter(2,ksi);
 
 
   for (int i = 0; i < Statistics; i++)
@@ -102,11 +104,13 @@ void CosmicsVertSim()
       Distance.push_back(Dist);
       double EnergyDep = Dist*MeVperCM*PEperMeV;
       Energy.push_back(EnergyDep);
-      double fromgumbel = gumbel->GetRandom();
-      double shift = fromgumbel-mpv;
-      shift *= PEperMeV; // yes
-      //shift *= Dist; // maybe??? // no...
-      SmearedEnergy.push_back(EnergyDep+shift);
+      //double shifted = fgumbel->GetRandom();
+      double shifted = flandau->GetRandom();
+      shifted -= mpv;
+      shifted *= MeVperCM*PEperMeV;
+      shifted += EnergyDep;
+      if ( EnergyDep == 0 ) shifted = 0;
+      SmearedEnergy.push_back(shifted);
 
     } // end for
 
