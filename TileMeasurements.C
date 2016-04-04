@@ -40,9 +40,11 @@ void argument(TString arg)
   float thickness_outer[40];
   for ( int i = 0; i < 40; ++i )
     {
-      position_inner[i] = i*2;
+      // position_inner[i] = i*2;
+      // position_outer[i] = i*2;
+      position_inner[i] = 80 - i*2;
+      position_outer[i] = 80 - i*2;
       f_inner >> thickness_inner[i];
-      position_outer[i] = i*2;
       f_outer >> thickness_outer[i];
     }
 
@@ -59,13 +61,13 @@ void argument(TString arg)
   tg_outer->SetMarkerColor(kRed);
   tg_outer->SetMarkerStyle(kFullCircle);
   tg_outer->Draw("pl");
-  //TLegend *leg = new TLegend(0.18,0.68,0.38,0.88);
+  TLegend *leg = new TLegend(0.18,0.68,0.38,0.88);
   //TLegend *leg = new TLegend(0.68,0.18,0.88,0.38);
-  TLegend *leg = new TLegend(0.68,0.68,0.88,0.88);
+  //TLegend *leg = new TLegend(0.68,0.68,0.88,0.88);
   leg->AddEntry(tg_inner,"Inner Edge","p");
   leg->AddEntry(tg_outer,"Outer Edge","p");
   leg->Draw();
-  TLatex *tex_tid = new TLatex(0.27,0.82,Form("Tile ID %s",(const char*)arg));
+  TLatex *tex_tid = new TLatex(0.55,0.819,Form("Tile ID %s",(const char*)arg));
   tex_tid->SetNDC();
   tex_tid->Draw();
 
