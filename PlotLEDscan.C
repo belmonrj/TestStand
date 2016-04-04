@@ -11,10 +11,10 @@
 #include <algorithm> // for std::min_element
 //#include <iterator> // for std::begin(vector), end
 
-void doana(const char*, const int, const int, const bool); // without offsets...
-void doana(const char*, const int, const int, const int, const int, const bool); // with offsets...
-void analyze(const char*, const bool, const double, const int, const int); // without offsets...
-void analyze(const char*, const bool, const double, const int, const int, const int, const int); // with offsets...
+void doana(const char*, const char*, const int, const int, const bool); // without offsets...
+void doana(const char*, const char*, const int, const int, const int, const int, const bool); // with offsets...
+void analyze(const char*, const char*, const bool, const double, const int, const int); // without offsets...
+void analyze(const char*, const char*, const bool, const double, const int, const int, const int, const int); // with offsets...
 
 void PlotLEDscan()
 {
@@ -30,14 +30,14 @@ void PlotLEDscan()
   // doana("20160107-1522",174,50,1,-1,false); // large tile, 361 nm
   // doana("20160111-1335",174,50,0,-1,false); // large tile, 375 nm, improved alignment...
   // doana("20160113-1238",174,50,0,0,false); // large tile, 405 nm, changed alignment...
-  doana("20160329-1516",174,54,0,-2,false); // large tile, 405 nm, changed alignment...
-  doana("20160330-1235",174,54,0,-1,false); // large tile, 405 nm, changed alignment...
-  doana("20160403-1706",174,54,0,-2,false); // large tile, 405 nm, changed alignment...
+  doana("20160329-1516","OH-2-47",174,54,0,-2,false); // large tile, 405 nm, changed alignment...
+  doana("20160330-1235","OH-2-46",174,54,0,-1,false); // large tile, 405 nm, changed alignment...
+  doana("20160403-1706","OH-2-6", 174,54,0,-2,false); // large tile, 405 nm, changed alignment...
 
 }
 
 
-void doana(const char *basename, const int nxbins, const int nybins, const int xoff, const int yoff, const bool dosipm2)
+void doana(const char *basename, const char *handle, const int nxbins, const int nybins, const int xoff, const int yoff, const bool dosipm2)
 {
 
   char *sipm1name = Form("%s_VMIN_SIPM1",basename);
@@ -46,13 +46,13 @@ void doana(const char *basename, const int nxbins, const int nybins, const int x
   //double PEvalue = 0.004386; // old value
   double PEvalue = 0.00502; // trimmed mean from 9/14/2015
 
-  analyze(sipm1name,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
-  if(dosipm2) analyze(sipm2name,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
+  analyze(sipm1name,handle,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
+  if(dosipm2) analyze(sipm2name,handle,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
 
 }
 
 
-void analyze(const char* NAME, const bool PEConvert, const double PE, const int nxbins, const int nybins, const int xoff, const int yoff)
+void analyze(const char* NAME, const char* handle, const bool PEConvert, const double PE, const int nxbins, const int nybins, const int xoff, const int yoff)
 {
 
   // ----------------------------------------------------------------------------------- //
@@ -164,14 +164,8 @@ void analyze(const char* NAME, const bool PEConvert, const double PE, const int 
   gStyle->SetNumberContours(NCont);
 
   c1->SetRightMargin(0.15);
-  meanHist->GetXaxis()->SetTitle("Position Y (cm)");
-  meanHist->GetYaxis()->SetTitle("Position X (cm)");
-  if (PEConvert == true) meanHist->GetZaxis()->SetTitle("Pulse Min Value (photoelectrons)");
-  else meanHist->GetZaxis()->SetTitle("Pulse Min Value (V)");
-  meanHist->Draw("colz");
-  // c1->Print(Form("Figs/LEDscan_%s_meanHist.png",NAME));
-  // c1->Print(Form("Figs/LEDscan_%s_meanHist.pdf",NAME));
-
+  gStyle->SetOptTitle(1);
+  meanHistSub->SetTitle(Form("Tile ID: %s",handle));
   meanHistSub->GetXaxis()->SetTitle("Position Y (cm)");
   meanHistSub->GetYaxis()->SetTitle("Position X (cm)");
   if (PEConvert == true) meanHistSub->GetZaxis()->SetTitle("Pulse Min Value (photoelectrons)");
@@ -179,8 +173,10 @@ void analyze(const char* NAME, const bool PEConvert, const double PE, const int 
   //meanHistSub->GetZaxis()->SetMinimum(-0.001); // to correct color scale for bins with exactly zero value
   meanHistSub->SetMinimum(-0.001); // to correct color scale for bins with exactly zero value
   meanHistSub->Draw("colz");
-  c1->Print(Form("Figs/LEDscan_%s_meanHistSub.png",NAME));
-  c1->Print(Form("Figs/LEDscan_%s_meanHistSub.pdf",NAME));
+  // c1->Print(Form("Figs/LEDscan_%s_meanHistSub.png",NAME));
+  // c1->Print(Form("Figs/LEDscan_%s_meanHistSub.pdf",NAME));
+  c1->Print(Form("Figs/LEDscan_%s.png",handle));
+  c1->Print(Form("Figs/LEDscan_%s.pdf",handle));
 
   delete c1;
 
