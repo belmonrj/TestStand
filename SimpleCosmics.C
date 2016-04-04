@@ -1,12 +1,9 @@
-#include<algorithm>
+#include <algorithm>
 
 void ReadSingleFile(const char*, const char*);
 
 void SimpleCosmics()
 {
-
-  ReadSingleFile("Data/20160314-1215_Unaveraged_VMin1.txt","OH-2-46");
-  ReadSingleFile("Data/20160314-1215_Unaveraged_VMin2.txt","OH-2-47");
 
   ReadSingleFile("Data/20160316-1220_Unaveraged_VMin1.txt","OH-1-47");
   ReadSingleFile("Data/20160316-1220_Unaveraged_VMin2.txt","OH-1-46");
@@ -16,6 +13,9 @@ void SimpleCosmics()
 
   ReadSingleFile("Data/20160323-2359_Unaveraged_VMin1.txt","OH-1-3"); // combined
   ReadSingleFile("Data/20160323-2359_Unaveraged_VMin2.txt","OH-2-6"); // combined
+
+  ReadSingleFile("Data/20160324-2359_Unaveraged_VMin1.txt","OH-2-46"); // combined
+  ReadSingleFile("Data/20160324-2359_Unaveraged_VMin2.txt","OH-2-47"); // combined
 
 }
 
