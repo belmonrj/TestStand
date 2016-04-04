@@ -13,8 +13,8 @@
 
 void doana(const char*, const int, const int, const bool); // without offsets...
 void doana(const char*, const int, const int, const int, const int, const bool); // with offsets...
-void analyze(const char*, const char*, const bool, const double, const int, const int); // without offsets...
-void analyze(const char*, const char*, const bool, const double, const int, const int, const int, const int); // with offsets...
+void analyze(const char*, const bool, const double, const int, const int); // without offsets...
+void analyze(const char*, const bool, const double, const int, const int, const int, const int); // with offsets...
 
 void analyzer_new_LEDscan()
 {
@@ -42,18 +42,17 @@ void doana(const char *basename, const int nxbins, const int nybins, const int x
 
   char *sipm1name = Form("%s_VMIN_SIPM1",basename);
   char *sipm2name = Form("%s_VMIN_SIPM2",basename);
-  char *timename = Form("%s_TIME.txt",basename);
   bool doPEConvert = true;
   //double PEvalue = 0.004386; // old value
   double PEvalue = 0.00502; // trimmed mean from 9/14/2015
 
-  analyze(sipm1name,timename,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
-  if(dosipm2) analyze(sipm2name,timename,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
+  analyze(sipm1name,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
+  if(dosipm2) analyze(sipm2name,doPEConvert,PEvalue,nxbins,nybins,xoff,yoff);
 
 }
 
 
-void analyze(const char* NAME, const char* timedata, const bool PEConvert, const double PE, const int nxbins, const int nybins, const int xoff, const int yoff)
+void analyze(const char* NAME, const bool PEConvert, const double PE, const int nxbins, const int nybins, const int xoff, const int yoff)
 {
 
   // ----------------------------------------------------------------------------------- //
@@ -95,32 +94,6 @@ void analyze(const char* NAME, const char* timedata, const bool PEConvert, const
     }
 
 
-  // // -------------------------
-  // // --- read in the time data
-  // int timenumb = 0;
-  // vector <double> times;
-  // string timeline;
-  // ifstream timefile;
-  // // -------------------------
-  // timefile.open(Form("TEMP/%s",timedata));
-  // for(int i = 0; i < totalBins ; i++)
-  //   {
-  //     double timeval_d = -9999;
-  //     timefile>>timeval_d;
-  //     times.push_back(timeval_d);
-  //     if(i==0) cout<<timeval_d<<endl;
-  //   }
-  // timefile.close();
-  // int timeSize = times.size();
-
-  // double TimeSum = 0;  // get total time for first column
-  // for ( int i=0; i<timeSize; i++ )
-  //   {
-  //     int row = i%nybins;
-  //     int column = i/nybins;
-  //     if (column == 1) TimeSum += times[i];
-  //   }
-  // double TimeMean = TimeSum/nybins;
 
 
   // ---
@@ -136,21 +109,6 @@ void analyze(const char* NAME, const char* timedata, const bool PEConvert, const
   TH2D *meanHistSub = new TH2D(Form("%s_meanHistSub",NAME), Form("%s_meanHistSub",NAME),
 			       nxbins,0.0,distanceX, nybins,0.0,distanceY);
 
-  // --- calculate the background, used for noise subtraction
-  double background = 0.0;
-  for(int i = 0; i < meanSize; i++)
-    {
-      int row = i%nybins;
-      int column = i/nybins;
-      double iMean = means[i];
-      // --- THIS IS A HUGE PROBLEM
-      if(column == 1) background += iMean;
-    }
-  // --- this is a huge problem
-  // only valid if first column is off panel
-  background = background/nybins;
-  //double AvgBackgroundRate = background/TimeMean;
-
   // ----------------------------------------------------------------------------------------
   //cout << "minimum1 is " << minimum1 <<  " minimum2 is " << minimum2 << " and est background is " << AvgBackgroundRate << endl;
   cout << "minimum1 is " << minimum1 <<  " minimum2 is " << minimum2 << endl;
@@ -162,8 +120,6 @@ void analyze(const char* NAME, const char* timedata, const bool PEConvert, const
       int row = j%nybins;
       int column = j/nybins;
       double iMean = means[j];
-      //double iTime = times[j];
-      //double iMeanSub = iMean-(AvgBackgroundRate*iTime);
       double iMeanSub = iMean-minimum1; // new method...
       // --- convert voltage to photoelectrons
       if(PEConvert)
