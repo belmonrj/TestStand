@@ -19,12 +19,14 @@ void argument(TString arg)
   TCanvas *c1 = new TCanvas();
 
   TString innerfile = "Data/";
-  innerfile += "Straight_Edge_";
+  //innerfile += "Straight_Edge_";
+  innerfile += "Slant_Edge_"; // Sebastian labeled them backwards
   innerfile += arg;
   innerfile += ".txt";
 
   TString outerfile = "Data/";
-  outerfile += "Slant_Edge_";
+  //outerfile += "Slant_Edge_";
+  outerfile += "Straight_Edge_"; // Sebastian labeled them backwards
   outerfile += arg;
   outerfile += ".txt";
 
@@ -58,11 +60,17 @@ void argument(TString arg)
   tg_outer->SetMarkerStyle(kFullCircle);
   tg_outer->Draw("pl");
   //TLegend *leg = new TLegend(0.18,0.68,0.38,0.88);
-  TLegend *leg = new TLegend(0.68,0.18,0.88,0.38);
+  //TLegend *leg = new TLegend(0.68,0.18,0.88,0.38);
+  TLegend *leg = new TLegend(0.68,0.68,0.88,0.88);
   leg->AddEntry(tg_inner,"Inner Edge","p");
   leg->AddEntry(tg_outer,"Outer Edge","p");
   leg->Draw();
+  TLatex *tex_tid = new TLatex(0.27,0.82,Form("Tile ID %s",(const char*)arg));
+  tex_tid->SetNDC();
+  tex_tid->Draw();
+
   c1->Print(Form("Figs/Thickness_%s.png",(const char*)arg));
+  c1->Print(Form("Figs/Thickness_%s.pdf",(const char*)arg));
 
 
 
