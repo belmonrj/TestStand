@@ -5,17 +5,21 @@ void ReadSingleFile(const char*, const char*);
 void SimpleCosmics()
 {
 
-  ReadSingleFile("Data/20160316-1220_Unaveraged_VMin1.txt","OH-1-47");
-  ReadSingleFile("Data/20160316-1220_Unaveraged_VMin2.txt","OH-1-46");
+  // ReadSingleFile("Data/20160316-1220_Unaveraged_VMin1.txt","OH-1-47");
+  // ReadSingleFile("Data/20160316-1220_Unaveraged_VMin2.txt","OH-1-46");
 
-  ReadSingleFile("Data/20160318-1911_Unaveraged_VMin1.txt","OH-1-2");
-  ReadSingleFile("Data/20160318-1911_Unaveraged_VMin2.txt","OH-1-46");
+  // ReadSingleFile("Data/20160318-1911_Unaveraged_VMin1.txt","OH-1-2");
+  // ReadSingleFile("Data/20160318-1911_Unaveraged_VMin2.txt","OH-1-46");
 
-  ReadSingleFile("Data/20160323-2359_Unaveraged_VMin1.txt","OH-1-3"); // combined
-  ReadSingleFile("Data/20160323-2359_Unaveraged_VMin2.txt","OH-2-6"); // combined
+  // ReadSingleFile("Data/20160323-2359_Unaveraged_VMin1.txt","OH-1-3"); // combined
+  // ReadSingleFile("Data/20160323-2359_Unaveraged_VMin2.txt","OH-2-6"); // combined
 
-  ReadSingleFile("Data/20160324-2359_Unaveraged_VMin1.txt","OH-2-46"); // combined
-  ReadSingleFile("Data/20160324-2359_Unaveraged_VMin2.txt","OH-2-47"); // combined
+  // ReadSingleFile("Data/20160324-2359_Unaveraged_VMin1.txt","OH-2-46"); // combined
+  // ReadSingleFile("Data/20160324-2359_Unaveraged_VMin2.txt","OH-2-47"); // combined
+
+  ReadSingleFile("Data/20151023-1307_Unaveraged_VMin1.txt","Previous");
+
+
 
 }
 
@@ -34,7 +38,7 @@ void ReadSingleFile(const char* filename, const char* tileid)
   double max = *max_element(signal.begin(),signal.end());
   double min = *min_element(signal.begin(),signal.end());
 
-  TH1D* histo = new TH1D("histo","",50,0,50);
+  TH1D* histo = new TH1D("histo","",50,0,100);
 
   for ( auto it = signal.begin(); it != signal.end(); ++it ) histo->Fill(*it);
 
@@ -42,7 +46,7 @@ void ReadSingleFile(const char* filename, const char* tileid)
   histo->GetXaxis()->SetTitle("Number of photoelectrons");
   histo->Draw();
 
-  TF1 *fgumbel = new TF1("fgumbel","([0]/sqrt(6.28))*TMath::Exp(-0.5*((x-[1])/[2] + TMath::Exp(-(x-[1])/[2])))",0,50);
+  TF1 *fgumbel = new TF1("fgumbel","([0]/sqrt(6.28))*TMath::Exp(-0.5*((x-[1])/[2] + TMath::Exp(-(x-[1])/[2])))",0,100);
   fgumbel->SetParameter(0,100);
   fgumbel->SetParameter(1,5.0);
   fgumbel->SetParameter(2,5.0);
@@ -50,7 +54,8 @@ void ReadSingleFile(const char* filename, const char* tileid)
   fgumbel->SetParLimits(1,0,1e2);
   fgumbel->SetParLimits(2,0,1e2);
 
-  histo->Fit(fgumbel,"Q","",5,35);
+  histo->Fit(fgumbel,"Q","",15,100);
+  fgumbel->Draw("same");
 
   TLatex *tex_tid = new TLatex(0.6,0.8,Form("Tile ID %s",tileid));
   tex_tid->SetNDC();
