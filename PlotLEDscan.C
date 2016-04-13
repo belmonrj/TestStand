@@ -30,9 +30,14 @@ void PlotLEDscan()
   // doana("20160107-1522",174,50,1,-1,false); // large tile, 361 nm
   // doana("20160111-1335",174,50,0,-1,false); // large tile, 375 nm, improved alignment...
   // doana("20160113-1238",174,50,0,0,false); // large tile, 405 nm, changed alignment...
-  doana("20160329-1516","OH-2-47",174,54,0,-2,false); // large tile, 405 nm, changed alignment...
-  doana("20160330-1235","OH-2-46",174,54,0,-1,false); // large tile, 405 nm, changed alignment...
-  doana("20160403-1706","OH-2-6", 174,54,0,-2,false); // large tile, 405 nm, changed alignment...
+  doana("20160329-1516","OH-2-47", 174,54,0,-2,false); // large tile, 405 nm, changed alignment...
+  doana("20160330-1235","OH-2-46", 174,54,0,-1,false); // large tile, 405 nm, changed alignment...
+  doana("20160403-1706","OH-2-6",  174,54,0,-2,false); // large tile, 405 nm, changed alignment...
+  doana("20160405-1449","OH-1-3",  174,54,0,-1,false); // large tile, 405 nm, changed alignment...
+  doana("20160408-1859","OH-1-46x",174,54,0,-2,true); // large tile, 405 nm, changed alignment...
+  doana("20160408-2359","OH-1-46", 174,54,0,-2,true); // large tile, 405 nm, changed alignment...
+  doana("20160411-1746","OH-1-47x",174,54,0,-2,true); // large tile, 405 nm, changed alignment...
+  doana("20160411-2359","OH-1-47", 174,54,0,-2,true); // large tile, 405 nm, changed alignment...
 
 }
 
@@ -87,13 +92,15 @@ void analyze(const char* NAME, const char* handle, const bool PEConvert, const d
   file.close();
   int meanSize = means.size();
   double minimum1 = *min_element(means.begin(),means.end());
+  double maximum1 = *max_element(means.begin(),means.end());
   double minimum2 = means[0];
   for(int i=0; i<meanSize; i++)
     {
       if(means[i]<minimum2) minimum2 = means[i];
     }
 
-
+  double average = accumulate(means.begin(),means.end(),0.0);
+  average /= means.size();
 
 
   // ---
@@ -110,8 +117,11 @@ void analyze(const char* NAME, const char* handle, const bool PEConvert, const d
 			       nxbins,0.0,distanceX, nybins,0.0,distanceY);
 
   // ----------------------------------------------------------------------------------------
-  //cout << "minimum1 is " << minimum1 <<  " minimum2 is " << minimum2 << " and est background is " << AvgBackgroundRate << endl;
-  cout << "minimum1 is " << minimum1 <<  " minimum2 is " << minimum2 << endl;
+  //cout << "minimum1 is " << minimum1 <<  " minimum2 is " << minimum2 << endl;
+  // cout << "minimum1 is " << minimum1 << " middle1 is " << means[1234] << " maximum1 is " << maximum1 << endl;
+  // cout << "minimum1 is " << minimum1/PE << " middle1 is " << means[1234]/PE <<  " maximum1 is " << maximum1/PE << endl;
+  cout << "minimum1 is " << minimum1 << " middle1 is " << average << " maximum1 is " << maximum1 << endl;
+  cout << "minimum1 is " << minimum1/PE << " middle1 is " << average/PE <<  " maximum1 is " << maximum1/PE << endl;
   // ----------------------------------------------------------------------------------------
 
   // --- make the 2d histograms and use the background subtraction
