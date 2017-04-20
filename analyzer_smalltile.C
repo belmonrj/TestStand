@@ -18,7 +18,9 @@ void analyze(const char*, const char*, bool, double);
 void analyzer_smalltile()
 {
 
-  doana("20151113-1313");
+  // doana("20151113-1313");
+  doana("20160106-1320");
+  doana("20160106-1636");
 
 }
 
@@ -45,7 +47,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
 
   // --- CHECK THESE WHEN USING
   int scan_nxpositions = 48;
-  int scan_nypositions = 30;
+  int scan_nypositions = 28;
   int totalBins = scan_nxpositions * scan_nypositions;
 
 
@@ -148,7 +150,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
       int column = j/scan_nypositions;
       double iMean = means[j];
       double iTime = times[j];
-      double iMeanSub = iMean-(AvgBackgroundRate*iTime);
+      double iMeanSub = iMean-minimum1;//(AvgBackgroundRate*iTime);
       // --- convert voltage to photoelectrons
       if(PEConvert)
 	{

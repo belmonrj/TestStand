@@ -127,10 +127,10 @@ void analyze(const char* NAME, const char* timedata, const bool PEConvert, const
   double distanceX = (double)nxbins/2;
   double distanceY = (double)nybins/2;
   // --- make the histogram for the unsubtracted
-  TH2D *meanHist = new TH2D(Form("%s_meanHist",NAME), Form("%s_meanHist",NAME),
+  TH2D *meanHist = new TH2D(Form("meanHist"), Form("%s_meanHist",NAME),
 			    nxbins,0.0,distanceX, nybins,0.0,distanceY);
   // --- make the histogram for the background subtracted
-  TH2D *meanHistSub = new TH2D(Form("%s_meanHistSub",NAME), Form("%s_meanHistSub",NAME),
+  TH2D *meanHistSub = new TH2D(Form("meanHistSub"), Form("%s_meanHistSub",NAME),
 			       nxbins,0.0,distanceX, nybins,0.0,distanceY);
 
   // --- calculate the background, used for noise subtraction
