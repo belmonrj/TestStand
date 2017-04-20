@@ -1,0 +1,304 @@
+\documentclass[compress,8pt]{beamer} %%%
+\usetheme{Warsaw} %%%
+
+%\setbeamersize{text margin left=10pt,text margin right=10pt}
+
+\usepackage{changepage}
+
+\newcommand{\lenitem}[2][.7\linewidth]{\parbox[t]{#1}{\strut #2\strut}}
+
+%\newcommand\Fontvi{\fontsize{6}{7.2}\selectfont} %%% doesn't hel for subbullets :(
+%\setlength{\columnsep}{-20pt} % doesn't work
+
+%%% define my own headline
+\setbeamertemplate{headline}
+{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt}{}%
+  \end{beamercolorbox}%
+  \vskip2pt%
+}
+
+%%% define my own footline
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+%%% set another another option
+\setbeamertemplate{navigation symbols}{} % this is the same as \beamertemplatenavigationsymbolsempty
+
+%%% add some packages
+\usepackage{amsmath,amssymb,amsfonts,amsthm,amsbsy} % math symbols and the like
+\usepackage{slashed} % Feynman slashed notatation
+\usepackage{tikz}
+\usepackage{pdfpages} % include pdfs as a whole page
+
+%%% Cyrillic fonts
+\input cyracc.def
+%\font\tencyr=wncyr10
+\font\tencyr=wncyr9
+\def\cyr{\tencyr\cyracc}
+
+%makes footnote with symbol instead of number
+\long\def\symbolfootnote[#1]#2{\begingroup\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+%\symbolfootnote[sym #]{footnote text}     %makes footnote with symbol instead of number
+%\long\def\symbolfootnote[#1]#2{\begingroup
+%\def\thefootnote{\fnsymbol{footnote}}\footnotetext[#1]{#2}\endgroup}
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} %% Creates a partial derivative
+\newcommand{\totd}[2]{\frac{d #1}{d #2}} %% Creates a total derivative
+
+
+%%% title and basic information
+%\title[sPHENIX HCal meeting, Oct 20, 2015 - Slide \insertframenumber]{First results from the big tile}
+\title[Nov 3, 2015 - Slide \insertframenumber]{First results from the big tile}
+\author[CU-Boulder]{Sebastian Vazquez-Torres \\  Ron Belmont \\ Jamie Nagle \\ \vspace{20pt} University of Colorado, Boulder}
+\date{November 3\textsuperscript{rd}, 2015}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% remove line above footnotes...
+\renewcommand{\footnoterule}{
+  \kern -3pt
+  \hrule width \textwidth height 0pt
+  \kern 3pt
+}
+
+
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 44 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+\titlegraphic{\includegraphics[height=1.2cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.2cm]{logos/Boulder_FL.pdf}}
+
+
+%%% - now begin document
+\begin{document}
+
+
+%%% - title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+
+
+
+\begin{frame}{Setup}
+Some photographs of the big tile setup
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{../Photos/bigupper.jpg}
+\includegraphics[width=0.5\linewidth]{../Photos/biglower.jpg}
+\end{center}
+\end{adjustwidth}
+We have both phototubes under the table so that LED scans can be run without total deconstruction \\
+We have the upper tube as close to the tile as possible to minimize the fraction of particles that
+trigger both tubes but miss the tile
+\end{frame}
+
+
+
+
+
+\begin{frame}{Cosmics}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Cosmics/20151029-1340_tempLOWffit.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_box4.pdf}
+\end{center}
+\end{adjustwidth}
+$[\Delta E]_{MPV} =$ 27.8$\pm$0.5 photoelectrons and $\xi =$ 5.5$\pm$0.3 photoelectrons \\
+\end{frame}
+
+\begin{frame}{Cosmics}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Cosmics/20151022-1538_tempLOWffit.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_box1.pdf}
+\end{center}
+\end{adjustwidth}
+$[\Delta E]_{MPV} =$ 26.2$\pm$0.4 photoelectrons and $\xi =$ 5.1$\pm$0.3 photoelectrons \\
+\end{frame}
+
+\begin{frame}{Cosmics}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Cosmics/20151023-1307_tempLOWffit.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_box2.pdf}
+\end{center}
+\end{adjustwidth}
+$[\Delta E]_{MPV} =$ 21.6$\pm$0.5 photoelectrons and $\xi =$ 5.0$\pm$0.3 photoelectrons \\
+\end{frame}
+
+\begin{frame}{Cosmics}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Cosmics/20151030-1532_tempLOWffit.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_box5.pdf}
+\end{center}
+\end{adjustwidth}
+$[\Delta E]_{MPV} =$ 22.4$\pm$0.6 photoelectrons and $\xi =$ 5.2$\pm$0.3 photoelectrons \\
+\end{frame}
+
+\begin{frame}{Cosmics}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Cosmics/20151027-1804_tempLOWffit.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_box3.pdf}
+\end{center}
+\end{adjustwidth}
+$[\Delta E]_{MPV} =$ 19.8$\pm$0.7 photoelectrons and $\xi =$ 5.0$\pm$0.3 photoelectrons \\
+\end{frame}
+
+
+
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub.pdf}
+\end{center}
+\end{adjustwidth}
+We scan in 0.5 cm increments in both directions \\
+We scan 50 rows and 174 columns, which is slightly bigger than the tile itself
+\end{frame}
+
+
+
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_5.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_5.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, very close to the SiPM
+\end{frame}
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_15.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_15.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, close to the SiPM
+\end{frame}
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_30.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_30.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, towards the middle
+\end{frame}
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_45.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_45.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, towards the middle
+\end{frame}
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_60.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_60.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, towards the middle
+\end{frame}
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_87.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_87.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, middle bin along the long axis
+\end{frame}
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_120.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_120.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, towards the opposite side
+\end{frame}
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_150.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_150.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, towards the opposite side
+\end{frame}
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_160.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_160.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, towards the opposite side
+\end{frame}
+
+
+\begin{frame}{LED scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20151026-1704_VMIN_SIPM1_meanHistSub_projectionY_166.pdf}
+\includegraphics[width=0.5\linewidth,angle=90]{../PanelFigures/bigpanel107_proj_166.pdf}
+\end{center}
+\end{adjustwidth}
+1D view of the short side, far edge of the panel
+\end{frame}
+
+
+\begin{frame}{Next steps}
+\begin{itemize}
+\item Suggestions welcome!
+\item Do we have enough cosmics on the large tile?
+\item Cosmics and LED tests on the small tiles can also be done
+\item If we're happy with the large tile results, we can move on to the small tiles
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\end{document}
+

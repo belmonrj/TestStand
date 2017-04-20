@@ -1,0 +1,753 @@
+\documentclass[compress,8pt]{beamer} %%%
+\usetheme{Warsaw} %%%
+
+%\setbeamersize{text margin left=10pt,text margin right=10pt}
+
+\usepackage{changepage}
+
+\newcommand{\lenitem}[2][.7\linewidth]{\parbox[t]{#1}{\strut #2\strut}}
+
+%\newcommand\Fontvi{\fontsize{6}{7.2}\selectfont} %%% doesn't hel for subbullets :(
+%\setlength{\columnsep}{-20pt} % doesn't work
+
+%%% define my own headline
+\setbeamertemplate{headline}
+{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt}{}%
+  \end{beamercolorbox}%
+  \vskip2pt%
+}
+
+%%% define my own footline
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+%%% set another another option
+\setbeamertemplate{navigation symbols}{} % this is the same as \beamertemplatenavigationsymbolsempty
+
+%%% add some packages
+\usepackage{amsmath,amssymb,amsfonts,amsthm,amsbsy} % math symbols and the like
+\usepackage{slashed} % Feynman slashed notatation
+\usepackage{tikz}
+\usepackage{pdfpages} % include pdfs as a whole page
+
+%%% Cyrillic fonts
+\input cyracc.def
+%\font\tencyr=wncyr10
+\font\tencyr=wncyr9
+\def\cyr{\tencyr\cyracc}
+
+%makes footnote with symbol instead of number
+\long\def\symbolfootnote[#1]#2{\begingroup\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+%\symbolfootnote[sym #]{footnote text}     %makes footnote with symbol instead of number
+%\long\def\symbolfootnote[#1]#2{\begingroup
+%\def\thefootnote{\fnsymbol{footnote}}\footnotetext[#1]{#2}\endgroup}
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} %% Creates a partial derivative
+\newcommand{\totd}[2]{\frac{d #1}{d #2}} %% Creates a total derivative
+
+
+%%% title and basic information
+\title[sPHENIX HCal meeting, Sept 22, 2015 - Slide \insertframenumber]{Test Stand Status}
+\author[CU-Boulder]{Sebastian Vazquez-Torres \\ Sebastian Seeds \\ Ron Belmont \\ Jamie Nagle \\ \vspace{20pt} University of Colorado, Boulder}
+\date{September 22\textsuperscript{nd}, 2015}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% remove line above footnotes...
+\renewcommand{\footnoterule}{
+  \kern -3pt
+  \hrule width \textwidth height 0pt
+  \kern 3pt
+}
+
+
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 44 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+\titlegraphic{\includegraphics[height=1.2cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.2cm]{logos/Boulder_FL.pdf}}
+
+
+%%% - now begin document
+\begin{document}
+
+
+%%% - title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+%Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_0.png
+
+
+
+
+
+%
+
+
+
+
+\begin{frame}
+Part 1---high voltage supplies and preparing for cosmics
+\end{frame}
+
+
+
+\begin{frame}{CAEN SY127}
+Our primary HV supply is an early '90s CAEN SY127 \\
+We have 3 modules on the back, a negative bias A331 (working), a negative bias A333 (not working), and a positive bias A333 (seems to be working...) \\
+\vspace{10pt}
+\begin{columns}
+\begin{column}{0.55\linewidth}
+\includegraphics[width=\linewidth]{../Photos/IMG_2638.jpg}
+\end{column}
+\begin{column}{0.45\linewidth}
+\includegraphics[width=0.9\linewidth,angle=270]{../Photos/IMG_2630.jpg}\\
+\end{column}
+\end{columns}
+\vspace{10pt}
+Unfortunately, we need a negative bias supply with high current (2--3 mA), and only the A333 has the right specs...
+\end{frame}
+
+
+
+\begin{frame}{Bertan 380N}
+We also have an old Beran 380N laying around... \\
+\vspace{10pt}
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\includegraphics[width=\linewidth,angle=270]{../Photos/IMG_2627.jpg}
+\end{column}
+\begin{column}{0.5\linewidth}
+\includegraphics[width=\linewidth,angle=270]{../Photos/IMG_2633.jpg}\\
+\end{column}
+\end{columns}
+\vspace{10pt}
+We're not sure if it supplies enough current, but it has the wrong HV jacks \\
+Question to the audience: do all Bertans have these jacks, or does it depend on the model/voltage?
+\end{frame}
+
+
+
+
+
+\begin{frame}{CAEN N1470}
+We have borrowed a CAEN N1470 from the particle physics group
+\begin{center}
+\includegraphics[width=0.5\linewidth,angle=270]{../Photos/IMG_2636.jpg}\\
+\end{center}
+The unit is very nice and has the specs we need, but we can't keep it forever \\
+We've requested a quote from CAEN for a new one
+\end{frame}
+
+
+
+
+
+\begin{frame}
+Part 2---looking at the distributions from the source
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+Distribution of Foreground and Background
+\begin{center}
+\includegraphics<1>[width=0.75\linewidth]{../Figures/Distribution/20150915_FGBG_pe.pdf}
+\includegraphics<2>[width=0.75\linewidth]{../Figures/Distribution/20150921_FGBG_pe.pdf}
+\includegraphics<3>[width=0.75\linewidth]{../Figures/Distribution/20150921_FGBG_pe_sub.pdf}
+\includegraphics<4>[width=0.75\linewidth]{../Figures/Distribution/20150921_FGBG_log_pe_sub.pdf}
+\end{center}
+\only<1>{Event count: 2,000 \\}
+\only<2->{Event count: 20,000 \\}
+Foreground rate: 1038 Hz \\
+Background rate: 27 Hz \\
+Background percentage: 2.6\%
+\end{frame}
+
+
+%\end{document}
+
+
+
+\begin{frame}
+Part 3---establishing consistency in source scans
+\end{frame}
+
+
+
+\begin{frame}{Establishing consistency - Source scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_0.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM2_proj_0.pdf}\\
+\end{adjustwidth}
+Projection 0, -2.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus20cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_1.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM2_proj_1.pdf}
+\end{adjustwidth}
+Projection 1, -1.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus15cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_2.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM2_proj_2.pdf}
+\end{adjustwidth}
+Projection 2, -1.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus10cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_3.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM2_proj_3.pdf}
+\end{adjustwidth}
+Projection 3, -0.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus05cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_4.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM2_proj_4.pdf}
+\end{adjustwidth}
+Projection 4, 0.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus00cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_5.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM2_proj_5.pdf}
+\end{adjustwidth}
+Projection 5, 0.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus05cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_6.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM2_proj_6.pdf}
+\end{adjustwidth}
+Projection 6, 1.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus10cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_7.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM2_proj_7.pdf}
+\end{adjustwidth}
+Projection 7, 1.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus15cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM1_proj_8.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_A1_Source_3Comp_91114-SiPM2_proj_8.pdf}
+\end{adjustwidth}
+Projection 8, 2.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus20cm.pdf}
+\end{frame}
+
+
+
+%%%
+%%%
+%%%
+
+\begin{frame}
+Part 4---light yield modeling
+\end{frame}
+
+
+\begin{frame}{2-component light yield modeling}
+Looking at the light yield from each SiPM separately, we can do a simple 2-component model (core+cladding)
+\begin{itemize}
+\item Let $Y_1$ denote the total light yield in photoelectrons in SiPM1, and similarly for SiPM2 ($Y_2$)
+\item Let $N_{\textnormal{core}}$ denote the light in the core,
+and similarly for $N_{\textnormal{clad}}$, resulting in \\
+$Y_1 = N_{\textnormal{core}} + N_{\textnormal{clad}}$
+\item Let $\lambda_{\textnormal{core}}$ denote the attenuation length in the core (3.5 m for Y11 non S-type),
+and similarly for $\lambda_{\textnormal{clad}}$ (estimated to be 5 cm)
+\item We can model the total light yield in SiPM1 as
+$Y_1 = N_{\textnormal{core}} e^{-x/\lambda_{\textnormal{core}}} + N_{\textnormal{clad}}e^{-x/\lambda_{\textnormal{clad}}}$
+\item Similarly, and taking into account the local coordinate system where $L$ is the length of the panel,
+we can estimate the total light yield in SiPM2 as \\
+$Y_2 = N_{\textnormal{core}}e^{(x-L)/\lambda_{\textnormal{core}}} + N_{\textnormal{clad}}e^{(x-L)/\lambda_{\textnormal{clad}}}$
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{2-component light yield modeling}
+Looking at the light yield from each SiPM separately, we can do a simple 2-component model (core+cladding)
+\begin{itemize}
+\item We define the core fraction with the relation $N_{\textnormal{core}} = f_{\textnormal{core}}Y_1$
+\item This gives by definition $N_{\textnormal{clad}} = (1-f_{\textnormal{core}})Y_1$
+\item We define the asymmetry as $A = (Y_2-Y_1)/(Y_2+Y_1)$ which allows us to cancel the $N$s
+and rewrite the light yields as \\
+$Y_1 = f_{\textnormal{core}}e^{-x/\lambda_{\textnormal{core}}} + (1-f_{\textnormal{core}})e^{-x/\lambda_{\textnormal{clad}}}$ \\
+$Y_2 = f_{\textnormal{core}}e^{(x-L)/\lambda_{\textnormal{core}}} + (1-f_{\textnormal{core}})e^{(x-L)/\lambda_{\textnormal{clad}}}$
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+%%%
+%%%
+%%%
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1150_A1_Source_p0.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1150_A1_Source_p0.pdf}
+\end{adjustwidth}
+Projection 0, -2.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus20cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1150_A1_Source_p1.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1150_A1_Source_p1.pdf}
+\end{adjustwidth}
+Projection 1, -1.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus15cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1150_A1_Source_p2.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1150_A1_Source_p2.pdf}
+\end{adjustwidth}
+Projection 2, -1.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus10cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1150_A1_Source_p3.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1150_A1_Source_p3.pdf}
+\end{adjustwidth}
+Projection 3, -0.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus05cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1150_A1_Source_p4.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1150_A1_Source_p4.pdf}
+\end{adjustwidth}
+Projection 4, 0.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus00cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1150_A1_Source_p5.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1150_A1_Source_p5.pdf}
+\end{adjustwidth}
+Projection 5, 0.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus05cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1150_A1_Source_p6.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1150_A1_Source_p6.pdf}
+\end{adjustwidth}
+Projection 6, 1.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus10cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1150_A1_Source_p7.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1150_A1_Source_p7.pdf}
+\end{adjustwidth}
+Projection 7, 1.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus15cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1150_A1_Source_p8.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1150_A1_Source_p8.pdf}
+\end{adjustwidth}
+Projection 8, 2.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus20cm.pdf}
+\end{frame}
+
+
+
+
+\begin{frame}{2-component lightyield}
+Comparison of projections
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/20150911-1150_A1_Source_AsymmetryComparison.pdf}
+\end{center}
+\end{frame}
+
+
+%%%
+%%%
+%%%
+
+%%% COME BACK HERE
+
+%%%
+%%%
+%%%
+
+\begin{frame}
+Part 5---Parts 3 and 4 but with LED scans
+\end{frame}
+
+
+%Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_0.png
+\begin{frame}{Establishing consistency - LED scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_0.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_0.pdf}
+\end{adjustwidth}
+Projection 0, -1.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus15cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - LED scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_1.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_1.pdf}
+\end{adjustwidth}
+Projection 1, -1.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus10cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - LED scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_2.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_2.pdf}
+\end{adjustwidth}
+Projection 2, -0.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus05cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - LED scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_3.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_3.pdf}
+\end{adjustwidth}
+\only<1>{Projection 3, 0.0 cm from fiber}
+\only<2>{LED scans with coated panel are \textbf{\textit{very}} sensitive to alignment}
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus00cm.pdf} \\
+\end{frame}
+
+%\begin{frame}{Establishing consistency - LED scans}
+%\begin{adjustwidth}{-2em}{-2em}
+%\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_3.pdf}
+%\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_3.pdf}
+%\end{adjustwidth}
+%LED scans with coated panel are very sensitive to alignment
+%\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus00cm.pdf} \\
+%\end{frame}
+
+%\begin{frame}{Establishing consistency - LED scans}
+%\begin{adjustwidth}{-2em}{-2em}
+%\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_3.pdf}
+%\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_3.pdf}
+%\end{adjustwidth}
+%\vspace{0.3cm}
+%\begin{adjustwidth}{0.45cm}{0.45cm}
+%\begin{columns}
+%\begin{column}{0.5\linewidth}
+%Projection 3, 0.0 cm from fiber \\
+%LED scans with coated panel are extremely sensitive to alignment \\
+%\end{column}
+%\begin{column}{0.5\linewidth}
+%\hfill \includegraphics[width=0.325\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus00cm.pdf}
+%\end{column}
+%\end{columns}
+%\end{adjustwidth}
+%\end{frame}
+
+
+%\begin{frame}{Establishing consistency - LED scans}
+%\begin{adjustwidth}{-2em}{-2em}
+%\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_3.pdf}
+%\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_3.pdf}
+%\end{adjustwidth}
+%\mbox{}\hfill\raisebox{-\height}[0pt][0pt]{\includegraphics[width=0.15\linewidth,angle=-90]{../PanelFigures/panel2_scanatminus00cm.pdf}}
+%  \vspace*{-\baselineskip}
+%\lenitem{Projection 3, 0.0 cm from fiber} \\
+%\lenitem{LED scans with coated panel are extremely sensitive to alignment}
+%\end{frame}
+
+
+
+
+\begin{frame}{Establishing consistency - LED scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_4.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_4.pdf}
+\end{adjustwidth}
+Projection 4, 0.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus05cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - LED scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_5.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_5.pdf}
+\end{adjustwidth}
+Projection 5, 1.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus10cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - LED scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_6.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_6.pdf}
+\end{adjustwidth}
+Projection 6, 1.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus15cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - LED scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_7.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_7.pdf}
+\end{adjustwidth}
+Projection 7, 2.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus20cm.pdf}
+\end{frame}
+
+\begin{frame}{Establishing consistency - LED scans}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM1_proj_8.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/SCANCOMP_20150911-A1_LED_Comp_SiPM2_proj_8.pdf}
+\end{adjustwidth}
+Projection 8, 2.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus25cm.pdf}
+\end{frame}
+
+%%%
+%%%
+%%%
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1607_A1_LED_p0.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1607_A1_LED_p0.pdf}
+\end{adjustwidth}
+Projection 0, -1.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus15cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1607_A1_LED_p1.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1607_A1_LED_p1.pdf}
+\end{adjustwidth}
+Projection 1, -1.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus10cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1607_A1_LED_p2.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1607_A1_LED_p2.pdf}
+\end{adjustwidth}
+Projection 2, -0.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus05cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1607_A1_LED_p3.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1607_A1_LED_p3.pdf}
+\end{adjustwidth}
+Projection 3, 0.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatminus00cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1607_A1_LED_p4.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1607_A1_LED_p4.pdf}
+\end{adjustwidth}
+Projection 4, 0.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus05cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1607_A1_LED_p5.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1607_A1_LED_p5.pdf}
+\end{adjustwidth}
+Projection 5, 1.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus10cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1607_A1_LED_p6.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1607_A1_LED_p6.pdf}
+\end{adjustwidth}
+Projection 6, 1.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus15cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1607_A1_LED_p7.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1607_A1_LED_p7.pdf}
+\end{adjustwidth}
+Projection 7, 2.0 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus20cm.pdf}
+\end{frame}
+
+\begin{frame}{2-component lightyield}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.5\linewidth]{../Figures/FITATOGETHER_20150911-1607_A1_LED_p8.pdf}
+\includegraphics[width=0.5\linewidth]{../Figures/FITASYMMETRY_20150911-1607_A1_LED_p8.pdf}
+\end{adjustwidth}
+Projection 8, 2.5 cm from fiber
+\hfill \includegraphics[width=0.15\linewidth,angle=-90,right]{../PanelFigures/panel2_scanatplus25cm.pdf}
+\end{frame}
+
+
+
+\begin{frame}{2-component lightyield}
+Comparison of projections
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/20150911-1607_A1_LED_AsymmetryComparison.pdf}
+\end{center}
+\end{frame}
+
+
+%%%
+%%%
+%%%
+
+
+
+\end{document}
+
+
+\begin{frame}{Landau distribution?}
+Is 2000 events enough?
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Distribution/20150910-1357_random.pdf} \\
+\end{center}
+Yes, as long as the distribution is close to a true Landau
+\end{frame}
+
+
+
+\begin{frame}{Landau distribution?}
+Does the distribution from the Strontium-90 source look like a Landau?
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Distribution/20150910-1357_boltage.pdf} \\
+\end{center}
+Kinda but not really?
+\end{frame}
+
+
+\begin{frame}{2-component light yield modeling---Combined SiPMs Asymmetry}
+When comparing the light yields from the SiPMs on opposite sides of the panels,
+we can calculate the asymmetry between the yields so that the normalization
+cancels \\
+\begin{itemize}
+\item Let $Y_1$ denote the light yield from SiPM1, and similarly for $Y_2$
+\item We define the asymmetry as $A = (Y_2-Y_1)/(Y_2+Y_1)$
+\end{itemize}
+\vspace{10pt}
+Assuming a two-component model for the light yield,
+we can perform a fit to the data to extract the light fraction in the core \\
+\begin{itemize}
+%%%\item Let $f_{core}$ be the light fraction in the core, $L$ be the length of the panel, $\lambda_{core}$ be the attenuation
+%%%length in the fiber (3.5 m for Y11 non S-type) and $\lambda_{\textnormal{clad}}$
+%%%be the attenuation length in the cladding (estimated 4 cm)
+%%%\item $Y_1 = f_{core}e^{-x/\lambda_{core}} + (1-f_{core})e^{-x/\lambda_{\textnormal{clad}}}$
+%%%\item $Y_2 = f_{core}e^{(x-L)/\lambda_{core}} + (1-f_{core})e^{(x-L)/\lambda_{\textnormal{clad}}}$
+%%%%\item $Y_2 = fe^{(x-25~\textnormal{cm})/\lambda_{core}} + (1-f)e^{(x-25~\textnormal{cm})/\lambda_{\textnormal{clad}}}$
+\item Let $f_{\textnormal{core}}$ be the light fraction in the core, $L$ be the length of the panel, $\lambda_{\textnormal{core}}$ be the attenuation
+length in the fiber (3.5 m for Y11 non S-type) and $\lambda_{\textnormal{clad}}$
+be the attenuation length in the cladding (estimated 4 cm)
+\item $Y_1 = f_{\textnormal{core}}e^{-x/\lambda_{\textnormal{core}}} + (1-f_{\textnormal{core}})e^{-x/\lambda_{\textnormal{clad}}}$
+\item $Y_2 = f_{\textnormal{core}}e^{(x-L)/\lambda_{\textnormal{core}}} + (1-f_{\textnormal{core}})e^{(x-L)/\lambda_{\textnormal{clad}}}$
+\end{itemize}
+%\vspace{10pt}
+%For this to really work, each SiPM needs to have almost exactly the same gain \\
+%Our SiPMs are gain matched and are within a few tenths of a percent
+\end{frame}
+
+
+
+
+\begin{frame}{Establishing consistency - Source scans}
+Distribution of Foreground and Background
+\begin{center}
+\includegraphics<1>[width=0.75\linewidth]{../Figures/Distribution/20150915_FGBG_pe.pdf}
+\includegraphics<2>[width=0.75\linewidth]{../Figures/Distribution/20150915_FGBG_pe_sub.pdf}
+\includegraphics<3>[width=0.75\linewidth]{../Figures/Distribution/20150915_FGBG_log_pe_sub.pdf}
+\end{center}
+Event count: 2,000 \\
+Foreground rate: 1038 Hz \\
+Background rate: 27 Hz \\
+Background percentage: 2.6\%
+\end{frame}
+
+\begin{frame}{Establishing consistency - Source scans}
+Distribution of Foreground and Background
+\begin{center}
+\includegraphics<1>[width=0.75\linewidth]{../Figures/Distribution/20150921_FGBG_pe.pdf}
+\includegraphics<2>[width=0.75\linewidth]{../Figures/Distribution/20150921_FGBG_pe_sub.pdf}
+\includegraphics<3>[width=0.75\linewidth]{../Figures/Distribution/20150921_FGBG_log_pe_sub.pdf}
+\end{center}
+Event count: 20,000 \\
+Foreground rate: 1038 Hz \\
+Background rate: 27 Hz \\
+Background percentage: 2.6\%
+\end{frame}
+
+
+
+\begin{frame}
+Executive summary of part 3---good consistency \\
+Interesting to observe that the ordering is consistent throughout \\
+Could it be the weather? \\
+\vspace{10pt}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Color code & Date & Time & Temperature & Rel. humidity & Atm. pressure \\
+\hline
+Black & 9/11 & 12pm & 64~$^{\circ}$F & 46\% & 30.30 inHg \\
+Red   & 9/11 &  2pm & 70~$^{\circ}$F & 43\% & 30.28 inHg \\
+Blue  & 9/14 & 12pm & 84~$^{\circ}$F & 14\% & 29.91 inHg \\
+\hline
+\end{tabular} \\
+\vspace{10pt}
+All weather metrics order Black-Red-Blue while the data order Red-Black-Blue
+\end{frame}

@@ -1,0 +1,151 @@
+\documentclass[compress,8pt]{beamer} %%%
+\usetheme{Warsaw} %%%
+\usecolortheme{cu} %%%
+
+%\setbeamersize{text margin left=10pt,text margin right=10pt}
+
+\usepackage{changepage}
+
+\newcommand{\lenitem}[2][.7\linewidth]{\parbox[t]{#1}{\strut #2\strut}}
+
+%\newcommand\Fontvi{\fontsize{6}{7.2}\selectfont} %%% doesn't hel for subbullets :(
+%\setlength{\columnsep}{-20pt} % doesn't work
+
+%%% define my own headline
+\setbeamertemplate{headline}
+{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt}{}%
+  \end{beamercolorbox}%
+  \vskip2pt%
+}
+
+%%% define my own footline
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+%%% set another another option
+\setbeamertemplate{navigation symbols}{} % this is the same as \beamertemplatenavigationsymbolsempty
+
+%%% add some packages
+\usepackage{amsmath,amssymb,amsfonts,amsthm,amsbsy} % math symbols and the like
+\usepackage{slashed} % Feynman slashed notatation
+\usepackage{tikz}
+\usepackage{pdfpages} % include pdfs as a whole page
+
+%%% Cyrillic fonts
+\input cyracc.def
+%\font\tencyr=wncyr10
+\font\tencyr=wncyr9
+\def\cyr{\tencyr\cyracc}
+
+%makes footnote with symbol instead of number
+\long\def\symbolfootnote[#1]#2{\begingroup\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+%\symbolfootnote[sym #]{footnote text}     %makes footnote with symbol instead of number
+%\long\def\symbolfootnote[#1]#2{\begingroup
+%\def\thefootnote{\fnsymbol{footnote}}\footnotetext[#1]{#2}\endgroup}
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} %% Creates a partial derivative
+\newcommand{\totd}[2]{\frac{d #1}{d #2}} %% Creates a total derivative
+
+
+%%% title and basic information
+%\title[sPHENIX HCal meeting, Oct 20, 2015 - Slide \insertframenumber]{First results from the big tile}
+\title[Jan 29, 2016 - Slide \insertframenumber]{HCal Tile Testing at Colorado}
+\author[CU-Boulder]{Sebastian Vazquez-Torres \\  Ron Belmont \\ Jamie Nagle \\ \vspace{20pt} University of Colorado, Boulder}
+\date{January 29\textsuperscript{th}, 2016}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% remove line above footnotes...
+\renewcommand{\footnoterule}{
+  \kern -3pt
+  \hrule width \textwidth height 0pt
+  \kern 3pt
+}
+
+
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 44 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+\titlegraphic{\includegraphics[height=1.2cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.2cm]{logos/Boulder_FL.pdf}}
+
+
+%%% - now begin document
+\begin{document}
+
+
+%%% - title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+
+
+
+
+
+
+
+\begin{frame}{Observation of Saturation}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics<1>[width=0.75\linewidth]{../Saturation/SaturationVersion1.pdf}
+\includegraphics<2>[width=0.75\linewidth]{../Saturation/SaturationVersion2.pdf}
+\end{center}
+\end{adjustwidth}
+Saturation occurs on high gain, so we switched to low gain \\
+No saturation occurs for available LED (405 nm) range
+\end{frame}
+
+
+
+\begin{frame}{Possible issue with LED}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[trim=0 30 30 0, clip=true, width=0.75\linewidth]{../Saturation/2500_LED_Kink.jpg}
+\end{center}
+\end{adjustwidth}
+For LED (405 nm) bias voltages close to the maximum,\\ we find a distortion in the SiPM waveform \\
+\end{frame}
+
+
+
+\begin{frame}{Next steps}
+\begin{itemize}
+\item Swap in a different wavelength LED and see if the waveform distortion still occurs
+\item Note that the shorter wavelength LEDs produce significantly lower PEs per unit LED bias voltage
+\item Wire several (plan: 5) LEDs (405 nm) in parallel and re-test, see how far we can get
+\end{itemize}
+\end{frame}
+
+
+
+%\begin{frame}{Brief Summary}
+%\begin{itemize}
+%\item Although the difference is rather small, blue (405 nm) and UV (375 nm and 361 nm) are not exactly the same
+%\item The UV has a less pronounced ``valley'' in between the fiber ``peaks''
+%\end{itemize}
+%\end{frame}
+
+
+
+%\begin{frame}
+%Extra material
+%\end{frame}
+
+
+
+
+\end{document}
+

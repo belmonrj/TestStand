@@ -1,0 +1,352 @@
+\documentclass[compress,8pt]{beamer} %%%
+\usetheme{Warsaw} %%%
+
+%\setbeamersize{text margin left=10pt,text margin right=10pt}
+
+\usepackage{changepage}
+
+\newcommand{\lenitem}[2][.7\linewidth]{\parbox[t]{#1}{\strut #2\strut}}
+
+%\newcommand\Fontvi{\fontsize{6}{7.2}\selectfont} %%% doesn't hel for subbullets :(
+%\setlength{\columnsep}{-20pt} % doesn't work
+
+%%% define my own headline
+\setbeamertemplate{headline}
+{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt}{}%
+  \end{beamercolorbox}%
+  \vskip2pt%
+}
+
+%%% define my own footline
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+%%% set another another option
+\setbeamertemplate{navigation symbols}{} % this is the same as \beamertemplatenavigationsymbolsempty
+
+%%% add some packages
+\usepackage{amsmath,amssymb,amsfonts,amsthm,amsbsy} % math symbols and the like
+\usepackage{slashed} % Feynman slashed notatation
+\usepackage{tikz}
+\usepackage{pdfpages} % include pdfs as a whole page
+
+%%% Cyrillic fonts
+\input cyracc.def
+%\font\tencyr=wncyr10
+\font\tencyr=wncyr9
+\def\cyr{\tencyr\cyracc}
+
+%makes footnote with symbol instead of number
+\long\def\symbolfootnote[#1]#2{\begingroup\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+%\symbolfootnote[sym #]{footnote text}     %makes footnote with symbol instead of number
+%\long\def\symbolfootnote[#1]#2{\begingroup
+%\def\thefootnote{\fnsymbol{footnote}}\footnotetext[#1]{#2}\endgroup}
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} %% Creates a partial derivative
+\newcommand{\totd}[2]{\frac{d #1}{d #2}} %% Creates a total derivative
+
+
+%%% title and basic information
+\title[sPHENIX HCal meeting, Oct 20, 2015 - Slide \insertframenumber]{Test Stand Status}
+\author[CU-Boulder]{Sebastian Vazquez-Torres \\  Ron Belmont \\ Jamie Nagle \\ \vspace{20pt} University of Colorado, Boulder}
+\date{October 20\textsuperscript{th}, 2015}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% remove line above footnotes...
+\renewcommand{\footnoterule}{
+  \kern -3pt
+  \hrule width \textwidth height 0pt
+  \kern 3pt
+}
+
+
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 44 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+\titlegraphic{\includegraphics[height=1.2cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.2cm]{logos/Boulder_FL.pdf}}
+
+
+%%% - now begin document
+\begin{document}
+
+
+%%% - title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Cosmics}
+Some data about polystyrene (scintillator base material) \\
+\begin{tabular}{ll}
+\hline
+$Z/A$                                                 & 0.53768 mol g$^{-1}$ \\
+%$Z$                                                   & 6.0000               \\
+%$A$                                                   & 11.1592 g mol$^{-1}$ \\
+Density $\rho$                                        & 1.060 g cm$^{-3}$    \\
+Nuclear interaction length $\lambda_I$                & 77.1 cm              \\
+Radiation length $X_0$                                & 41.31 cm             \\
+Mean excitation energy $I$                            & 68.7 eV              \\
+Minimum ionization energy $dE/dx|_{min}$              & 2.025 MeV/cm         \\
+\hline
+\end{tabular}
+\end{frame}
+
+
+
+\begin{frame}{Cosmics}
+What about the Bethe formula?
+\begin{equation*}
+-\left<\frac{dE}{dx}\right> = \rho K\frac{Z}{A}\frac{1}{\beta^2}
+\left[ \frac{1}{2} \ln \frac{2m_ec^2\beta^2\gamma^2T_{max}}{I^2} - \beta^2 - \frac{\delta(\beta\gamma)}{2}\right]
+\end{equation*}
+\begin{itemize}
+%\item $K = 4\pi N_A r_e^2 m_ec^2 = 0.307075~\textnormal{MeV}~\textnormal{g}^{-1}~\textnormal{cm}^2$
+\item $K = 4\pi N_A r_e^2 m_ec^2 = 0.307075~\textnormal{MeV}~\textnormal{mol}^{-1}~\textnormal{cm}^2$
+\item $T_{max} = 2m_ec^2\beta^2\gamma^2/[1 + 2\gamma m_e/M + (m_e/M)^2]$
+is the highest kinetic energy that can be imparted to a free electron in a single collision
+by a particle with mass $M$
+\item The $\delta(\beta\gamma)$ can be calculated based on Sternheimer et al, Phys. Rev. B 26, 6067
+(1982)---note that in their convention the correction doesn't have the factor 1/2 \\
+$X = \log_{10} \beta\gamma$ \\
+$X < X_0 \rightarrow \delta(X) = 0$ \\
+$X_0 < X < X_1 \rightarrow \delta(X) = 4.6052X + a(X_1-X)^m + C$ \\
+$X_1 < X \rightarrow \delta(X) = 4.6052X + C$ \\
+where $X_0$, $X_1$, $a$, $m$, and $C$ are material-specific constants
+\item Minimum ionizing energy for muon is 318 MeV, using this we obtain $\langle dE/dx\rangle$ = 2.036 MeV/cm,
+which is quite close to the 2.025 MeV/cm from the data table
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Cosmics}
+Generally we consider the distribution of energies to be a Landau \\
+The Landau distribution is defined by
+\begin{equation*}
+f(\lambda) = \frac{1}{2\pi i} \int_{c+i\infty}^{c+i\infty} e^{s \ln s + \lambda s} ds
+\end{equation*}
+due to the long tail, the moments are undefined. \\
+\vspace{10pt}
+However, as derived in  J. E. Moyal, Phil. Mag. 46 (1955) 263, the Landau distribution can be well approximated by
+\begin{equation*}
+f(\lambda) = \frac{1}{\sqrt{2\pi}} e^{-\lambda+e^{-\lambda}}
+\end{equation*}
+which later became known as the Gumbel distribution. \\
+The moments of the Gumbel distribution are defined:
+%for $\lambda = (x-\mu)/\sigma$, the mode (MPV) is $\mu$ and the mean is $\mu + 0.577216\sigma$ \\
+for $\lambda = (x-\mu)/\sigma$, the mode (MPV) is $\mu$ and the mean is $\mu + \gamma_E\sigma$
+(where $\gamma_E \approx$ 0.577216 is the Euler-Mascheroni constant)
+%\vspace{10pt}
+%\tiny{
+%NB---Gumbel was a mathematician and Anti-Nazi political writer, exiled from Germany in 1932
+%}
+\end{frame}
+
+
+
+\begin{frame}{Cosmics}
+For energy loss in a material, we can write the energy loss distribution as
+\begin{equation*}
+%\frac{dE}{dx} = \frac{1}{\sqrt{2\pi}} e^{-\lambda+e^{-\lambda}}
+\Delta E = \frac{1}{\sqrt{2\pi}} e^{-\lambda+e^{-\lambda}}
+\end{equation*}
+where the independent variable $\lambda$ is
+\begin{equation*}
+\lambda = \frac{\Delta E - [\Delta E]_{MPV}}{\xi}
+\end{equation*}
+the width parameter $\xi$ is
+\begin{equation*}
+%\xi = \rho K\frac{Z}{A}\frac{1}{\beta^2}\Delta x
+\xi =  \frac{K}{2}\frac{Z}{A}\frac{1}{\beta^2}\rho\Delta x
+\end{equation*}
+and the most probable value of the energy loss can be determined by a modified Bethe formula
+\begin{equation*}
+[\Delta E]_{MPV} = \xi \left[ \ln \frac{2m_ec^2\beta^2\gamma^2\xi}{I^2} -\beta^2 + 1 -\gamma_E \right]
+\end{equation*}
+\end{frame}
+
+
+
+\begin{frame}{Cosmics}
+Some photographs of the cosmics set up
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{../Photos/over.jpg}
+\includegraphics[width=0.5\linewidth]{../Photos/under.jpg}
+\end{center}
+\end{adjustwidth}
+We have both phototubes under the table so that source/LED scans can be run without total deconstruction \\
+We have the upper tube as close to the panel as possible to minimize the fraction of particles that
+trigger both tubes but miss the panel
+\end{frame}
+
+
+
+\begin{frame}{Cosmics}
+A little about the geometry...
+\begin{itemize}
+\item The two phototubes are separated by about 3.25", each having 0.25" thickness, and each has a 1" $\times$ 1" scintillator
+\item The maximum angle off-normal is
+$\theta_{max} = \tan^{-1}(3.75/\sqrt{2}) \approx 0.361 \approx 20.7^{\circ} $
+\item The pathlength $L$ is related to the thickness $\Delta x$ by $L = \Delta x \sec \theta$,
+meaning $L_{max} = \Delta x \sec \theta_{max} \approx 1.07\Delta x$
+\item Panel thickness 0.300" = 0.762 cm
+\item If we ignore the 7\% possible deviation in pathlength,
+%and assume $E_{loss,min} = dE/dx|_{min} \times T =$ 1.56 MeV
+for MIP we get $[\Delta E]_{MPV} =$ 1.37 MeV and $\xi =$ 0.0750 MeV
+\item However, since we know the angular distribution of cosmics is $\propto \cos^2\theta$,
+we can compute a weighted average for the angle, $\theta_{ave} =$ 0.173, yielding average
+pathlength $L_{ave} = 1.02 \Delta x$ = 0.777 cm
+\item Using that, we get $[\Delta E]_{MPV} =$ 1.39 MeV and $\xi =$ 0.0765 MeV
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Cosmics}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Cosmics/20151009-1743_templowffit.pdf}
+\end{center}
+\end{adjustwidth}
+$[\Delta E]_{MPV} =$ 43.9$\pm$0.5 photoelectrons and $\xi =$ 9.3$\pm$0.2 photoelectrons \\
+$[\Delta E]_{MPV} =$ 1.39 MeV (from the previous slide) implies a conversion of 31.6 pe/MeV
+\end{frame}
+
+
+
+\begin{frame}{Cosmics and Source}
+What can we learn by comparing the distribution from the Strontium-90 source to the cosmics?
+\end{frame}
+
+
+\begin{frame}{Cosmics and Source}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{../Cosmics/20151009-1743_templowffit.pdf}
+\includegraphics[width=0.5\linewidth]{../Source/source_lskewgengaus_sum.pdf}
+\end{center}
+\end{adjustwidth}
+%Gumbel for cosmics, modified Gaussian for source
+\end{frame}
+
+
+
+\begin{frame}{Source}
+What does the Strontium source spectrum look like?
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{../Source/strontium_kurie.pdf}
+\includegraphics[width=0.5\linewidth]{../Source/strontium_kurie2p2F.pdf}
+\end{center}
+\end{adjustwidth}
+Data from W. E. Meyerhof, Phys. Rev. 74 (1948) 263
+\end{frame}
+
+
+
+\begin{frame}{Source}
+Overlay of the source spectrum with measured distribution
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{../Source/monday4.pdf}
+\includegraphics[width=0.5\linewidth]{../Source/ratiomonday4.pdf}
+\end{center}
+\end{adjustwidth}
+There seems to be some inefficiency at low energies, and the ratio resembles a
+turn-on curve---further investigation is needed \\
+Reminder: we use the SiPMs to self-trigger on the source, so there's
+an inherent low energy cut-off
+\end{frame}
+
+
+
+\begin{frame}{Brief summary}
+\begin{itemize}
+\item \textbf{Cosmics have been measured with a mean of 43.9 pe and a with of 9.3 pe,
+with an implied conversion of 31.6 pe/MeV}
+\item \textbf{We are prepared and able to cosmics measurements as soon as we get the full size tiles from BNL}
+\item \textbf{We are seeking input to going further using cosmics to characterize the energy deposited in the tile}
+\item We can also do an LED scan as soon as we receive them---we plan to do LED scans with the tile inverted,
+i.e. facing away from the LED so that light going directly into the fiber isn't an issue
+\item It may also be possible to use the Strontium-90 source to calibrate the energy, though further investigation is needed
+\item The sampling of the light in the fiber relative to the total light produced may be an important additional consideration
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+Extra material
+\end{frame}
+
+
+\begin{frame}{Source}
+Source distribution, comparison between each SiPM and the sum
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{../Source/source_sbpe.pdf}
+\includegraphics[width=0.5\linewidth]{../Source/source_sum.pdf}
+\end{center}
+\end{adjustwidth}
+\end{frame}
+
+
+
+\begin{frame}{Cosmics and Source}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{../Cosmics/20151009-1743_templow.pdf}
+\includegraphics[width=0.5\linewidth]{../Source/source_sum.pdf}
+\end{center}
+\end{adjustwidth}
+Raw distributions
+\end{frame}
+
+
+
+\begin{frame}{Cosmics and Source}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{../Cosmics/20151009-1743_templowfit.pdf}
+\includegraphics[width=0.5\linewidth]{../Source/source_gaus_sum.pdf}
+\end{center}
+\end{adjustwidth}
+Built-in Landau for cosmics, Built-in Gaussian for source
+\end{frame}
+
+
+
+\begin{frame}{Cosmics and Source}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{../Cosmics/20151009-1743_templowffit.pdf}
+\includegraphics[width=0.5\linewidth]{../Source/source_lskewgengaus_sum.pdf}
+\end{center}
+\end{adjustwidth}
+Gumbel for cosmics, modified Gaussian for source
+\end{frame}
+
+
+
+
+
+\end{document}
+
