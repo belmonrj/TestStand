@@ -1,0 +1,200 @@
+\documentclass[compress,10pt]{beamer} %%%
+\usetheme{Warsaw} %%%
+%\usecolortheme{cu} %%%
+
+%\setbeamersize{text margin left=10pt,text margin right=10pt}
+
+\usepackage{changepage}
+
+\newcommand{\lenitem}[2][.7\linewidth]{\parbox[t]{#1}{\strut #2\strut}}
+
+%\newcommand\Fontvi{\fontsize{6}{7.2}\selectfont} %%% doesn't hel for subbullets :(
+%\setlength{\columnsep}{-20pt} % doesn't work
+
+%%% define my own headline
+\setbeamertemplate{headline}
+{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt}{}%
+  \end{beamercolorbox}%
+  \vskip2pt%
+}
+
+%%% define my own footline
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+%%% set another another option
+\setbeamertemplate{navigation symbols}{} % this is the same as \beamertemplatenavigationsymbolsempty
+
+%%% add some packages
+\usepackage{amsmath,amssymb,amsfonts,amsthm,amsbsy} % math symbols and the like
+\usepackage{slashed} % Feynman slashed notatation
+\usepackage{tikz}
+\usepackage{pdfpages} % include pdfs as a whole page
+
+%%% Cyrillic fonts
+\input cyracc.def
+%\font\tencyr=wncyr10
+\font\tencyr=wncyr9
+\def\cyr{\tencyr\cyracc}
+
+%makes footnote with symbol instead of number
+\long\def\symbolfootnote[#1]#2{\begingroup\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+%\symbolfootnote[sym #]{footnote text}     %makes footnote with symbol instead of number
+%\long\def\symbolfootnote[#1]#2{\begingroup
+%\def\thefootnote{\fnsymbol{footnote}}\footnotetext[#1]{#2}\endgroup}
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} %% Creates a partial derivative
+\newcommand{\totd}[2]{\frac{d #1}{d #2}} %% Creates a total derivative
+
+
+%%% title and basic information
+%\title[sPHENIX HCal meeting, Oct 20, 2015 - Slide \insertframenumber]{First results from the big tile}
+%\title[Jan 29, 2016 - Slide \insertframenumber]{Large HCal Tile Testing at Colorado}
+%\author[CU-Boulder]{Sebastian Vazquez-Torres \\  Ron Belmont \\ Jamie Nagle \\ \vspace{20pt} University of Colorado, Boulder}
+%\date{January 29\textsuperscript{th}, 2016}
+\title[\today - Slide \insertframenumber]{High $\eta$ HCal Tile Testing at Colorado}
+\author[CU-Boulder]{Sebastian and Ron \\ \vspace{20pt} University of Colorado Boulder}
+\date{\today}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% remove line above footnotes...
+\renewcommand{\footnoterule}{
+  \kern -3pt
+  \hrule width \textwidth height 0pt
+  \kern 3pt
+}
+
+
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 44 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+\titlegraphic{\includegraphics[height=1.2cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.2cm]{logos/Boulder_FL.pdf}}
+
+
+%%% - now begin document
+\begin{document}
+
+
+%%% - title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+
+
+\begin{frame}{Tile Scan}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.85\linewidth]{./Photos/FarEtaOuterHCalScanBrokenFiber.png}
+\end{center}
+\end{adjustwidth}
+Scan of farthest eta OHCal tile \\
+What's going on here???
+\end{frame}
+
+
+\begin{frame}{Broken Fiber}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.85\linewidth]{./Photos/20170419_131755.jpg}
+\end{center}
+\end{adjustwidth}
+Cracks in the fiber near the SiPM
+\end{frame}
+
+
+\begin{frame}{Minor damage to shipping box}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{./Photos/IMG_4589.jpg}
+\end{center}
+\end{adjustwidth}
+Minor damage to shipping box but no obvious damage to tile
+\end{frame}
+
+
+\begin{frame}{Condition of tile}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{./Photos/IMG_4566.jpg}
+\end{center}
+\end{adjustwidth}
+Minor damage to outer foil on corner (likely prior to shipping)
+\end{frame}
+
+
+\begin{frame}{Condition of tile}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{./Photos/IMG_4568.jpg}
+\end{center}
+\end{adjustwidth}
+No damage to inner foil this side
+\end{frame}
+
+\begin{frame}{Condition of tile}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{./Photos/IMG_4567.jpg}
+\end{center}
+\end{adjustwidth}
+Incomplete inner foil coverage on this side but no visible damage
+\end{frame}
+
+\begin{frame}{Condition of tile}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{./Photos/IMG_4590.jpg}
+\end{center}
+\end{adjustwidth}
+No visible damage on unwrapped tile
+\end{frame}
+
+\begin{frame}{Condition of tile}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{./Photos/IMG_4591.jpg}
+\end{center}
+\end{adjustwidth}
+No visible damage on unwrapped tile
+\end{frame}
+
+\begin{frame}{Condition of tile}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{./Photos/IMG_4573.jpg}
+\end{center}
+\end{adjustwidth}
+Coating rubs off very easily, not clear if this is a problem
+\end{frame}
+
+
+\begin{frame}{Things to consider}
+When did the crack happen?
+\begin{itemize}
+\item The shipping box containing the tiles was packed very carefully with lots of foam surrounding the tiles on all sides
+\item The wrapping (outer black foil, inner plastic wrap, inner metal foil) showed no signs of damage near the fiber
+\item Visual inspection of unwrapped the tile showed no signs of damage
+\item Analysis of the tile mapper data should help determine whether the damage occurred before or after the shipment from BNL to CU
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\end{document}
+
