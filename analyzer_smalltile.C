@@ -18,13 +18,13 @@ void analyze(const char*, const char*, const int, const int, bool, double);
 void analyzer_smalltile()
 {
 
-  doana("20151113-1313","Low eta tile",48,30); // need to find scan size for this one...
-  doana("20160106-1320","Low eta tile",48,28);
-  doana("20160106-1636","Low eta tile",48,28);
-  // doana("20170430-1100","Tile 955",84,36);
-  // doana("20170428-1400","Tile 939",84,36);
-  // doana("20170421-1522","Tile 965",84,36);
-  // doana("20170430-2227","Tile 964",92,42);
+  // doana("20151113-1313","Low eta tile",48,30);
+  // doana("20160106-1320","Low eta tile",48,28);
+  // doana("20160106-1636","Low eta tile",48,28);
+  doana("20170430-1100","Tile 955",84,36);
+  doana("20170428-1400","Tile 939",84,36);
+  doana("20170421-1522","Tile 965",84,36);
+  doana("20170430-2227","Tile 964",92,42);
 
 }
 
@@ -152,8 +152,8 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   // --- now make figures of the 2d panel plots --- //
   // ---------------------------------------------- //
 
-  TCanvas *c1 = new TCanvas("c1","c1", 900, 600); // inner eta tiles
-  //TCanvas *c1 = new TCanvas("c1","c1", 900, 400);
+  //TCanvas *c1 = new TCanvas("c1","c1", 900, 600); // low eta tiles
+  TCanvas *c1 = new TCanvas("c1","c1", 900, 400); // high eta tiles
   c1->SetTicks();
 
   gStyle->SetOptStat(0);
@@ -182,7 +182,6 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   c1->Print(Form("Figures/Burn/%s_meanHist.pdf",ts_name.Data()));
 
   double plottextsize = 0.06;
-  //meanHistSub->SetTitleSize(plottextsize,"t"); // doesn't seem to work
   meanHistSub->SetTitle("");
   meanHistSub->GetXaxis()->SetTitle("Position Y (cm)");
   meanHistSub->GetYaxis()->SetTitle("Position X (cm)");
@@ -259,8 +258,8 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
 
   c1->cd();
   meanHistSub->Draw("colz");
-  //tex->DrawLatex(0.15,0.92,Form("%s, Mean = %.1f photoelectrons, Relative Variance = %.1f%%",histotitle,mean2,100.0*sigm2/mean2));
-  tex->DrawLatex(0.15,0.92,Form("%s, Mean = %.1f pe, Rel. Var. = %.1f%%",histotitle,mean2,100.0*sigm2/mean2));
+  tex->DrawLatex(0.15,0.92,Form("%s, Mean = %.1f photoelectrons, Relative Variance = %.1f%%",histotitle,mean2,100.0*sigm2/mean2));
+  //tex->DrawLatex(0.15,0.92,Form("%s, Mean = %.1f pe, Rel. Var. = %.1f%%",histotitle,mean2,100.0*sigm2/mean2));
   c1->Print(Form("Figures/Burn/%s_RVmeanHistSub.png",ts_name.Data()));
   c1->Print(Form("Figures/Burn/%s_RVmeanHistSub.pdf",ts_name.Data()));
 
