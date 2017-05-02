@@ -12,33 +12,32 @@
 //#include <iterator> // for std::begin(vector), end
 
 
-void doana(const char*);
-void analyze(const char*, const char*, bool, double);
+void doana(const char*, const int, const int);
+void analyze(const char*, const int, const int, bool, double);
 
 void analyzer_smalltile()
 {
 
-  // doana("20151113-1313");
-  doana("20160106-1320");
-  doana("20160106-1636");
+  // doana("20151113-1313",48,28);
+  doana("20160106-1320",48,28);
+  doana("20160106-1636",48,28);
 
 }
 
 
-void doana(const char *basename)
+void doana(const char *basename, const int nx, const int ny)
 {
 
   char *sipm1name = Form("%s_VMIN_SIPM1",basename);
-  char *timename = Form("%s_TIME.txt",basename);
   bool doPEConvert = true;
   double PEvalue = 0.00502; // unknown for small tile, assuming previous for now
 
-  analyze(sipm1name,timename,doPEConvert,PEvalue);
+  analyze(sipm1name,nx,ny,doPEConvert,PEvalue);
 
 }
 
 
-void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
+void analyze(const char* NAME, const int scan_nxpositions, const int scan_nypositions, bool PEConvert, double PE)
 {
 
   // ----------------------------------------------------------------------------------- //
@@ -46,8 +45,8 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
   // ----------------------------------------------------------------------------------- //
 
   // --- CHECK THESE WHEN USING
-  int scan_nxpositions = 48;
-  int scan_nypositions = 28;
+  // int scan_nxpositions = 48;
+  // int scan_nypositions = 28;
   int totalBins = scan_nxpositions * scan_nypositions;
 
 
@@ -84,31 +83,6 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
 
 
   // -------------------------
-  // --- read in the time data
-  int timenumb = 0;
-  vector <double> times;
-  string timeline;
-  ifstream timefile;
-  // -------------------------
-  timefile.open(Form("Data/SmallPanel/%s",timedata));
-  for(int i = 0; i < totalBins ; i++)
-    {
-      double timeval_d = -9999;
-      timefile>>timeval_d;
-      times.push_back(timeval_d);
-      if(i==0) cout<<timeval_d<<endl;
-    }
-  timefile.close();
-  int timeSize = times.size();
-
-  double TimeSum = 0;  // get total time for first column
-  for ( int i=0; i<timeSize; i++ )
-    {
-      int row = i%scan_nypositions;
-      int column = i/scan_nypositions;
-      if (column == 1) TimeSum += times[i];
-    }
-  double TimeMean = TimeSum/scan_nypositions;
 
 
   // ---
@@ -134,13 +108,9 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
       // --- THIS IS A HUGE PROBLEM
       if(column == 1) background += iMean;
     }
-  // --- this is a huge problem
-  // only valid if first column is off panel
-  background = background/scan_nypositions;
-  double AvgBackgroundRate = background/TimeMean;
 
   // ----------------------------------------------------------------------------------------
-  cout << "minimum1 is " << minimum1 <<  " minimum2 is " << minimum2 << " and est background is " << AvgBackgroundRate << endl;
+  cout << "minimum1 is " << minimum1 <<  " minimum2 is " << minimum2 << endl;
   // ----------------------------------------------------------------------------------------
 
   // --- make the 2d histograms and use the background subtraction
@@ -149,8 +119,7 @@ void analyze(const char* NAME, const char* timedata, bool PEConvert, double PE)
       int row = j%scan_nypositions;
       int column = j/scan_nypositions;
       double iMean = means[j];
-      double iTime = times[j];
-      double iMeanSub = iMean-minimum1;//(AvgBackgroundRate*iTime);
+      double iMeanSub = iMean-minimum1;
       // --- convert voltage to photoelectrons
       if(PEConvert)
 	{
