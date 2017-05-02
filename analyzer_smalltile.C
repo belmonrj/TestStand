@@ -12,32 +12,33 @@
 //#include <iterator> // for std::begin(vector), end
 
 
-void doana(const char*, const int, const int);
-void analyze(const char*, const int, const int, bool, double);
+void doana(const char*, const char*, const int, const int);
+void analyze(const char*, const char*, const int, const int, bool, double);
 
 void analyzer_smalltile()
 {
 
-  // doana("20151113-1313",48,28);
-  doana("20160106-1320",48,28);
-  doana("20160106-1636",48,28);
+  // doana("20151113-1313",48,28); // need to find scan size for this one...
+  // doana("20160106-1320",48,28);
+  // doana("20160106-1636",48,28);
+  doana("20170430-1100","Tile 955",84,36);
 
 }
 
 
-void doana(const char *basename, const int nx, const int ny)
+void doana(const char *basename, const char* title, const int nx, const int ny)
 {
 
   char *sipm1name = Form("%s_VMIN_SIPM1",basename);
   bool doPEConvert = true;
   double PEvalue = 0.00502; // unknown for small tile, assuming previous for now
 
-  analyze(sipm1name,nx,ny,doPEConvert,PEvalue);
+  analyze(sipm1name,title,nx,ny,doPEConvert,PEvalue);
 
 }
 
 
-void analyze(const char* NAME, const int scan_nxpositions, const int scan_nypositions, bool PEConvert, double PE)
+void analyze(const char* NAME, const char* histotitle, const int scan_nxpositions, const int scan_nypositions, bool PEConvert, double PE)
 {
 
   // ----------------------------------------------------------------------------------- //
@@ -75,6 +76,7 @@ void analyze(const char* NAME, const int scan_nxpositions, const int scan_nyposi
   file.close();
   int meanSize = means.size();
   double minimum1 = *min_element(means.begin(),means.end());
+  double maximum1 = *max_element(means.begin(),means.end());
   double minimum2 = means[0];
   for(int i=0; i<meanSize; i++)
     {
@@ -92,22 +94,21 @@ void analyze(const char* NAME, const int scan_nxpositions, const int scan_nyposi
   double distanceX = (double)scan_nxpositions/2;
   double distanceY = (double)scan_nypositions/2;
   // --- make the histogram for the unsubtracted
-  TH2D *meanHist = new TH2D(Form("meanHist"), Form("%s_meanHist",NAME),
+  TH2D *meanHist = new TH2D(Form("meanHist"), histotitle,
 			    scan_nxpositions,0.0,distanceX, scan_nypositions,0.0,distanceY);
   // --- make the histogram for the background subtracted
-  TH2D *meanHistSub = new TH2D(Form("meanHistSub"), Form("%s_meanHistSub",NAME),
+  TH2D *meanHistSub = new TH2D(Form("meanHistSub"), histotitle,
 			       scan_nxpositions,0.0,distanceX, scan_nypositions,0.0,distanceY);
 
-  // --- calculate the background, used for noise subtraction
-  double background = 0.0;
-  for(int i = 0; i < meanSize; i++)
-    {
-      int row = i%scan_nypositions;
-      int column = i/scan_nypositions;
-      double iMean = means[i];
-      // --- THIS IS A HUGE PROBLEM
-      if(column == 1) background += iMean;
-    }
+  // --- make a 1d histogram to look at the distirbution of values
+  double lo = (minimum1/PE)-2.0;
+  double hi = (maximum1/PE)+2.0;
+  TH1D *th1d_mean = new TH1D("th1d_mean",histotitle,100,lo,hi);
+  lo = -2.0;
+  hi = ((maximum1-minimum1)/PE)+2.0;
+  TH1D *th1d_meanSub = new TH1D("th1d_meanSub",histotitle,100,lo,hi);
+
+
 
   // ----------------------------------------------------------------------------------------
   cout << "minimum1 is " << minimum1 <<  " minimum2 is " << minimum2 << endl;
@@ -130,6 +131,10 @@ void analyze(const char* NAME, const int scan_nxpositions, const int scan_nyposi
       meanHist->SetBinContent(column+1,row+1,iMean);
       // --- fill the histogram with the background subtraction
       meanHistSub->SetBinContent(column + 1, row + 1, iMeanSub);
+      // --- fill the 1d
+      th1d_mean->Fill(iMean);
+      // --- fill the 1d sub
+      th1d_meanSub->Fill(iMeanSub);
     }
   // --- write the background subtracted histogram to a ROOT file
   meanHistSub->SaveAs(Form("Data/SmallPanel/%s_meanHistSub.root",NAME)); // NEEDS TO BE REVISED
@@ -155,7 +160,10 @@ void analyze(const char* NAME, const int scan_nxpositions, const int scan_nyposi
   TColor::CreateGradientColorTable(NRGBs, stops, red, green, blue, NCont);
   gStyle->SetNumberContours(NCont);
 
-  c1->SetRightMargin(0.15);
+  c1->SetTopMargin(0.10);
+  c1->SetLeftMargin(0.09);
+  c1->SetRightMargin(0.14);
+  c1->SetBottomMargin(0.12);
   meanHist->GetXaxis()->SetTitle("Position Y (cm)");
   meanHist->GetYaxis()->SetTitle("Position X (cm)");
   if (PEConvert == true) meanHist->GetZaxis()->SetTitle("Pulse Min Value (photoelectrons)");
@@ -164,13 +172,51 @@ void analyze(const char* NAME, const int scan_nxpositions, const int scan_nyposi
   c1->Print(Form("Figures/Burn/%s_meanHist.png",NAME));
   c1->Print(Form("Figures/Burn/%s_meanHist.pdf",NAME));
 
+  double plottextsize = 0.06;
+  //meanHistSub->SetTitleSize(plottextsize,"t"); // doesn't seem to work
+  meanHistSub->SetTitle("");
   meanHistSub->GetXaxis()->SetTitle("Position Y (cm)");
   meanHistSub->GetYaxis()->SetTitle("Position X (cm)");
+  meanHistSub->GetXaxis()->SetTitleOffset(0.9);
+  meanHistSub->GetYaxis()->SetTitleOffset(0.7);
+  meanHistSub->GetXaxis()->SetTitleSize(plottextsize);
+  meanHistSub->GetYaxis()->SetTitleSize(plottextsize);
+  meanHistSub->GetXaxis()->SetLabelSize(plottextsize);
+  meanHistSub->GetYaxis()->SetLabelSize(plottextsize);
   if (PEConvert == true) meanHistSub->GetZaxis()->SetTitle("Pulse Min Value (photoelectrons)");
   else meanHistSub->GetZaxis()->SetTitle("Pulse Min Value (V)");
+  meanHistSub->GetZaxis()->SetTitleOffset(0.7);
+  meanHistSub->GetZaxis()->SetTitleSize(plottextsize);
+  meanHistSub->GetZaxis()->SetLabelSize(plottextsize);
   meanHistSub->Draw("colz");
+  TLatex *tex = new TLatex(0.45,0.9,histotitle);
+  tex->SetNDC();
+  tex->SetTextSize(plottextsize);
+  tex->DrawLatex(0.45,0.92,histotitle);
   c1->Print(Form("Figures/Burn/%s_meanHistSub.png",NAME));
   c1->Print(Form("Figures/Burn/%s_meanHistSub.pdf",NAME));
+
+
+  c1->SetTopMargin(0.10);
+  c1->SetLeftMargin(0.09);
+  c1->SetRightMargin(0.02);
+  c1->SetBottomMargin(0.13);
+  th1d_meanSub->SetTitle("");
+  th1d_meanSub->GetXaxis()->SetTitle("Signal (number of photoelectrons)");
+  th1d_meanSub->GetYaxis()->SetTitle("Number of scan points");
+  th1d_meanSub->GetXaxis()->SetTitleOffset(0.9);
+  th1d_meanSub->GetYaxis()->SetTitleOffset(0.7);
+  th1d_meanSub->GetXaxis()->SetTitleSize(plottextsize);
+  th1d_meanSub->GetYaxis()->SetTitleSize(plottextsize);
+  th1d_meanSub->GetXaxis()->SetLabelSize(plottextsize);
+  th1d_meanSub->GetYaxis()->SetLabelSize(plottextsize);
+  th1d_meanSub->Draw();
+  tex->DrawLatex(0.45,0.92,histotitle);
+  c1->Print(Form("Figures/Burn/%s_1dMeanSub.png",NAME));
+  c1->Print(Form("Figures/Burn/%s_1dMeanSub.pdf",NAME));
+  c1->SetLogy();
+  c1->Print(Form("Figures/Burn/%s_log1dMeanSub.png",NAME));
+  c1->Print(Form("Figures/Burn/%s_log1dMeanSub.pdf",NAME));
 
   delete meanHist;
   delete meanHistSub;
