@@ -18,13 +18,13 @@ void analyze(const char*, const char*, const int, const int, bool, double);
 void analyzer_smalltile()
 {
 
-  // doana("20151113-1313",48,28); // need to find scan size for this one...
-  // doana("20160106-1320",48,28);
-  // doana("20160106-1636",48,28);
-  doana("20170430-1100","Tile 955",84,36);
-  doana("20170428-1400","Tile 939",84,36);
-  doana("20170421-1522","Tile 965",84,36);
-  doana("20170430-2227","Tile 964",92,42);
+  doana("20151113-1313","Low eta tile",48,30); // need to find scan size for this one...
+  doana("20160106-1320","Low eta tile",48,28);
+  doana("20160106-1636","Low eta tile",48,28);
+  // doana("20170430-1100","Tile 955",84,36);
+  // doana("20170428-1400","Tile 939",84,36);
+  // doana("20170421-1522","Tile 965",84,36);
+  // doana("20170430-2227","Tile 964",92,42);
 
 }
 
@@ -43,6 +43,8 @@ void doana(const char *basename, const char* title, const int nx, const int ny)
 
 void analyze(const char* NAME, const char* histotitle, const int scan_nxpositions, const int scan_nypositions, bool PEConvert, double PE)
 {
+
+  TString ts_name(NAME); // for some reason NAME starts to get corrupted...
 
   // ----------------------------------------------------------------------------------- //
   // --- MODIFY FOR SIZE OF PANEL, CHECK TOTAL FILES MANUALLY FOR COMPATIBILITY HERE --- //
@@ -150,9 +152,10 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   // --- now make figures of the 2d panel plots --- //
   // ---------------------------------------------- //
 
-  TCanvas *c1 = new TCanvas("c1","c1", 900, 400);
+  TCanvas *c1 = new TCanvas("c1","c1", 900, 600); // inner eta tiles
+  //TCanvas *c1 = new TCanvas("c1","c1", 900, 400);
   c1->SetTicks();
-  
+
   gStyle->SetOptStat(0);
 
 
@@ -251,6 +254,18 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   tex->DrawLatex(0.75,0.70,Form("#sigma/#mu = %.2f",sigm2/mean2));
   c2->Print(Form("Figures/Burn/%s_fit1dMeanSubTrunc.png",NAME));
   c2->Print(Form("Figures/Burn/%s_fit1dMeanSubTrunc.pdf",NAME));
+
+
+
+  c1->cd();
+  meanHistSub->Draw("colz");
+  //tex->DrawLatex(0.15,0.92,Form("%s, Mean = %.1f photoelectrons, Relative Variance = %.1f%%",histotitle,mean2,100.0*sigm2/mean2));
+  tex->DrawLatex(0.15,0.92,Form("%s, Mean = %.1f pe, Rel. Var. = %.1f%%",histotitle,mean2,100.0*sigm2/mean2));
+  // using ts_name here because NAME gets corrupted
+  c1->Print(Form("Figures/Burn/%s_RVmeanHistSub.png",ts_name.Data()));
+  c1->Print(Form("Figures/Burn/%s_RVmeanHistSub.pdf",ts_name.Data()));
+
+
 
   delete meanHist;
   delete meanHistSub;
