@@ -69,7 +69,7 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   ifstream file;
   ifstream file_cnt;
   // ----------------------------
-  file.open(Form("Data/SmallPanel/%s.txt",NAME));
+  file.open(Form("Data/SmallPanel/%s.txt",ts_name.Data()));
   for(int i = 0; i < totalBins ; i++)
     {
       double meanval_d = -9999;
@@ -144,7 +144,7 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
       if ( iMeanSub > 5.0 ) th1d_meanSubTrunc->Fill(iMeanSub);
     }
   // --- write the background subtracted histogram to a ROOT file
-  meanHistSub->SaveAs(Form("Data/SmallPanel/%s_meanHistSub.root",NAME)); // NEEDS TO BE REVISED
+  meanHistSub->SaveAs(Form("Data/SmallPanel/%s_meanHistSub.root",ts_name.Data())); // NEEDS TO BE REVISED
 
 
 
@@ -178,8 +178,8 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   if (PEConvert == true) meanHist->GetZaxis()->SetTitle("Pulse Min Value (photoelectrons)");
   else meanHist->GetZaxis()->SetTitle("Pulse Min Value (V)");
   meanHist->Draw("colz");
-  c1->Print(Form("Figures/Burn/%s_meanHist.png",NAME));
-  c1->Print(Form("Figures/Burn/%s_meanHist.pdf",NAME));
+  c1->Print(Form("Figures/Burn/%s_meanHist.png",ts_name.Data()));
+  c1->Print(Form("Figures/Burn/%s_meanHist.pdf",ts_name.Data()));
 
   double plottextsize = 0.06;
   //meanHistSub->SetTitleSize(plottextsize,"t"); // doesn't seem to work
@@ -202,8 +202,8 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   tex->SetNDC();
   tex->SetTextSize(plottextsize);
   tex->DrawLatex(0.45,0.92,histotitle);
-  c1->Print(Form("Figures/Burn/%s_meanHistSub.png",NAME));
-  c1->Print(Form("Figures/Burn/%s_meanHistSub.pdf",NAME));
+  c1->Print(Form("Figures/Burn/%s_meanHistSub.png",ts_name.Data()));
+  c1->Print(Form("Figures/Burn/%s_meanHistSub.pdf",ts_name.Data()));
 
 
   TCanvas* c2 = new TCanvas("c2","",800,650);
@@ -223,11 +223,11 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   th1d_meanSub->GetYaxis()->SetLabelSize(plottextsize);
   th1d_meanSub->Draw();
   tex->DrawLatex(0.45,0.92,histotitle);
-  c2->Print(Form("Figures/Burn/%s_1dMeanSub.png",NAME));
-  c2->Print(Form("Figures/Burn/%s_1dMeanSub.pdf",NAME));
+  c2->Print(Form("Figures/Burn/%s_1dMeanSub.png",ts_name.Data()));
+  c2->Print(Form("Figures/Burn/%s_1dMeanSub.pdf",ts_name.Data()));
   c2->SetLogy();
-  c2->Print(Form("Figures/Burn/%s_log1dMeanSub.png",NAME));
-  c2->Print(Form("Figures/Burn/%s_log1dMeanSub.pdf",NAME));
+  c2->Print(Form("Figures/Burn/%s_log1dMeanSub.png",ts_name.Data()));
+  c2->Print(Form("Figures/Burn/%s_log1dMeanSub.pdf",ts_name.Data()));
 
   c2->SetLogy(0);
   th1d_meanSubTrunc->SetTitle("");
@@ -243,8 +243,8 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   double mean1 = th1d_meanSubTrunc->GetMean();
   double sigm1 = th1d_meanSubTrunc->GetRMS();
   tex->DrawLatex(0.15,0.92,Form("%s, #mu = %.1f, #sigma/#mu = %.2f",histotitle,mean1,sigm1/mean1));
-  c2->Print(Form("Figures/Burn/%s_1dMeanSubTrunc.png",NAME));
-  c2->Print(Form("Figures/Burn/%s_1dMeanSubTrunc.pdf",NAME));
+  c2->Print(Form("Figures/Burn/%s_1dMeanSubTrunc.png",ts_name.Data()));
+  c2->Print(Form("Figures/Burn/%s_1dMeanSubTrunc.pdf",ts_name.Data()));
   TF1* fun = new TF1("fun","gaus",mean1-sigm1,mean1+1.5*sigm1);
   th1d_meanSubTrunc->Fit(fun,"R");
   double mean2 = fun->GetParameter(1);
@@ -252,8 +252,8 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   //tex->DrawLatex(0.15,0.85,Form("#mu = %.1f, #sigma/#mu = %.2f",mean2,sigm2/mean2));
   tex->DrawLatex(0.75,0.78,Form("#mu = %.1f",mean2));
   tex->DrawLatex(0.75,0.70,Form("#sigma/#mu = %.2f",sigm2/mean2));
-  c2->Print(Form("Figures/Burn/%s_fit1dMeanSubTrunc.png",NAME));
-  c2->Print(Form("Figures/Burn/%s_fit1dMeanSubTrunc.pdf",NAME));
+  c2->Print(Form("Figures/Burn/%s_fit1dMeanSubTrunc.png",ts_name.Data()));
+  c2->Print(Form("Figures/Burn/%s_fit1dMeanSubTrunc.pdf",ts_name.Data()));
 
 
 
@@ -261,7 +261,6 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   meanHistSub->Draw("colz");
   //tex->DrawLatex(0.15,0.92,Form("%s, Mean = %.1f photoelectrons, Relative Variance = %.1f%%",histotitle,mean2,100.0*sigm2/mean2));
   tex->DrawLatex(0.15,0.92,Form("%s, Mean = %.1f pe, Rel. Var. = %.1f%%",histotitle,mean2,100.0*sigm2/mean2));
-  // using ts_name here because NAME gets corrupted
   c1->Print(Form("Figures/Burn/%s_RVmeanHistSub.png",ts_name.Data()));
   c1->Print(Form("Figures/Burn/%s_RVmeanHistSub.pdf",ts_name.Data()));
 
