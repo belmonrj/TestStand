@@ -151,7 +151,8 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   // ---------------------------------------------- //
 
   TCanvas *c1 = new TCanvas("c1","c1", 900, 400);
-
+  c1->SetTicks();
+  
   gStyle->SetOptStat(0);
 
 
@@ -203,15 +204,16 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
 
 
   TCanvas* c2 = new TCanvas("c2","",800,650);
+  c2->SetTicks();
   c2->SetTopMargin(0.10);
-  c2->SetLeftMargin(0.09);
+  c2->SetLeftMargin(0.13);
   c2->SetRightMargin(0.02);
   c2->SetBottomMargin(0.13);
   th1d_meanSub->SetTitle("");
   th1d_meanSub->GetXaxis()->SetTitle("Signal (number of photoelectrons)");
   th1d_meanSub->GetYaxis()->SetTitle("Number of scan points");
   th1d_meanSub->GetXaxis()->SetTitleOffset(0.9);
-  th1d_meanSub->GetYaxis()->SetTitleOffset(0.7);
+  th1d_meanSub->GetYaxis()->SetTitleOffset(0.9);
   th1d_meanSub->GetXaxis()->SetTitleSize(plottextsize);
   th1d_meanSub->GetYaxis()->SetTitleSize(plottextsize);
   th1d_meanSub->GetXaxis()->SetLabelSize(plottextsize);
@@ -229,18 +231,26 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   th1d_meanSubTrunc->GetXaxis()->SetTitle("Signal (number of photoelectrons)");
   th1d_meanSubTrunc->GetYaxis()->SetTitle("Number of scan points");
   th1d_meanSubTrunc->GetXaxis()->SetTitleOffset(0.9);
-  th1d_meanSubTrunc->GetYaxis()->SetTitleOffset(0.7);
+  th1d_meanSubTrunc->GetYaxis()->SetTitleOffset(0.9);
   th1d_meanSubTrunc->GetXaxis()->SetTitleSize(plottextsize);
   th1d_meanSubTrunc->GetYaxis()->SetTitleSize(plottextsize);
   th1d_meanSubTrunc->GetXaxis()->SetLabelSize(plottextsize);
   th1d_meanSubTrunc->GetYaxis()->SetLabelSize(plottextsize);
   th1d_meanSubTrunc->Draw();
-  tex->DrawLatex(0.45,0.92,histotitle);
+  double mean1 = th1d_meanSubTrunc->GetMean();
+  double sigm1 = th1d_meanSubTrunc->GetRMS();
+  tex->DrawLatex(0.15,0.92,Form("%s, #mu = %.1f, #sigma/#mu = %.2f",histotitle,mean1,sigm1/mean1));
   c2->Print(Form("Figures/Burn/%s_1dMeanSubTrunc.png",NAME));
   c2->Print(Form("Figures/Burn/%s_1dMeanSubTrunc.pdf",NAME));
-  // c2->SetLogy();
-  // c2->Print(Form("Figures/Burn/%s_log1dMeanSubTrunc.png",NAME));
-  // c2->Print(Form("Figures/Burn/%s_log1dMeanSubTrunc.pdf",NAME));
+  TF1* fun = new TF1("fun","gaus",mean1-sigm1,mean1+1.5*sigm1);
+  th1d_meanSubTrunc->Fit(fun,"R");
+  double mean2 = fun->GetParameter(1);
+  double sigm2 = fun->GetParameter(2);
+  //tex->DrawLatex(0.15,0.85,Form("#mu = %.1f, #sigma/#mu = %.2f",mean2,sigm2/mean2));
+  tex->DrawLatex(0.75,0.78,Form("#mu = %.1f",mean2));
+  tex->DrawLatex(0.75,0.70,Form("#sigma/#mu = %.2f",sigm2/mean2));
+  c2->Print(Form("Figures/Burn/%s_fit1dMeanSubTrunc.png",NAME));
+  c2->Print(Form("Figures/Burn/%s_fit1dMeanSubTrunc.pdf",NAME));
 
   delete meanHist;
   delete meanHistSub;
