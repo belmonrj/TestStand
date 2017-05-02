@@ -172,6 +172,8 @@ void analyze(const char* NAME, const int scan_nxpositions, const int scan_nyposi
   c1->Print(Form("Figures/Burn/%s_meanHistSub.png",NAME));
   c1->Print(Form("Figures/Burn/%s_meanHistSub.pdf",NAME));
 
+  delete meanHist;
+  delete meanHistSub;
   delete c1;
 
 }
