@@ -22,6 +22,9 @@ void analyzer_smalltile()
   // doana("20160106-1320",48,28);
   // doana("20160106-1636",48,28);
   doana("20170430-1100","Tile 955",84,36);
+  doana("20170428-1400","Tile 939",84,36);
+  doana("20170421-1522","Tile 965",84,36);
+  doana("20170430-2227","Tile 964",92,42);
 
 }
 
@@ -107,6 +110,7 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   lo = -2.0;
   hi = ((maximum1-minimum1)/PE)+2.0;
   TH1D *th1d_meanSub = new TH1D("th1d_meanSub",histotitle,100,lo,hi);
+  TH1D *th1d_meanSubTrunc = new TH1D("th1d_meanSubTrunc",histotitle,100,lo,hi);
 
 
 
@@ -135,6 +139,7 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
       th1d_mean->Fill(iMean);
       // --- fill the 1d sub
       th1d_meanSub->Fill(iMeanSub);
+      if ( iMeanSub > 5.0 ) th1d_meanSubTrunc->Fill(iMeanSub);
     }
   // --- write the background subtracted histogram to a ROOT file
   meanHistSub->SaveAs(Form("Data/SmallPanel/%s_meanHistSub.root",NAME)); // NEEDS TO BE REVISED
@@ -145,7 +150,7 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   // --- now make figures of the 2d panel plots --- //
   // ---------------------------------------------- //
 
-  TCanvas *c1 = new TCanvas("c1","c1", 900, 600);
+  TCanvas *c1 = new TCanvas("c1","c1", 900, 400);
 
   gStyle->SetOptStat(0);
 
@@ -197,10 +202,11 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   c1->Print(Form("Figures/Burn/%s_meanHistSub.pdf",NAME));
 
 
-  c1->SetTopMargin(0.10);
-  c1->SetLeftMargin(0.09);
-  c1->SetRightMargin(0.02);
-  c1->SetBottomMargin(0.13);
+  TCanvas* c2 = new TCanvas("c2","",800,650);
+  c2->SetTopMargin(0.10);
+  c2->SetLeftMargin(0.09);
+  c2->SetRightMargin(0.02);
+  c2->SetBottomMargin(0.13);
   th1d_meanSub->SetTitle("");
   th1d_meanSub->GetXaxis()->SetTitle("Signal (number of photoelectrons)");
   th1d_meanSub->GetYaxis()->SetTitle("Number of scan points");
@@ -212,14 +218,36 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
   th1d_meanSub->GetYaxis()->SetLabelSize(plottextsize);
   th1d_meanSub->Draw();
   tex->DrawLatex(0.45,0.92,histotitle);
-  c1->Print(Form("Figures/Burn/%s_1dMeanSub.png",NAME));
-  c1->Print(Form("Figures/Burn/%s_1dMeanSub.pdf",NAME));
-  c1->SetLogy();
-  c1->Print(Form("Figures/Burn/%s_log1dMeanSub.png",NAME));
-  c1->Print(Form("Figures/Burn/%s_log1dMeanSub.pdf",NAME));
+  c2->Print(Form("Figures/Burn/%s_1dMeanSub.png",NAME));
+  c2->Print(Form("Figures/Burn/%s_1dMeanSub.pdf",NAME));
+  c2->SetLogy();
+  c2->Print(Form("Figures/Burn/%s_log1dMeanSub.png",NAME));
+  c2->Print(Form("Figures/Burn/%s_log1dMeanSub.pdf",NAME));
+
+  c2->SetLogy(0);
+  th1d_meanSubTrunc->SetTitle("");
+  th1d_meanSubTrunc->GetXaxis()->SetTitle("Signal (number of photoelectrons)");
+  th1d_meanSubTrunc->GetYaxis()->SetTitle("Number of scan points");
+  th1d_meanSubTrunc->GetXaxis()->SetTitleOffset(0.9);
+  th1d_meanSubTrunc->GetYaxis()->SetTitleOffset(0.7);
+  th1d_meanSubTrunc->GetXaxis()->SetTitleSize(plottextsize);
+  th1d_meanSubTrunc->GetYaxis()->SetTitleSize(plottextsize);
+  th1d_meanSubTrunc->GetXaxis()->SetLabelSize(plottextsize);
+  th1d_meanSubTrunc->GetYaxis()->SetLabelSize(plottextsize);
+  th1d_meanSubTrunc->Draw();
+  tex->DrawLatex(0.45,0.92,histotitle);
+  c2->Print(Form("Figures/Burn/%s_1dMeanSubTrunc.png",NAME));
+  c2->Print(Form("Figures/Burn/%s_1dMeanSubTrunc.pdf",NAME));
+  // c2->SetLogy();
+  // c2->Print(Form("Figures/Burn/%s_log1dMeanSubTrunc.png",NAME));
+  // c2->Print(Form("Figures/Burn/%s_log1dMeanSubTrunc.pdf",NAME));
 
   delete meanHist;
   delete meanHistSub;
+  delete th1d_mean;
+  delete th1d_meanSub;
+  delete th1d_meanSubTrunc;
   delete c1;
+  delete c2;
 
 }
