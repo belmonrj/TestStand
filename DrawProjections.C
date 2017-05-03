@@ -1,3 +1,5 @@
+void drawproj(const char*);
+
 void DrawProjections()
 {
 
@@ -9,7 +11,14 @@ void DrawProjections()
 void drawproj(const char* basename)
 {
 
+  TCanvas* c1 = new TCanvas();
+
   TFile *file = TFile::Open(Form("Data/ROOT/%s_projections.root",basename));
+  if ( file == NULL )
+    {
+      cout << "Cannot find file " << Form("Data/ROOT/%s_projections.root",basename) << endl;
+      return;
+    }
 
   TH1D *hp0 = (TH1D*)file->Get(Form("%s_hproj_0",basename));
   TH1D *hp1 = (TH1D*)file->Get(Form("%s_hproj_1",basename));
