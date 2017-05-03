@@ -1,0 +1,284 @@
+\documentclass[compress,8pt]{beamer} %%%
+\usetheme{Warsaw} %%%
+%\usecolortheme{cu} %%%
+
+%\setbeamersize{text margin left=10pt,text margin right=10pt}
+
+\usepackage{changepage}
+
+\newcommand{\lenitem}[2][.7\linewidth]{\parbox[t]{#1}{\strut #2\strut}}
+
+%\newcommand\Fontvi{\fontsize{6}{7.2}\selectfont} %%% doesn't hel for subbullets :(
+%\setlength{\columnsep}{-20pt} % doesn't work
+
+%%% define my own headline
+\setbeamertemplate{headline}
+{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt}{}%
+  \end{beamercolorbox}%
+  \vskip2pt%
+}
+
+%%% define my own footline
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+%%% set another another option
+\setbeamertemplate{navigation symbols}{} % this is the same as \beamertemplatenavigationsymbolsempty
+
+%%% add some packages
+\usepackage{amsmath,amssymb,amsfonts,amsthm,amsbsy} % math symbols and the like
+\usepackage{slashed} % Feynman slashed notatation
+\usepackage{tikz}
+\usepackage{pdfpages} % include pdfs as a whole page
+
+%%% Cyrillic fonts
+\input cyracc.def
+%\font\tencyr=wncyr10
+\font\tencyr=wncyr9
+\def\cyr{\tencyr\cyracc}
+
+%makes footnote with symbol instead of number
+\long\def\symbolfootnote[#1]#2{\begingroup\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+%\symbolfootnote[sym #]{footnote text}     %makes footnote with symbol instead of number
+%\long\def\symbolfootnote[#1]#2{\begingroup
+%\def\thefootnote{\fnsymbol{footnote}}\footnotetext[#1]{#2}\endgroup}
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} %% Creates a partial derivative
+\newcommand{\totd}[2]{\frac{d #1}{d #2}} %% Creates a total derivative
+\newcommand{\bracket}[1]{\left< #1 \right>}
+\newcommand{\covariance}[2]{\left< #1 #2 \right> - \left< #1 \right>\left< #2 \right>}
+
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\lb}{\left<}
+\newcommand{\rb}{\right>}
+
+\newcommand{ \eps }{\varepsilon}
+\newcommand{ \mean }[1]{\la #1 \ra}
+\newcommand{ \dmean }[1]{\la\la #1 \ra\ra}
+\newcommand{ \sump }{\sideset{}{'}\sum}
+
+\newcommand{\vt}{v_2}
+\newcommand{\vtt}{v_2\{2\}}
+\newcommand{\vtf}{v_2\{4\}}
+\newcommand{\vtg}{v_2\{2,|\Delta\eta|>2\}}
+\newcommand{\vn}{v_n}
+\newcommand{\vnt}{v_n\{2\}}
+\newcommand{\vnf}{v_n\{4\}}
+\newcommand{\vng}{v_n\{2,|\Delta\eta|>2\}}
+\newcommand{\nfvtxt}{N_{tracks}^{FVTX}}
+
+
+%%% title and basic information
+%\title[d+Au BES Meeting, \today ~ - Slide \insertframenumber]{Flow measurements in the d+Au BES}
+%\title[d+Au BES Meeting, \today~-~Slide \insertframenumber]{Flow measurements in the d+Au BES}
+%\author[CU-Boulder]{Ron B.}
+%\date{d+Au BES Meeting \\ \today}
+\title[\today~-~Slide \insertframenumber]{High eta HCal tile testing}
+\author[CU-Boulder]{Ron}
+\date{\today}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% remove line above footnotes...
+\renewcommand{\footnoterule}{
+  \kern -3pt
+  \hrule width \textwidth height 0pt
+  \kern 3pt
+}
+
+
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 44 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.0cm]{logos/Boulder_FL.pdf}}
+\titlegraphic{\includegraphics[height=1.2cm]{logos/sphenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.2cm]{logos/Boulder_FL.pdf}}
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/phenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.2cm]{logos/Boulder_FL.pdf}}
+
+
+%%% - now begin document
+\begin{document}
+
+
+%%% - title slide
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+
+\begin{frame}{High eta HCal tile inventory and status}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\begin{tabular}{|lllll|}
+\hline
+SiPM number & Tile number & inner/outer & OK/FAIL & CU tag(s) \\
+\hline
+945 & 116.092.0197 & outer & FAIL & 20170413-1352, 20170414-1328 \\
+956 & 113.029.0131 & outer & OK   &               \\
+%976 & 115.054.0159 & outer & OK   & 20170424-1328, 20170425-1409 \\
+976 & 115.054.0159 & outer & OK   &  \\
+990 & 114.044.0149 & outer & OK   &               \\
+\hline
+939 &              & inner &      & 20170428-1400 \\
+955 &              & inner &      & 20170430-1100 \\
+964 & 105.017.0097 & inner & OK   & 20170430-2227 \\
+965 &              & inner &      & 20170421-1522 \\
+\hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\vspace{10pt}
+A few questions:
+\begin{itemize}
+\item Is there some way for us to get the tile inventory numbers for the other three inner tiles?
+\item Is the first number the model/type number?
+\item Can we get the mechanical drawings for all these?
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+Inner HCal tiles
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Inner HCal Tile Scan---939}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+%\includegraphics[width=0.85\linewidth]{./Photos/Tile_939_Scan.png}
+\includegraphics[width=0.95\linewidth]{../Figures/Burn/20170428-1400_VMIN_SIPM1_RVmeanHistSub.pdf}
+\end{center}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Inner HCal Tile Scan---955}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+%\includegraphics[width=0.85\linewidth]{./Photos/Tile_955_Scan.png}
+\includegraphics[width=0.95\linewidth]{../Figures/Burn/20170430-1100_VMIN_SIPM1_RVmeanHistSub.pdf}
+\end{center}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Inner HCal Tile Scan---964}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+%\includegraphics[width=0.85\linewidth]{./Photos/Tile_964_Scan.png}
+\includegraphics[width=0.95\linewidth]{../Figures/Burn/20170430-2227_VMIN_SIPM1_RVmeanHistSub.pdf}
+\end{center}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Inner HCal Tile Scan---965}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+%\includegraphics[width=0.85\linewidth]{./Photos/Tile_965_Scan.png}
+\includegraphics[width=0.95\linewidth]{../Figures/Burn/20170421-1522_VMIN_SIPM1_RVmeanHistSub.pdf}
+\end{center}
+\end{adjustwidth}
+\end{frame}
+
+
+\begin{frame}{Comparing one of the high eta ones with one of the low eta ones}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{../Figures/Burn/20170421-1522_VMIN_SIPM1_RVmeanHistSub.pdf} \\
+%\includegraphics[width=0.45\linewidth]{../Figures/Burn/20151113-1313_VMIN_SIPM1_RVmeanHistSub.pdf}
+\includegraphics[width=0.45\linewidth]{../Figures/Burn/20160106-1320_VMIN_SIPM1_RVmeanHistSub.pdf}
+\end{center}
+\end{adjustwidth}
+%The response seems a lot more uniform in the high eta tiles...
+\end{frame}
+
+\begin{frame}{Procedure for estimating the relative variation}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.45\linewidth]{../Figures/Burn/20170421-1522_VMIN_SIPM1_1dMeanSub.pdf}
+%\includegraphics[width=0.45\linewidth]{../Figures/Burn/20170428-1400_VMIN_SIPM1_1dMeanSub.pdf} \\
+%\includegraphics[width=0.45\linewidth]{../Figures/Burn/20170430-1100_VMIN_SIPM1_1dMeanSub.pdf}
+%\includegraphics[width=0.45\linewidth]{../Figures/Burn/20170430-2227_VMIN_SIPM1_1dMeanSub.pdf}
+%\includegraphics[width=0.45\linewidth]{../Figures/Burn/20151113-1313_VMIN_SIPM1_1dMeanSub.pdf}
+\includegraphics[width=0.45\linewidth]{../Figures/Burn/20160106-1320_VMIN_SIPM1_1dMeanSub.pdf}
+\end{center}
+\end{adjustwidth}
+\begin{itemize}
+\item The off-panel background needs to be subtracted
+\item No perfect procedure
+\item We cut out anything below 10\% of the max value
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Procedure for estimating the relative variation}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.45\linewidth]{../Figures/Burn/20170421-1522_VMIN_SIPM1_fit1dMeanSubTrunc.pdf}
+%\includegraphics[width=0.45\linewidth]{../Figures/Burn/20170428-1400_VMIN_SIPM1_fit1dMeanSubTrunc.pdf} \\
+%\includegraphics[width=0.45\linewidth]{../Figures/Burn/20170430-1100_VMIN_SIPM1_fit1dMeanSubTrunc.pdf}
+%\includegraphics[width=0.45\linewidth]{../Figures/Burn/20170430-2227_VMIN_SIPM1_fit1dMeanSubTrunc.pdf}
+%\includegraphics[width=0.45\linewidth]{../Figures/Burn/20151113-1313_VMIN_SIPM1_fit1dMeanSubTrunc.pdf}
+\includegraphics[width=0.45\linewidth]{../Figures/Burn/20160106-1320_VMIN_SIPM1_fit1dMeanSubTrunc.pdf}
+\end{center}
+\end{adjustwidth}
+\begin{itemize}
+\item Get Mean and RMS of remainder OR do a Gaussian fit over the main region
+\item High region is cladding light near SiPM
+\item Low region could be background, edges, regions far from fiber, etc
+\end{itemize}
+%From there we can estimate in two ways: simple RMS of the whole distribution,
+%or look at a Gaussian fit of where most of the light is
+\end{frame}
+
+
+\iffalse
+
+\begin{frame}
+Outer HCal tiles
+\end{frame}
+
+\begin{frame}{Outer HCal Tile Scan---945}
+\begin{adjustwidth}{-3em}{-3em}
+\begin{center}
+\includegraphics[width=0.85\linewidth]{./Photos/FarEtaOuterHCalScanBrokenFiber.png}
+\end{center}
+\end{adjustwidth}
+Known bad tile... was this intentional???
+\end{frame}
+
+\fi
+
+
+
+\begin{frame}{Brief summary}
+\begin{itemize}
+\item Inner tiles all look fine and have good response uniformity (relative variation of 15--20\%)
+\item Outer tile results coming soon (working through a few minor setbacks)
+\item Is the tile response uniformity something that might be a KPP?  We can consider ways to further
+  improve our methods for assessing the tile uniformity
+\end{itemize}
+\end{frame}
+
+
+
+%
+
+\end{document}
+
+
