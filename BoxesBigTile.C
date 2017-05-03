@@ -1,3 +1,5 @@
+// --- this macro reads data from one of the low eta OHCal tiles and overlays the cosmics data on top of the LED scan
+
 void BoxesBigTile()
 {
 
