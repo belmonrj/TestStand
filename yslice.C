@@ -1,4 +1,4 @@
-void YSlice()
+void yslice()
 {
 
   // doyslice("20150820-1156_A4_LED_NoBlock");
