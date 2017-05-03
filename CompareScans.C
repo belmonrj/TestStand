@@ -1,12 +1,19 @@
-gStyle->SetOptTitle(1); // good times...
+// --- this macro compares 1d projections of different scans of the same smart tile
+
+
+
+void dofix2();
+void dofix3();
+void fixednumber_2(const char*,const char*,const char*,const char*,const char*,const char*,const char*);
+void fixednumber_3(const char*,const char*,const char*,const char*,const char*,const char*,const char*,const char*,const char*);
+
+
 
 void CompareScans()
 {
-
+  gStyle->SetOptTitle(1);
   dofix2();
-
   dofix3();
-
 }
 
 
@@ -75,7 +82,15 @@ void dofix3()
 
 
 
-void fixednumber_3(char *name1, char *name2, char *name3, char *short1, char * short2, char *short3, char *longdescription, char *shortdescription, char *outname)
+void fixednumber_3(const char* name1,
+                   const char* name2,
+                   const char* name3,
+                   const char* short1,
+                   const char* short2,
+                   const char* short3,
+                   const char* longdescription,
+                   const char* shortdescription,
+                   const char* outname)
 {
 
   // --- get the files
@@ -84,9 +99,9 @@ void fixednumber_3(char *name1, char *name2, char *name3, char *short1, char * s
   TFile *file3 = TFile::Open(Form("Data/ROOT/%s_meanHistSub_projections.root",name3));
 
   // --- check that the files exist
-  if(file1==NULL) {cout<<"Cannot find file "<<Form("%s_meanHistSub_projections.root",name1)<<endl;return;}
-  if(file2==NULL) {cout<<"Cannot find file "<<Form("%s_meanHistSub_projections.root",name2)<<endl;return;}
-  if(file3==NULL) {cout<<"Cannot find file "<<Form("%s_meanHistSub_projections.root",name3)<<endl;return;}
+  if(file1==NULL) {cout<<"Cannot find file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name1)<<endl;return;}
+  if(file2==NULL) {cout<<"Cannot find file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name2)<<endl;return;}
+  if(file3==NULL) {cout<<"Cannot find file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name3)<<endl;return;}
 
   // --- not sure if it's possible to generalize, since the 2d histo is in a different file
   for(int i=0; i<9; i++)
@@ -95,6 +110,9 @@ void fixednumber_3(char *name1, char *name2, char *name3, char *short1, char * s
       TH1D *h1 = (TH1D *)file1->Get(Form("%s_meanHistSub_hproj_%d",name1,i));
       TH1D *h2 = (TH1D *)file2->Get(Form("%s_meanHistSub_hproj_%d",name2,i));
       TH1D *h3 = (TH1D *)file3->Get(Form("%s_meanHistSub_hproj_%d",name3,i));
+      if(h1==NULL) {cout<<"Cannot find h1 "<<Form("%s_meanHistSub_hproj_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name1)<<endl;return;}
+      if(h2==NULL) {cout<<"Cannot find h2 "<<Form("%s_meanHistSub_hproj_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name2)<<endl;return;}
+      if(h3==NULL) {cout<<"Cannot find h3 "<<Form("%s_meanHistSub_hproj_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name3)<<endl;return;}
 
       // --- set draw properties, very simple for now
       h1->SetLineColor(kBlack);
@@ -114,6 +132,10 @@ void fixednumber_3(char *name1, char *name2, char *name3, char *short1, char * s
       if(max1>max) max = max1;
       if(max2>max) max = max2;
       if(max3>max) max = max3;
+
+
+
+      TCanvas* c1 = new TCanvas();
 
       // --- draw the largest histogram first to prevent scale issues
       if(max==max1)
@@ -226,7 +248,13 @@ void dofix2()
 
 
 
-void fixednumber_2(char *name1, char *name2, char *short1, char * short2, char *longdescription, char *shortdescription, char *outname)
+void fixednumber_2(const char* name1,
+                   const char* name2,
+                   const char* short1,
+                   const char* short2,
+                   const char* longdescription,
+                   const char* shortdescription,
+                   const char* outname)
 {
 
   // --- get the files
@@ -234,8 +262,8 @@ void fixednumber_2(char *name1, char *name2, char *short1, char * short2, char *
   TFile *file2 = TFile::Open(Form("Data/ROOT/%s_meanHistSub_projections.root",name2));
 
   // --- check that the files exist
-  if(file1==NULL) {cout<<"Cannot find file "<<Form("%s_meanHistSub_projections.root",name1)<<endl;return;}
-  if(file2==NULL) {cout<<"Cannot find file "<<Form("%s_meanHistSub_projections.root",name2)<<endl;return;}
+  if(file1==NULL) {cout<<"Cannot find file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name1)<<endl;return;}
+  if(file2==NULL) {cout<<"Cannot find file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name2)<<endl;return;}
 
   // --- not sure if it's possible to generalize, since the 2d histo is in a different file
   for(int i=0; i<9; i++)
@@ -243,6 +271,8 @@ void fixednumber_2(char *name1, char *name2, char *short1, char * short2, char *
       // --- get the histograms
       TH1D *h1 = (TH1D *)file1->Get(Form("%s_meanHistSub_hproj_%d",name1,i));
       TH1D *h2 = (TH1D *)file2->Get(Form("%s_meanHistSub_hproj_%d",name2,i));
+      if(h1==NULL) {cout<<"Cannot find h1 "<<Form("%s_meanHistSub_hproj_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name1)<<endl;return;}
+      if(h2==NULL) {cout<<"Cannot find h2 "<<Form("%s_meanHistSub_hproj_%d",name2,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name2)<<endl;return;}
 
       // --- set draw properties, very simple for now
       h1->SetLineColor(kBlack);
@@ -258,6 +288,10 @@ void fixednumber_2(char *name1, char *name2, char *short1, char * short2, char *
       double max = 0;
       if(max1>max) max = max1;
       if(max2>max) max = max2;
+
+
+
+      TCanvas* c1 = new TCanvas();
 
       // --- draw the largest histogram first to prevent scale issues
       if(max==max1)
