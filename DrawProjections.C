@@ -1,3 +1,5 @@
+// --- macro to draw different projections of the same scan together
+
 void drawproj(const char*);
 
 void DrawProjections()
