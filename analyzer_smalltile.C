@@ -141,7 +141,7 @@ void analyze(const char* NAME, const char* histotitle, const int scan_nxposition
       th1d_mean->Fill(iMean);
       // --- fill the 1d sub
       th1d_meanSub->Fill(iMeanSub);
-      if ( iMeanSub > 5.0 ) th1d_meanSubTrunc->Fill(iMeanSub);
+      if ( iMeanSub > 0.1*(maximum1/PE) ) th1d_meanSubTrunc->Fill(iMeanSub);
     }
   // --- write the background subtracted histogram to a ROOT file
   meanHistSub->SaveAs(Form("Data/SmallPanel/%s_meanHistSub.root",ts_name.Data())); // NEEDS TO BE REVISED
