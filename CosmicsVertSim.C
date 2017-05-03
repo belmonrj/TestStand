@@ -1,5 +1,6 @@
-// --- Primary author: Sebastian Vazquez-Torres
+// --- Primary author: Sebastian Vazquez-Carson
 // --- Secondary author: Ron Belmont
+// --- macro to simulate pathlength and energy deposition of a cosmic ray through a block of material
 
 void CosmicsVertSim()
 {
