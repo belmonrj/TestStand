@@ -1,3 +1,8 @@
+// --- this macro compares the 1d projections of one of the smart tiles for various configurations of light blocking
+// --- the purpose is to study the light output as a function of distance from the SiPM for these configurations
+
+void fixednumber(const char*, const char*, const char*, const char*, const char*);
+
 void CompareProjections()
 {
 
@@ -32,7 +37,7 @@ void CompareProjections()
 
 
 
-void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outname)
+void fixednumber(const char* name1, const char* name2, const char* name3, const char* name4, const char* outname)
 {
 
   // --- get the files
@@ -78,6 +83,8 @@ void fixednumber(char *name1, char *name2, char *name3, char *name4, char *outna
       if(max2>max) max = max2;
       if(max3>max) max = max3;
       if(max4>max) max = max4;
+
+      TCanvas* c1 = new TCanvas();
 
       // --- draw the largest histogram first to prevent scale issues
       if(max==max1)
