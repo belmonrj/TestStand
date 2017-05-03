@@ -107,12 +107,12 @@ void fixednumber_3(const char* name1,
   for(int i=0; i<9; i++)
     {
       // --- get the histograms
-      TH1D *h1 = (TH1D *)file1->Get(Form("%s_meanHistSub_hproj_%d",name1,i));
-      TH1D *h2 = (TH1D *)file2->Get(Form("%s_meanHistSub_hproj_%d",name2,i));
-      TH1D *h3 = (TH1D *)file3->Get(Form("%s_meanHistSub_hproj_%d",name3,i));
-      if(h1==NULL) {cout<<"Cannot find h1 "<<Form("%s_meanHistSub_hproj_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name1)<<endl;return;}
-      if(h2==NULL) {cout<<"Cannot find h2 "<<Form("%s_meanHistSub_hproj_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name2)<<endl;return;}
-      if(h3==NULL) {cout<<"Cannot find h3 "<<Form("%s_meanHistSub_hproj_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name3)<<endl;return;}
+      TH1D *h1 = (TH1D *)file1->Get(Form("%s_meanHistSub_hprojX_%d",name1,i));
+      TH1D *h2 = (TH1D *)file2->Get(Form("%s_meanHistSub_hprojX_%d",name2,i));
+      TH1D *h3 = (TH1D *)file3->Get(Form("%s_meanHistSub_hprojX_%d",name3,i)); // a few files are missing this for some reason
+      if(h1==NULL) {cout<<"Cannot find h1 "<<Form("%s_meanHistSub_hprojX_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name1)<<endl;return;}
+      if(h2==NULL) {cout<<"Cannot find h2 "<<Form("%s_meanHistSub_hprojX_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name2)<<endl;return;}
+      if(h3==NULL) {cout<<"Cannot find h3 "<<Form("%s_meanHistSub_hprojX_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name3)<<endl;return;}
 
       // --- set draw properties, very simple for now
       h1->SetLineColor(kBlack);
@@ -269,10 +269,10 @@ void fixednumber_2(const char* name1,
   for(int i=0; i<9; i++)
     {
       // --- get the histograms
-      TH1D *h1 = (TH1D *)file1->Get(Form("%s_meanHistSub_hproj_%d",name1,i));
-      TH1D *h2 = (TH1D *)file2->Get(Form("%s_meanHistSub_hproj_%d",name2,i));
-      if(h1==NULL) {cout<<"Cannot find h1 "<<Form("%s_meanHistSub_hproj_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name1)<<endl;return;}
-      if(h2==NULL) {cout<<"Cannot find h2 "<<Form("%s_meanHistSub_hproj_%d",name2,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name2)<<endl;return;}
+      TH1D *h1 = (TH1D *)file1->Get(Form("%s_meanHistSub_hprojX_%d",name1,i));
+      TH1D *h2 = (TH1D *)file2->Get(Form("%s_meanHistSub_hprojX_%d",name2,i));
+      if(h1==NULL) {cout<<"Cannot find h1 "<<Form("%s_meanHistSub_hprojX_%d",name1,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name1)<<endl;return;}
+      if(h2==NULL) {cout<<"Cannot find h2 "<<Form("%s_meanHistSub_hprojX_%d",name2,i)<<" from file "<<Form("Data/ROOT/%s_meanHistSub_projections.root",name2)<<endl;return;}
 
       // --- set draw properties, very simple for now
       h1->SetLineColor(kBlack);
