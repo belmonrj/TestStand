@@ -1,3 +1,5 @@
+// --- macro to compare different methods of calculating the core fraction
+
 double frac1[9]; // light fraction from SiPM1
 double frac2[9]; // light fraction from SiPM2
 double fracAs[9]; // light fraction from asymmetry
@@ -5,7 +7,8 @@ double fracAv[9]; // average of frac1 and frac2
 
 double cld = 5.0; // cladding decay constant
 
-
+void start(const char*, double);
+void calc(TFile*, TFile*, const char*, int);
 
 void DrawAsymmetry()
 {
@@ -17,9 +20,9 @@ void DrawAsymmetry()
   // start("20150901-0950_A1_Source");
   // start("20150901-1748_A1_LED");
   // start("20150902-1005_A1_LED");
-  start("20150911-1150_A1_Source");
-  start("20150911-1328_A1_Source");
-  start("20150914-1138_A1_Source");
+  start("20150911-1150_A1_Source",0.0);
+  start("20150911-1328_A1_Source",0.0);
+  start("20150914-1138_A1_Source",0.0);
   start("20150911-1607_A1_LED",0.5);
   start("20150911-1700_A1_LED",0.5);
   start("20150914-1750_A1_LED",0.5);
@@ -28,7 +31,7 @@ void DrawAsymmetry()
 
 
 
-void start(const char *basename, const double offset = 0.0)
+void start(const char *basename, const double offset)
 {
 
   TFile *file1 = TFile::Open(Form("Data/ROOT/%s_VMIN_SIPM1_meanHistSub_projections.root",basename));
@@ -47,7 +50,7 @@ void start(const char *basename, const double offset = 0.0)
   calc(file1,file2,basename,7);
   calc(file1,file2,basename,8);
 
-  ofstream fout(Form("Data/Text/%s_Asymmetries.txt"));
+  ofstream fout(Form("Data/Text/%s_Asymmetries.txt",basename));
   double pn[9];
   for(int i=0; i<9; i++)
     {
@@ -60,6 +63,10 @@ void start(const char *basename, const double offset = 0.0)
       pn[i] = -2.0 + i/2.0; // distance
       pn[i] += offset;
     }
+
+
+
+  TCanvas* c1 = new TCanvas();
 
   TGraph *tg1 = new TGraph(9,pn,frac1);
   TGraph *tg2 = new TGraph(9,pn,frac2);
@@ -133,6 +140,10 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   hp5_2->GetXaxis()->SetTitle("Distance (cm)");
   hp5_1->GetYaxis()->SetTitle("Number of photoelectrons");
   hp5_2->GetYaxis()->SetTitle("Number of photoelectrons");
+
+
+
+  TCanvas* c1 = new TCanvas();
 
   if(max1>=max2)
     {
@@ -291,10 +302,10 @@ void calc(TFile *file1, TFile *file2, const char* basename, int projnumb)
   double fracore2 = (numcore2)/(numcore2+numclad2);
   // ---
   double partB;
-  partB = sqrt(Enumcore1**2+Enumclad2**2);
-  double Efracore1 = fracore1*sqrt((Enumcore1/numcore1)**2+(partB/(numcore1+numclad1))**2);
-  partB = sqrt(Enumcore2**2+Enumclad2**2);
-  double Efracore2 = fracore2*sqrt((Enumcore2/numcore2)**2+(partB/(numcore2+numclad2))**2);
+  partB = sqrt(pow(Enumcore1,2)+pow(Enumclad2,2));
+  double Efracore1 = fracore1*sqrt(pow(Enumcore1/numcore1,2)+pow(partB/(numcore1+numclad1),2));
+  partB = sqrt(pow(Enumcore2,2)+pow(Enumclad2,2));
+  double Efracore2 = fracore2*sqrt(pow(Enumcore2/numcore2,2)+pow(partB/(numcore2+numclad2),2));
 
   TLatex *texAC1 = new TLatex(2,0.27*maxx,Form("f_{core} = %.3f #pm %.3f",fracore1,Efracore1));
   texAC1->SetTextColor(kBlue);
