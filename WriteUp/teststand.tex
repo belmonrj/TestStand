@@ -1,0 +1,125 @@
+\documentclass[12pt]{article}
+
+
+\usepackage{amsmath,amssymb,amsfonts,amsthm,amsbsy} \usepackage{graphicx}
+
+
+\begin{document}
+
+
+\section{Test stand capabilities at the University of Colorado, Boulder}
+
+In this section we discuss the capabilities of the test stand at the University of
+Colorado, Boulder (UCB) for the purposes of testing and characterizing the HCal
+scintillator tiles.
+
+
+\subsection{Overview}
+
+Figure~\ref{picture:ucbstand1} shows an overall view of the UCB test stand.  The test
+stand at UCB has the capability to characterize the scintillator tiles using an LED, a
+Strontium-90 radioactive source, and cosmic rays.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{Photos/IMG_2501.jpg}
+\end{center}
+\caption{Overview photograph of the HCal tile test stand at the University of Colorado,
+  Boulder.}
+\label{picture:ucbstand1}
+\end{figure}
+
+
+\subsection{Tile mount and readout}
+
+Figure~\ref{picture:ucbmount} shows a close-up view of the tile mounting system.  The
+scintillator tiles are mounted on a lucite platform which is secured in place with
+precision cut lucite brackets.  This mounting system ensures precise positioning and
+alignment.
+
+Also visible in Figure~\ref{picture:ucbmount} are the mounting brackets for the principle
+readout device, the Silicon photomultiplier (SiPM).  The SiPMs currently employed are the
+Hamamatsu S10362-11-0550C.  The scintillator tiles have Kuraray Y11 wavelength shifting
+(WLS) fibers and tapped holes for mounting brackets at each end of each fiber.  The
+mounting brackets are 3D printed at the UCB Integrated Teaching and Learning Laboratory.
+The SiPMs are placed inside the brackets which are then screwed into the mounting holes.
+The mounting brackets are marked so that the end of the fiber can be centered on the SiPM.
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{Photos/IMG_2615.jpg}
+\end{center}
+\caption{Close up view of the tile mounting system.}
+\label{picture:ucbmount}
+\end{figure}
+
+
+\subsection{LED/source housing and stepper motors}
+
+The Stronitum-90 source and LED are held in a single machined two-piece brass housing with
+a cylindrical shape.  The source is mounted directly in the center of the housing in the
+$r-\phi$ plane and at the top of the lower piece in the $z$-direction.  Below the source
+is a precision-drilled 1 mm aperture that ensures the electrons emitted reach the
+scintillator tile in a precise location and normal to the surface.  Offset to the side is
+a separate mount for the LED.  This enables LED and source tests to be performed in the
+same setup without making any changes and, therefore, minimizing exposure to radiation.
+Figure~\ref{picture:ucbhouse} shows a close-up view of the LED/source housing.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.5\linewidth,angle=-90]{Photos/IMG_2508.jpg}
+\end{center}
+\caption{Close-up view of the LED/source housing.}
+\label{picture:ucbhouse}
+\end{figure}
+
+The brass housing is mounted to a two-dimensional stepper motor rig, which allows
+extremely precise positioning for detailed two-dimensional imaging of the panel as
+required.
+%The stepper motors are Zaber NM series with the X-MBC1 controller.
+
+
+
+\subsection{LED}
+
+The LED is a Bivar UV3TZ-405-30, with an InGaN/Sapphire chip, peak wavelength of 405 nm,
+and 30$^{\circ}$ angular spread of the emitted light.  The LED is powered by a function
+generator with a 20 ns pulse-width and a 1 ${\rm \mu}$s period.  The function generator
+provides an additional channel for a trigger and the data acquisition is triggered on this
+channel.  The trigger rate of 1 MHz is three orders of magnitude larger than the rate of
+emission of decay products from the radioactive source, so that signal contamintion is not
+of concern.
+
+
+\subsection{Source}
+
+The radioactive source is Strontium-90, which has a dominant decay chain of
+%\begin{equation*}
+%^{90}_{38}{\rm Sr} \rightarrow {}^{90}_{39}{\rm Y} + \beta^-(0.547~{\rm MeV})
+%\rightarrow {}^{90}_{40}{\rm Zr} + \beta^-(2.28~{\rm MeV}) + \beta^-(0.547~{\rm MeV}).
+%\end{equation*}
+$^{90}_{38}{\rm Sr} \rightarrow {}^{90}_{39}{\rm Y} + \beta^-(0.547~{\rm MeV}) \rightarrow
+{}^{90}_{40}{\rm Zr} + \beta^-(2.28~{\rm MeV}) + \beta^-(0.547~{\rm MeV})$.  The
+Strontium-90 half-life is 28.8 yr while the Yttrium-90 half-life is 64 hr.
+
+The trigger used is a coincidence of both SiPMs.  The observed coincidence rate with the
+source over the panel is 1.04 kHz, while the observed coincidence rate with the source far
+away from the panel is 27.0 Hz, for a background fraction of 2.60\%.  The coincidence rate
+with the source far away from the panel is dominated by quantum noise in the SiPMs.
+%though cosmic rays and shower particles from the LED/source housing may also contribute.
+
+
+\subsection{Cosmic rays}
+
+%The city of Boulder, Colorado has an elevation of 5,360 feet above sea level and,
+%therefore, the total cosmic ray flux is appreciably larger than that at sea level, by a
+%factor of approximately 1.5.
+Cosmic rays are triggered using two Philips XM2729 photomultiplier tubes (PMTs) with 1 cm
+wide finger-style scinillators.  The PMTs are placed so that the scinillators cross at a
+right angle to minimize the solid angle of accepted cosmic rays to ensure that the
+selected cosmic rays are nearly perpendicular to the scintillator tile.
+
+
+
+\end{document}
