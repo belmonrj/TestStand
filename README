@@ -5,81 +5,56 @@ have any useful information in them.
 
 
 
-BoxesBigTile.C (not currently in use)
----Draws one of the OHCal tiles and overlays the cosmics results
+BoxesBigTile.C (not currently in use) Draws one of the OHCal tiles and overlays the cosmics results
 
-CompareProjections.C (not currently in use)
----Compares 1d projections of the smart tiles for different configurations of light blocking
+CompareProjections.C (not currently in use) Compares 1d projections of the smart tiles for different configurations of light blocking
 
-CompareScans.C (not currently in use)
----Compares 1d projections of the smart tiles for different scans of the same tile
+CompareScans.C (not currently in use) Compares 1d projections of the smart tiles for different scans of the same tile
 
-CosmicsVertSim.C (not currently in use)
----Does Toy MC of cosmics traveling through a block of material
+CosmicsVertSim.C (not currently in use) Does Toy MC of cosmics traveling through a block of material
 
-DrawAsymmetry.C (not currently in use)
----Compares different methods of determining the core/cladding fractions for the smart tiles
+DrawAsymmetry.C (not currently in use) Compares different methods of determining the core/cladding fractions for the smart tiles
 
-DrawProjections.C (not currently in use)
----Compares different projections from the same scan for the smart tiles
+DrawProjections.C (not currently in use) Compares different projections from the same scan for the smart tiles
 
-analyzerV2_mean.C (not currently in use)
----Converts raw data from text files into 2d histograms (smart tiles)
+analyzerV2_mean.C (not currently in use) Converts raw data from text files into 2d histograms (smart tiles)
 
-analyzer_bigtile.C (will soon be in use, but needs an update to merge separate scan pieces)
----Converts raw data from text files into 2d histograms (OHCal tiles)
+analyzer_bigtile.C (will soon be in use, but needs an update to merge separate scan pieces) Converts raw data from text files into 2d histograms (OHCal tiles)
 
-analyzer_new_LEDscan.C (not currently in use but a very good candidate for a single LED scan macro, has built-in option for scan offset)
----Converts raw data from text files into 2d histograms (IHCal and OHCal tiles)
+analyzer_new_LEDscan.C (not currently in use but a very good candidate for a single LED scan macro, has built-in option for scan offset) Converts raw data from text files into 2d histograms (IHCal and OHCal tiles)
 
-analyzer_smalltile.C (currently in use, a very good candidate for a single LED scan macro, has 1d distributions for assessing tile variance)
----Converts raw data from text files into 2d histograms (IHCal tiles)
+analyzer_smalltile.C (currently in use, a very good candidate for a single LED scan macro, has 1d distributions for assessing tile variance) Converts raw data from text files into 2d histograms (IHCal tiles)
 
-backgrounds.C (not currently in use)
----Does a careful study of SiPM data of backgrounds only (no source, no LED, no tile)
+backgrounds.C (not currently in use) Does a careful study of SiPM data of backgrounds only (no source, no LED, no tile)
 
-bethe.C (not currently in use)
----Does a careful calculation of the Bethe formula to determine the energy deposited in a scintillating tile
+bethe.C (not currently in use) Does a careful calculation of the Bethe formula to determine the energy deposited in a scintillating tile
 
-bigtilecosmics.C (not currently in use)
----Does a suite of calculations on raw text data for cosmics scans of the OHCal tiles
+bigtilecosmics.C (not currently in use) Does a suite of calculations on raw text data for cosmics scans of the OHCal tiles
 
-drawbig107.C (not currently in use)
----Draws an OHCal panel and lines to represent the projection slices
+drawbig107.C (not currently in use) Draws an OHCal panel and lines to represent the projection slices
 
-panelboxes.C (not currently in use)
----Draws a smart tile and adds lines to represent the projection slices
+panelboxes.C (not currently in use) Draws a smart tile and adds lines to represent the projection slices
 
-pedestal.C (not currently in use)
----Does a 1d histogram to study the pedestal in our signal chain (no SiPM, just preamp, logic unit, etc)
+pedestal.C (not currently in use) Does a 1d histogram to study the pedestal in our signal chain (no SiPM, just preamp, logic unit, etc)
 
-pixels_1d.C (not currently in use)
----Toy MC to study saturation effects in SiPMs
+pixels_1d.C (not currently in use) Toy MC to study saturation effects in SiPMs
 
-simplecosmics.C (not currently in use)
----Reads in raw text files from cosmics scan, makes a 1d distribution histograms, and studies the fits
+simplecosmics.C (not currently in use) Reads in raw text files from cosmics scan, makes a 1d distribution histograms, and studies the fits
 
-singleslice.C (not currently in use)
----Studies 1d projections of the smart tiles
+singleslice.C (not currently in use) Studies 1d projections of the smart tiles
 
-smalltilecosmics.C (not currently in use)
----Does a suite of calculations on raw text data for cosmics scans of the IHCal tiles
+smalltilecosmics.C (not currently in use) Does a suite of calculations on raw text data for cosmics scans of the IHCal tiles
 
-source.C (not currently in use)
----Does a suite of calculations on raw text data for Strontium source over a smart tile
+source.C (not currently in use) Does a suite of calculations on raw text data for Strontium source over a smart tile
 
-yslice.C (not currently in use)
----Studies 1d projections of the 2d data from smart tiles
+yslice.C (not currently in use) Studies 1d projections of the 2d data from smart tiles
 
-yslice_bigtile.C (not currently in use)
----Studies 1d projections of the 2d data from OHCal tiles
+yslice_bigtile.C (not currently in use) Studies 1d projections of the 2d data from OHCal tiles
 
-yslice_compare_LEDscan.C (not currently in use, missing data)
----Compares 1d projections of scans of HCal tiles to study differences between 405nm, 375nm, 361nm LEDs
+yslice_compare_LEDscan.C (not currently in use, missing data) Compares 1d projections of scans of HCal tiles to study differences between 405nm, 375nm, 361nm LEDs
 
-yslice_new_LEDscan.C (not currently in use)
----Studies 1d projections of smart tile scans, incongrous name with analyzer_new_LEDscan.C (...)
+yslice_new_LEDscan.C (not currently in use) Studies 1d projections of smart tile scans, incongrous name with analyzer_new_LEDscan.C (...)
 
-yslice_smalltile.C (note currently in use)
----Studies 1d projections of the 2d data from IHCal tiles
+yslice_smalltile.C (note currently in use) Studies 1d projections of the 2d data from IHCal tiles
+
 
