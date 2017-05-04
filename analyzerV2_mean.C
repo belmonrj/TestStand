@@ -11,6 +11,10 @@
 #include <algorithm> // for std::min_element
 //#include <iterator> // for std::begin(vector), end
 
+void doana(const char*);
+
+void analyze(const char*, const char*, bool, double);
+
 void analyzerV2_mean()
 {
 
