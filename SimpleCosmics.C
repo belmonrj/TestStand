@@ -17,7 +17,14 @@ void SimpleCosmics()
   // ReadSingleFile("Data/20160324-2359_Unaveraged_VMin1.txt","OH-2-46"); // combined
   // ReadSingleFile("Data/20160324-2359_Unaveraged_VMin2.txt","OH-2-47"); // combined
 
-  ReadSingleFile("Data/20151023-1307_Unaveraged_VMin1.txt","Previous");
+  //ReadSingleFile("Data/20151023-1307_Unaveraged_VMin1.txt","Previous");
+  ReadSingleFile("Data/20160516-1006_Unaveraged_VMin2.txt","OH-1-47");
+  ReadSingleFile("Data/20160520-1710_Unaveraged_VMin2.txt","OH-1-46");
+  ReadSingleFile("Data/20160602-1416_Unaveraged_VMin2.txt","OH-2-47");
+  ReadSingleFile("Data/20160606-1400_Unaveraged_VMin2.txt","OH-2-46");
+  ReadSingleFile("Data/20160614-1630_Unaveraged_VMin2.txt","OH-1-2");
+  ReadSingleFile("Data/20160616-1731_Unaveraged_VMin2.txt","OH-1-3");
+  ReadSingleFile("Data/20160624-1010_Unaveraged_VMin2.txt","OH-2-6");
 
 
 
@@ -54,7 +61,8 @@ void ReadSingleFile(const char* filename, const char* tileid)
   fgumbel->SetParLimits(1,0,1e2);
   fgumbel->SetParLimits(2,0,1e2);
 
-  histo->Fit(fgumbel,"Q","",15,100);
+  //histo->Fit(fgumbel,"Q","",15,100);
+  histo->Fit(fgumbel,"Q","",20,100);
   fgumbel->Draw("same");
 
   TLatex *tex_tid = new TLatex(0.6,0.8,Form("Tile ID %s",tileid));
