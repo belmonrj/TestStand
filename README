@@ -1,53 +1,85 @@
-README file for HCal test stand code
+This is the README file for the TestStand repository.
+Note that currently a lot of files are not in use, but that
+does not mean they won't be used again, nor that they don't
+have any useful information in them.
 
 
-this is the compiled code for performing the scans
 
-1) step2.cpp - essential, communicates with the stepper motors and oscilloscope to perform scans
+BoxesBigTile.C (not currently in use)
+---Draws one of the OHCal tiles and overlays the cosmics results
 
-2) stepX.cpp - mostly useless, contains old dead code removed from step2 for examination
+CompareProjections.C (not currently in use)
+---Compares 1d projections of the smart tiles for different configurations of light blocking
 
-these are the macros for analyzing the data:
+CompareScans.C (not currently in use)
+---Compares 1d projections of the smart tiles for different scans of the same tile
 
-1) analyzeV2_mean - essential to run, converts raw data text files into 2d histograms
+CosmicsVertSim.C (not currently in use)
+---Does Toy MC of cosmics traveling through a block of material
 
-2) YSlice - essential to run, converts 2d histograms into 1d projection histogram
+DrawAsymmetry.C (not currently in use)
+---Compares different methods of determining the core/cladding fractions for the smart tiles
 
-3) histoDraw - produces 2d plots with the y-axis swapped and a custom color palette
+DrawProjections.C (not currently in use)
+---Compares different projections from the same scan for the smart tiles
 
-4) DrawProjections - draws the different projections from the same scan together
+analyzerV2_mean.C (not currently in use)
+---Converts raw data from text files into 2d histograms (smart tiles)
 
-5) DrawAsymmetry - draws SiPM1 and SiPM2 together, and calculates and draws the asymmetry
+analyzer_bigtile.C (will soon be in use, but needs an update to merge separate scan pieces)
+---Converts raw data from text files into 2d histograms (OHCal tiles)
 
-6) CompareProjections - compares the same projections from different scans
+analyzer_new_LEDscan.C (not currently in use but a very good candidate for a single LED scan macro, has built-in option for scan offset)
+---Converts raw data from text files into 2d histograms (IHCal and OHCal tiles)
 
-7) CompareScans - compares the same projections and scans from different days/times
+analyzer_smalltile.C (currently in use, a very good candidate for a single LED scan macro, has 1d distributions for assessing tile variance)
+---Converts raw data from text files into 2d histograms (IHCal tiles)
 
-8) Landau - analysis single position peak distribution data, compares to Landau distribution
+backgrounds.C (not currently in use)
+---Does a careful study of SiPM data of backgrounds only (no source, no LED, no tile)
 
-9) simplecosmics - early draft of cosmics code, to eventually be melded into Landau...
+bethe.C (not currently in use)
+---Does a careful calculation of the Bethe formula to determine the energy deposited in a scintillating tile
 
-10) bethe - for calculating values with the Bethe equation
+bigtilecosmics.C (not currently in use)
+---Does a suite of calculations on raw text data for cosmics scans of the OHCal tiles
 
-11) betaspectrum - for calculating the KE spectrum from the Sr-90 source
+drawbig107.C (not currently in use)
+---Draws an OHCal panel and lines to represent the projection slices
 
-12) bigtilecosmics - copy of simplecosmics, adapted for the big tiles
+panelboxes.C (not currently in use)
+---Draws a smart tile and adds lines to represent the projection slices
 
-these are some spare macros from playing around:
+pedestal.C (not currently in use)
+---Does a 1d histogram to study the pedestal in our signal chain (no SiPM, just preamp, logic unit, etc)
 
-1) a1full3strip - looks at some old raw data, calculates an average and asymmetry
+pixels_1d.C (not currently in use)
+---Toy MC to study saturation effects in SiPMs
 
-2) plotfit - calculates an asymmetry and fits it with a 2-component light yield model
+simplecosmics.C (not currently in use)
+---Reads in raw text files from cosmics scan, makes a 1d distribution histograms, and studies the fits
 
-3) DrawDiscrim - looks at raw data from the discriminator to determine the best voltage setting
+singleslice.C (not currently in use)
+---Studies 1d projections of the smart tiles
 
-4) panelboxes - draws the panel, showing the position of the fibers and scans
+smalltilecosmics.C (not currently in use)
+---Does a suite of calculations on raw text data for cosmics scans of the IHCal tiles
 
-5) landau - draws random Landau distribution and compares to Gumbel distribution
+source.C (not currently in use)
+---Does a suite of calculations on raw text data for Strontium source over a smart tile
 
-these are compiled codes for playing around---all compiled codes are compiled with compile.sh
+yslice.C (not currently in use)
+---Studies 1d projections of the 2d data from smart tiles
 
-1) dostats - does a simple statistical analysis on the PE/Volts calibration
+yslice_bigtile.C (not currently in use)
+---Studies 1d projections of the 2d data from OHCal tiles
 
-2) roughcosmics - simple code for doing analysis of the early cosmics data
+yslice_compare_LEDscan.C (not currently in use, missing data)
+---Compares 1d projections of scans of HCal tiles to study differences between 405nm, 375nm, 361nm LEDs
+
+yslice_new_LEDscan.C (not currently in use)
+---Studies 1d projections of smart tile scans, incongrous name with analyzer_new_LEDscan.C (...)
+
+yslice_smalltile.C (note currently in use)
+---Studies 1d projections of the 2d data from IHCal tiles
 
