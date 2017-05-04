@@ -48,8 +48,8 @@ void argument(TString arg, int extra, bool speak)
 
   TCanvas *c1 = new TCanvas();
 
-  TString innerfile = "Data/";
-  TString outerfile = "Data/";
+  TString innerfile = "Data/BigPanel/";
+  TString outerfile = "Data/BigPanel/";
   if ( extra == 0 )
     {
       //outerfile += "Slant_Edge_";
@@ -117,10 +117,10 @@ void argument(TString arg, int extra, bool speak)
   tex_tid->SetNDC();
   tex_tid->Draw();
 
-  // c1->Print(Form("Figs/Thickness_%s.png",(const char*)arg));
-  // c1->Print(Form("Figs/Thickness_%s.pdf",(const char*)arg));
-  c1->Print(Form("Figs/Thickness_%s_%d.png",(const char*)arg,extra));
-  c1->Print(Form("Figs/Thickness_%s_%d.pdf",(const char*)arg,extra));
+  // c1->Print(Form("Figures/Thickness_%s.png",(const char*)arg));
+  // c1->Print(Form("Figures/Thickness_%s.pdf",(const char*)arg));
+  c1->Print(Form("Figures/Thickness_%s_%d.png",(const char*)arg,extra));
+  c1->Print(Form("Figures/Thickness_%s_%d.pdf",(const char*)arg,extra));
 
 
 
