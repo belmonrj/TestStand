@@ -91,7 +91,7 @@ void analyze(const char* NAME, const char* handle, const bool PEConvert, const d
   ifstream file;
   ifstream file_cnt;
   // ----------------------------
-  file.open(Form("Data/%s.txt",NAME));
+  file.open(Form("Data/BigPanel/%s.txt",NAME));
   for(int i = 0; i < totalBins ; i++)
     {
       double meanval_d = -9999;
@@ -194,10 +194,10 @@ void analyze(const char* NAME, const char* handle, const bool PEConvert, const d
   //meanHistSub->GetZaxis()->SetMinimum(-0.001); // to correct color scale for bins with exactly zero value
   meanHistSub->SetMinimum(-0.001); // to correct color scale for bins with exactly zero value
   meanHistSub->Draw("colz");
-  // c1->Print(Form("Figs/LEDscan_%s_meanHistSub.png",NAME));
-  // c1->Print(Form("Figs/LEDscan_%s_meanHistSub.pdf",NAME));
-  c1->Print(Form("Figs/LEDscan_%s.png",handle));
-  c1->Print(Form("Figs/LEDscan_%s.pdf",handle));
+  // c1->Print(Form("Figures/LEDscan_%s_meanHistSub.png",NAME));
+  // c1->Print(Form("Figures/LEDscan_%s_meanHistSub.pdf",NAME));
+  c1->Print(Form("Figures/LEDscan_%s.png",handle));
+  c1->Print(Form("Figures/LEDscan_%s.pdf",handle));
 
   delete c1;
 
