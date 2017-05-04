@@ -48,9 +48,7 @@ void ySlice(const char *NAME)
   for(int i=0; i<nybins; i++)
     {
       cout<<"in loop "<<i<<" NAME is "<<NAME<<endl;
-      TH1D *hpx = (TH1D *)h1->ProjectionX(Form("hprojX_%d",NAME,i),i+1,i+1,"");
-      //hpx->SetTitle(Form("%s ProjectionX %d",NAME,i));
-      //hpx->SetTitle("");
+      TH1D *hpx = (TH1D *)h1->ProjectionX(Form("hprojX_%s_%d",NAME,i),i+1,i+1,"");
       hpx->Draw();
       c1->Print(Form("Figures/Burn/%s_projectionX_%d.png",NAME,i));
       c1->Print(Form("Figures/Burn/%s_projectionX_%d.pdf",NAME,i));
@@ -60,9 +58,7 @@ void ySlice(const char *NAME)
   for(int i=0; i<nxbins; i++)
     {
       cout<<"in loop "<<i<<" NAME is "<<NAME<<endl;
-      TH1D *hpy = (TH1D *)h1->ProjectionY(Form("hprojY_%d",NAME,i),i+1,i+1,"");
-      //hpy->SetTitle(Form("%s ProjectionY %d",NAME,i));
-      //hpy->SetTitle("");
+      TH1D *hpy = (TH1D *)h1->ProjectionY(Form("hprojY_%s_%d",NAME,i),i+1,i+1,"");
       hpy->Draw();
       c1->Print(Form("Figures/Burn/%s_projectionY_%d.png",NAME,i));
       c1->Print(Form("Figures/Burn/%s_projectionY_%d.pdf",NAME,i));
