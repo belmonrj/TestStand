@@ -1,3 +1,6 @@
+void doyslice(const char*);
+void ySlice(const char*);
+
 void yslice()
 {
 
@@ -55,6 +58,8 @@ void doyslice(const char *basename)
 
 void ySlice(const char *NAME)
 {
+
+  TCanvas* c1 = new TCanvas();
 
   cout<<"NAME is "<<NAME<<endl;
 
