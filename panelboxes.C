@@ -36,7 +36,8 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_empty.png");
   c1->Print("PanelFigures/panel2_empty.pdf");
 
-  TLine *linescan = new TLine((0.2/6.0),0.0,(0.2/6.0),1.0);
+  TLine* linescan = NULL;
+  linescan = new TLine((0.2/6.0),0.0,(0.2/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -44,7 +45,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatminus20cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((0.4/6.0),0.0,(0.4/6.0),1.0);
+  linescan = new TLine((0.4/6.0),0.0,(0.4/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -52,7 +53,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatminus15cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((0.6/6.0),0.0,(0.6/6.0),1.0);
+  linescan = new TLine((0.6/6.0),0.0,(0.6/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -60,7 +61,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatminus10cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((0.8/6.0),0.0,(0.8/6.0),1.0);
+  linescan = new TLine((0.8/6.0),0.0,(0.8/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -68,7 +69,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatminus05cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((1.0/6.0),0.0,(1.0/6.0),1.0);
+  linescan = new TLine((1.0/6.0),0.0,(1.0/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -76,7 +77,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatminus00cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((1.0/6.0),0.0,(1.0/6.0),1.0);
+  linescan = new TLine((1.0/6.0),0.0,(1.0/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -84,7 +85,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatplus00cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((1.2/6.0),0.0,(1.2/6.0),1.0);
+  linescan = new TLine((1.2/6.0),0.0,(1.2/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -92,7 +93,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatplus05cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((1.4/6.0),0.0,(1.4/6.0),1.0);
+  linescan = new TLine((1.4/6.0),0.0,(1.4/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -100,7 +101,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatplus10cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((1.6/6.0),0.0,(1.6/6.0),1.0);
+  linescan = new TLine((1.6/6.0),0.0,(1.6/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -108,7 +109,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatplus15cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((1.8/6.0),0.0,(1.8/6.0),1.0);
+  linescan = new TLine((1.8/6.0),0.0,(1.8/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
@@ -116,7 +117,7 @@ void panelboxes()
   c1->Print("PanelFigures/panel2_scanatplus20cm.pdf");
 
   delete linescan;
-  TLine *linescan = new TLine((2.0/6.0),0.0,(2.0/6.0),1.0);
+  linescan = new TLine((2.0/6.0),0.0,(2.0/6.0),1.0);
   linescan->SetLineWidth(linewidth);
   linescan->SetLineStyle(2);
   linescan->Draw();
