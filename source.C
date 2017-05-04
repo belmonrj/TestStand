@@ -3,6 +3,8 @@
 void source()
 {
 
+  TCanvas* c1 = new TCanvas();
+
   double height = 1.0;
   double mu = 0.1;
   double sigma = 0.05;
@@ -54,13 +56,13 @@ void source()
 
   // --- get the number of entries and the min and max
   int number = voltage1.size();
-  double max = *max_element(voltage1.begin(),voltage1.end());
-  double min = *min_element(voltage1.begin(),voltage1.end());
-  cout << max << endl;
-  cout << min << endl;
+  double tempmax = *max_element(voltage1.begin(),voltage1.end());
+  double tempmin = *min_element(voltage1.begin(),voltage1.end());
+  cout << tempmax << endl;
+  cout << tempmin << endl;
   // --- use the min and max to calculate a range for the histogram
-  double newmax = min*-0.95;
-  double newmin = max*-1.05 - newmax*0.1;
+  double newmax = tempmin*-0.95;
+  double newmin = tempmax*-1.05 - newmax*0.1;
 
   // --- create the new histogram
   const int nbins = 100;
@@ -171,7 +173,7 @@ void source()
   hsum->Draw("same");
   h1->SetMaximum(1.1*hsum->GetMaximum());
   h2->SetMaximum(1.1*hsum->GetMaximum());
-  TLegend *leg = new TLegend(0.5,0.73,0.88,0.88);
+  leg = new TLegend(0.5,0.73,0.88,0.88);
   leg->AddEntry(h1,"SiPM1","l");
   leg->AddEntry(h2,"SiPM2","l");
   leg->AddEntry(hsum,"(SiPM1+SiPM2)/2","l");
@@ -340,8 +342,8 @@ void source()
       double spec_Y = fun_Y->Eval(x);
       h_Sr->SetBinContent(i+1,spec_Sr);
       h_Y->SetBinContent(i+1,spec_Y);
-      double sspec_Sr = spec_Sr**2;
-      double sspec_Y = spec_Y**2;
+      double sspec_Sr = spec_Sr*spec_Sr;
+      double sspec_Y = spec_Y*spec_Y;
       h2_Sr->SetBinContent(i+1,sspec_Sr);
       h2_Y->SetBinContent(i+1,sspec_Y);
       double m = 0.511;
