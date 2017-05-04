@@ -2,6 +2,8 @@
 
 double peconvert = 0.00502; // volts per photoelectrion
 
+void doit(const char*);
+
 void simplecosmics()
 {
 
