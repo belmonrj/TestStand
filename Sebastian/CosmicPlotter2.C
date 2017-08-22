@@ -19,16 +19,7 @@
 
 using namespace std;
 
-const double PE = 0.005;
-const int panel_number = 990;
-// const int steps_x = 180; // High Eta outer 945 and 990
-// const int steps_y = 63; // High Eta outer 945 and 990
-const int steps_x = 180; // High Eta outer 976
-const int steps_y = 51; // High Eta outer 976
-// const int steps_x = 174;
-// const int steps_y = 54;
-const double step_size = 0.5;
-const int unscanned_columns = 110; // Inner High Eta 965
+
 
 void doit(const int, const int, const int, const int, const double, const double, const char*, const char*);
 
