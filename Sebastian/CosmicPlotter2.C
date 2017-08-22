@@ -5,10 +5,10 @@ void doit(const int, const int, const int, const int, const double, const double
 void CosmicPlotter2()
 {
 
-  doit( 976, 180, 51, 110, 0.5, 0.005,
+  doit( 976, 180, 51, 70, 0.5, 0.005,
         "Data/HighEta_976_First_20170424_VMIN_SIPM1.txt",
         "Data/HighEta_976_Second_20170504_VMIN_SIPM1.txt");
-  doit( 990, 180, 63, 110, 0.5, 0.005,
+  doit( 990, 180, 63, 90, 0.5, 0.005,
         "Data/HighEta_990_First_20170501_VMIN_SIPM1.txt",
         "Data/HighEta_990_Second_20170502_VMIN_SIPM1.txt");
 
@@ -44,8 +44,10 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
 
   CosmicTxt.open(file1);
   cout << "Starting First While Loop" << endl;
+  double ave1 = 0;
   while (CosmicTxt >> vout)
   {
+    ave1 += -vout/PE;
     column_number = data_sample_number / steps_y;
     row_number = data_sample_number % steps_y;
     CosmicV1->Fill(-vout / PE);
@@ -53,19 +55,27 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
     data_sample_number++;
   }
   CosmicTxt.close();
+  ave1 /= data_sample_number;
 
   cout << "Starting Third While Loop" << endl;
   CosmicTxt3.open(file2);
+  double ave2 = 0;
   while (CosmicTxt3 >> vout2)
   {
+    ave2 += -vout2/PE;
     column_number = data_sample_number_2 / steps_y;
     row_number = data_sample_number_2 % steps_y;
     Second_Half_Tile_Scan->Fill(column_number * step_size, row_number * step_size, -vout2 / PE);
     data_sample_number_2++;
   }
   CosmicTxt3.close();
+  ave2 /= data_sample_number_2;
 
 
+  cout << "average of first half is " << ave1 << endl;
+  cout << "average of second half is " << ave2 << endl;
+  double scale = ave1/ave2;
+  cout << "estimated scale is " << scale << endl;
 
   // ------------------------------------------------------------------------------
   // --- do the merging
@@ -92,7 +102,9 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
     if (i > first_n_bins)
     {
       PE_Val = Second_Half_Tile_Scan->GetBinContent( steps_y - ((combined_n_columns) - column_number), row_number);
-      Combined_Scan->SetBinContent(column_number, row_number, PE_Val);
+      //Combined_Scan->SetBinContent(column_number, row_number, PE_Val);
+      // need to apply scale for differences in gain, or something...
+      Combined_Scan->SetBinContent(column_number, row_number, PE_Val*scale);
     }
   }
 
