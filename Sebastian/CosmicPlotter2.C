@@ -20,19 +20,19 @@
 using namespace std;
 
 const double PE = 0.005;
-const int panel_number = 955;
+const int panel_number = 990;
 // const int steps_x = 92; // High Eta inner 964
 // const int steps_y = 42; // High Eta inner 964
-// const int steps_x = 180; // High Eta outer 945
-// const int steps_y = 63; // High Eta outer 945
-// const int steps_x = 180; // High Eta outer 976
-// const int steps_y = 51; // High Eta outer 976
-const int steps_x = 84; // Inner High Eta 939, 955, and 965
-const int steps_y = 36; // Inner High Eta 939, 955, and 965
+// const int steps_x = 180; // High Eta outer 945 and 990
+// const int steps_y = 63; // High Eta outer 945 and 990
+const int steps_x = 180; // High Eta outer 976
+const int steps_y = 51; // High Eta outer 976
+// const int steps_x = 84; // Inner High Eta 939, 955, and 965
+// const int steps_y = 36; // Inner High Eta 939, 955, and 965
 // const int steps_x = 174;
 // const int steps_y = 54;
 const double step_size = 0.5;
-const int unscanned_columns = 40; // Inner High Eta 965
+const int unscanned_columns = 110; // Inner High Eta 965
 
 void CosmicPlotter2()
 {
@@ -49,14 +49,14 @@ void CosmicPlotter2()
   ifstream CosmicTxt;
   ifstream CosmicTxt2;
   ifstream CosmicTxt3;
-  // CosmicTxt.open("Data/HighEta_976_First_20170424_VMIN_SIPM1.txt"); // Tile 976
-  //CosmicTxt.open("Data/HighEta_955_20170430_VMIN_SIPM1.txt"); // Tile 955
-  CosmicTxt.open("Data/HighEta_955_20170430_VMIN_SIPM1.txt"); // Tile 955 // BUT THIS FILE DOES???
-  //CosmicTxt.open("Data/20170430-1100_VMIN_SIPM1.txt"); // Tile 955 // THIS FILE DOES NOT EXIST
+  // CosmicTxt.open("Data/HighEta_990_First_20170501_VMIN_SIPM1.txt"); // Tile 990
+  CosmicTxt.open("Data/HighEta_976_First_20170424_VMIN_SIPM1.txt"); // Tile 976
+  // CosmicTxt.open("Data/HighEta_955_20170430_VMIN_SIPM1.txt"); // Tile 955
   // CosmicTxt.open("Data/HighEta_939_20170428_VMIN_SIPM1.txt"); // Tile 939
   // CosmicTxt.open("Data/HighEta_964_20170430_VMIN_SIPM1.txt"); // Tile 964
   // CosmicTxt.open("Data/HightEta_20170413_VMIN_SIPM1.txt"); // Tile 945
   // CosmicTxt.open("Data/HighEta_965_20170421_VMIN_SIPM1.txt"); // Tile 965
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////// Filling Histos /////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -97,9 +97,9 @@ void CosmicPlotter2()
   //CosmicTxt3.open("Data/HighEta_20170414_VMIN_SIPM1.txt"); // Tile first scan
   // CosmicTxt3.open("Data/HighEta_964_20170430_VMIN_SIPM1.txt"); // Tile 964
   // CosmicTxt3.open("Data/HighEta_939_20170428_VMIN_SIPM1.txt"); // Tile 964
-  CosmicTxt3.open("Data/HighEta_955_20170430_VMIN_SIPM1.txt"); // Tile 955 // BUT THIS ONE DOES???
-  //CosmicTxt3.open("Data/HighEta_976_Second_20170425_VMIN_SIPM1.txt"); // Tile 955
-  //CosmicTxt3.open("Data/20170430-1100_VMIN_SIPM1.txt"); // Tile 955 // THIS FILE DOES NOT EXIST
+  // CosmicTxt3.open("Data/HighEta_955_20170430_VMIN_SIPM1.txt"); // Tile 955
+  CosmicTxt3.open("Data/HighEta_976_Second_20170504_VMIN_SIPM1.txt"); // Tile 976
+  // CosmicTxt3.open("Data/HighEta_990_Second_20170502_VMIN_SIPM1.txt"); // Tile 990
 
 
   // int cutoff = length_second_scan - 5 * steps_y;
