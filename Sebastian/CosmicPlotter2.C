@@ -11,6 +11,12 @@ void CosmicPlotter2()
   doit( 990, 180, 63, 90, 0.5, 0.005,
         "Data/HighEta_990_First_20170501_VMIN_SIPM1.txt",
         "Data/HighEta_990_Second_20170502_VMIN_SIPM1.txt");
+  doit( 945, 180, 63, 0, 0.5, 0.005,
+        "Data/HighEta_945_20170413_VMIN_SIPM1.txt",
+        "");
+  doit( 956, 180, 63, 0, 0.5, 0.005,
+        "Data/HighEta_956_20170505_VMIN_SIPM1.txt",
+        "");
 
 }
 
