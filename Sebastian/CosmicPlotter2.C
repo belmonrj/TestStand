@@ -1,27 +1,6 @@
-#include <TFile.h>
-#include <TTree.h>
-#include <TH1.h>
-#include <TProfile.h>
-#include <TStyle.h>
-#include <TCanvas.h>
-#include <TLegend.h>
-#include <TLatex.h>
-#include <TLine.h>
-#include <TF1.h>
-#include <TBox.h>
-#include <TGraph.h>
-#include <TH2.h>
-
-#include <fstream>
-#include <iostream>
-#include <vector>
-#include <map>
-
-using namespace std;
-
-
-
 void doit(const int, const int, const int, const int, const double, const double, const char*, const char*);
+
+
 
 void CosmicPlotter2()
 {
@@ -34,6 +13,8 @@ void CosmicPlotter2()
         "Data/HighEta_990_Second_20170502_VMIN_SIPM1.txt");
 
 }
+
+
 
 void doit(const int panel_number, const int steps_x, const int steps_y, const int unscanned_columns,
           const double step_size, const double PE, const char* file1, const char* file2)
