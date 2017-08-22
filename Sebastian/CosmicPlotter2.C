@@ -48,21 +48,11 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
   TH2D *Combined_Scan = new TH2D("SCombined_Scan", "Combined_Scan", steps_x + unscanned_columns, 0, (steps_x + unscanned_columns) * step_size, steps_y, 0, steps_y * step_size);
   TLegend *legcent = new TLegend(0.12, 0.6, 0.3, 0.88);
 
-  ifstream CosmicTxt;
-  ifstream CosmicTxt2;
-  ifstream CosmicTxt3;
-  // CosmicTxt.open("Data/HighEta_990_First_20170501_VMIN_SIPM1.txt"); // Tile 990
-  // CosmicTxt.open("Data/HighEta_976_First_20170424_VMIN_SIPM1.txt"); // Tile 976
-  // CosmicTxt.open("Data/HighEta_955_20170430_VMIN_SIPM1.txt"); // Tile 955
-  // CosmicTxt.open("Data/HighEta_939_20170428_VMIN_SIPM1.txt"); // Tile 939
-  // CosmicTxt.open("Data/HighEta_964_20170430_VMIN_SIPM1.txt"); // Tile 964
-  // CosmicTxt.open("Data/HightEta_20170413_VMIN_SIPM1.txt"); // Tile 945
-  // CosmicTxt.open("Data/HighEta_965_20170421_VMIN_SIPM1.txt"); // Tile 965
-  CosmicTxt.open(file1);
+  // ------------------------------------------------------------------------------
+  // --- read in data
 
-///////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////// Filling Histos /////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
+  ifstream CosmicTxt;
+  ifstream CosmicTxt3;
 
   double vout;
   double vout2;
@@ -71,68 +61,33 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
   int column_number = 0;
   int row_number = 0;
 
+  CosmicTxt.open(file1);
+  cout << "Starting First While Loop" << endl;
   while (CosmicTxt >> vout)
-    //for ( int i = 0; i < 11340; ++i )
   {
-    //CosmicTxt >> vout; // comment this out if using while loop
     column_number = data_sample_number / steps_y;
     row_number = data_sample_number % steps_y;
     CosmicV1->Fill(-vout / PE);
     Tile_Scan->Fill(column_number * step_size, row_number * step_size, -vout / PE);
     data_sample_number++;
   }
-
   CosmicTxt.close();
-  // CosmicTxt2.open("Data/HighEta_20170414_VMIN_SIPM1.txt");
-
-  // int last_column_scan_1 = column_number;
-  // int length_second_scan = 0;
-
-  // while (CosmicTxt2 >> vout)
-  //   //for ( int i = 0; i < 11340; ++i )
-  // {
-  //   length_second_scan++; // trivial for for loop...
-  // }
-
-  // cout << "length_second_scan = " << length_second_scan << endl;
-
-  // CosmicTxt2.close();
-  //CosmicTxt3.open("Data/HighEta_20170414_VMIN_SIPM1.txt"); // Tile first scan
-  // CosmicTxt3.open("Data/HighEta_964_20170430_VMIN_SIPM1.txt"); // Tile 964
-  // CosmicTxt3.open("Data/HighEta_939_20170428_VMIN_SIPM1.txt"); // Tile 964
-  // CosmicTxt3.open("Data/HighEta_955_20170430_VMIN_SIPM1.txt"); // Tile 955
-  // CosmicTxt3.open("Data/HighEta_976_Second_20170504_VMIN_SIPM1.txt"); // Tile 976
-  // CosmicTxt3.open("Data/HighEta_990_Second_20170502_VMIN_SIPM1.txt"); // Tile 990
-  CosmicTxt3.open(file2); // Tile 990
-
-
-  // int cutoff = length_second_scan - 5 * steps_y;
-  // int cutoff_column = cutoff / steps_y;
 
   cout << "Starting Third While Loop" << endl;
-
+  CosmicTxt3.open(file2);
   while (CosmicTxt3 >> vout2)
-    //for ( int i = 0; i < 11340; ++i )
   {
-    //CosmicTxt3 >> vout2;
     column_number = data_sample_number_2 / steps_y;
     row_number = data_sample_number_2 % steps_y;
-
-    // if (data_sample_number_2 >= cutoff)
-    // {
-    //   CosmicV1->Fill(-vout / PE);
-    //   Tile_Scan->Fill((last_column_scan_1 + (column_number - cutoff_column))* step_size, row_number * step_size, -vout / PE);
-    // }
-
     Second_Half_Tile_Scan->Fill(column_number * step_size, row_number * step_size, -vout2 / PE);
     data_sample_number_2++;
   }
-
   CosmicTxt3.close();
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////// Combining Histos /////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
+
+
+  // ------------------------------------------------------------------------------
+  // --- do the merging
 
   int first_n_bins = (Tile_Scan->GetNbinsX()) * (Tile_Scan->GetNbinsY());
   int second_n_bins = (Second_Half_Tile_Scan->GetNbinsX()) * (Second_Half_Tile_Scan->GetNbinsY());
@@ -161,9 +116,9 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
   }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////// Plotting /////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
+
+  // ------------------------------------------------------------------------------
+  // --- do the plotting
 
   c1->cd();
   gStyle->SetOptStat(0);
@@ -210,4 +165,5 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
   legcent->Draw();
   Combined_Scan->Draw("colz");
   c4->Print(Form("Plots/Combined_Tile_%d_Scan.png", panel_number));
+
 }
