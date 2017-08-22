@@ -159,4 +159,15 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
   Combined_Scan->Draw("colz");
   c4->Print(Form("Plots/Combined_Tile_%d_Scan.png", panel_number));
 
+  delete c1;
+  delete c2;
+  delete c3;
+  delete c4;
+
+  delete CosmicV1;
+  delete Tile_Scan;
+  delete Second_Half_Tile_Scan;
+  delete Combined_Scan;
+
+
 }
