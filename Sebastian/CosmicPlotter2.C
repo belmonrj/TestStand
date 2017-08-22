@@ -21,14 +21,10 @@ using namespace std;
 
 const double PE = 0.005;
 const int panel_number = 990;
-// const int steps_x = 92; // High Eta inner 964
-// const int steps_y = 42; // High Eta inner 964
 // const int steps_x = 180; // High Eta outer 945 and 990
 // const int steps_y = 63; // High Eta outer 945 and 990
 const int steps_x = 180; // High Eta outer 976
 const int steps_y = 51; // High Eta outer 976
-// const int steps_x = 84; // Inner High Eta 939, 955, and 965
-// const int steps_y = 36; // Inner High Eta 939, 955, and 965
 // const int steps_x = 174;
 // const int steps_y = 54;
 const double step_size = 0.5;
@@ -42,6 +38,9 @@ void CosmicPlotter2()
   doit( 976, 180, 51, 110, 0.5, 0.005,
         "Data/HighEta_976_First_20170424_VMIN_SIPM1.txt",
         "Data/HighEta_976_Second_20170504_VMIN_SIPM1.txt");
+  doit( 990, 180, 63, 110, 0.5, 0.005,
+        "Data/HighEta_990_First_20170501_VMIN_SIPM1.txt",
+        "Data/HighEta_990_Second_20170502_VMIN_SIPM1.txt");
 
 }
 
