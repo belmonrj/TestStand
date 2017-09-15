@@ -5,17 +5,21 @@ void doit(const int, const int, const int, const int, const double, const double
 void CosmicPlotter2()
 {
 
-  doit( 976, 180, 51, 70, 0.5, 0.005,
-        "Data/HighEta_976_First_20170424_VMIN_SIPM1.txt",
-        "Data/HighEta_976_Second_20170504_VMIN_SIPM1.txt");
-  doit( 990, 180, 63, 90, 0.5, 0.005,
-        "Data/HighEta_990_First_20170501_VMIN_SIPM1.txt",
-        "Data/HighEta_990_Second_20170502_VMIN_SIPM1.txt");
-  doit( 945, 180, 63, 0, 0.5, 0.005,
-        "Data/HighEta_945_20170413_VMIN_SIPM1.txt",
-        "");
-  doit( 956, 180, 63, 0, 0.5, 0.005,
-        "Data/HighEta_956_20170505_VMIN_SIPM1.txt",
+  // doit( 976, 180, 51, 70, 0.5, 0.005,
+  //       "Data/HighEta_976_First_20170424_VMIN_SIPM1.txt",
+  //       "Data/HighEta_976_Second_20170504_VMIN_SIPM1.txt");
+  // doit( 990, 180, 63, 90, 0.5, 0.005,
+  //       "Data/HighEta_990_First_20170501_VMIN_SIPM1.txt",
+  //       "Data/HighEta_990_Second_20170502_VMIN_SIPM1.txt");
+  // doit( 945, 180, 63, 0, 0.5, 0.005,
+  //       "Data/HighEta_945_20170413_VMIN_SIPM1.txt",
+  //       "");
+  // doit( 956, 180, 63, 0, 0.5, 0.005,
+  //       "Data/HighEta_956_20170505_VMIN_SIPM1.txt",
+  //       "");
+  doit( 956, 150, 50, 120, 0.5, 0.005,
+        "Data/HighEta_956_20170913-1110_VMIN_SIPM1.txt",
+        "Data/HighEta_956_20170914-1652_VMIN_SIPM1.txt"
         "");
 
 }
@@ -53,6 +57,7 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
   double ave1 = 0;
   while (CosmicTxt >> vout)
   {
+    //cout << vout << endl;
     ave1 += -vout/PE;
     column_number = data_sample_number / steps_y;
     row_number = data_sample_number % steps_y;
@@ -68,6 +73,7 @@ void doit(const int panel_number, const int steps_x, const int steps_y, const in
   double ave2 = 0;
   while (CosmicTxt3 >> vout2)
   {
+    //cout << vout << endl;
     ave2 += -vout2/PE;
     column_number = data_sample_number_2 / steps_y;
     row_number = data_sample_number_2 % steps_y;
